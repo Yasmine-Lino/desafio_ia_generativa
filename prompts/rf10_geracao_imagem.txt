@@ -1,0 +1,51 @@
+﻿# RF10 — Prompt de geração de imagem
+
+## Ferramenta
+ChatGPT — geração de imagens por IA.
+
+## Objetivo
+Produzir um cartaz institucional ilustrativo sobre orientações de matrícula, relacionado ao caso fictício utilizado no RF09.
+
+## Prompt de geração
+Criar um cartaz vertical, em português, com o título
+"ORIENTAÇÕES SOBRE MATRÍCULA".
+
+Sujeito: materiais escolares, livros, computador, documentos e ícones educacionais.
+
+Composição: título em destaque, mensagem principal, três orientações com ícones e rodapé informativo.
+
+Estilo: ilustração vetorial moderna, limpa, profissional e levemente tridimensional.
+
+Iluminação: suave e uniforme.
+
+Proporção: vertical, adequada a cartaz informativo.
+
+Cores: branco e tons de azul.
+
+Mensagem principal:
+"Consulte o setor responsável para verificar a situação da sua matrícula e eventuais documentos pendentes."
+
+Orientações:
+- Confira suas informações.
+- Verifique se há documentos pendentes.
+- Em caso de dúvidas, procure o setor responsável.
+
+Rodapé:
+"Imagem gerada por inteligência artificial — material ilustrativo."
+
+Restrições:
+- Não utilizar pessoas reais.
+- Não incluir dados pessoais.
+- Não utilizar brasões ou logotipos oficiais.
+- Não inventar documentos obrigatórios, prazos ou contatos.
+- Não afirmar que existem documentos pendentes confirmados.
+
+## Revisão
+A primeira imagem continha a orientação
+"Regularize documentos pendentes".
+
+Foi solicitada uma nova versão com a redação
+"Verifique se há documentos pendentes",
+pois a existência dessas pendências não foi confirmada no RF05.
+
+Observação: este arquivo documenta as instruções e o conteúdo da geração. Não é uma transcrição literal integral do processamento interno da ferramenta.

@@ -1,0 +1,16 @@
+
+Redija uma resposta institucional ao cidadão com base nestes dados:
+
+
+Uma pessoa solicitou informações sobre o andamento de um pedido
+de manutenção predial em uma secretaria pública.
+
+Dados disponíveis:
+- Solicitante: João Silva
+- Protocolo: 2026/001234
+- Data do registro: 12/06/2026
+- Assunto: manutenção predial
+- Situação: encaminhado para análise do setor responsável
+
+Não há prazo de conclusão informado.
+

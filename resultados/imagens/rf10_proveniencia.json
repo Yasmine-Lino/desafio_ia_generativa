@@ -1,0 +1,40 @@
+{
+  "requisito": "RF10",
+  "modalidade": "geracao_de_imagem",
+  "ferramenta": "ChatGPT",
+  "modelo": "modelo de geração de imagens do ChatGPT; identificação técnica não disponibilizada",
+  "data_registro": "2026-10-17T00:10:40-04:00",
+  "data_geracao": "2026-10-17",
+  "prompt_documentado": "prompts/rf10_geracao_imagem.txt",
+  "imagem_original": "rf10_cartaz_matricula.png",
+  "imagem_revisada": "rf10_cartaz_matricula_revisado_v2.png",
+  "revisao_visual": {
+    "texto": "Correção da orientação sobre documentos pendentes.",
+    "simbolos": "Ícones educacionais ilustrativos.",
+    "maos": "Não aplicável; não há pessoas.",
+    "objetos": "Materiais escolares e computador.",
+    "coerencia": "Relacionada ao caso fictício de matrícula."
+  },
+  "identificacao_ia": true,
+  "revisao_humana_realizada": true,
+  "aprovado": true,
+  "tentativa_api_gemini": {
+    "modelo": "gemini-2.5-flash-image",
+    "resultado": "HTTP 429",
+    "motivo": "Cota gratuita informada como zero.",
+    "imagem_gerada": false
+  },
+  "observacao": "A imagem revisada foi conferida visualmente e aprovada pela equipe do projeto.",
+  "data_aprovacao": "2026-10-17T10:35:33-04:00",
+  "tipo_aprovacao": "aprovado_apos_ajuste",
+  "arquivo_aprovado": "rf10_cartaz_matricula_revisado_v2.png",
+  "arquivo_original_preservado": true,
+  "decisao_humana": "A equipe do projeto conferiu visualmente e aprovou a imagem revisada.",
+  "enviado_ou_publicado": false,
+  "revisao_adicional_pendente": false,
+  "revisao_adicional": {
+    "responsavel": "Equipe do projeto",
+    "status": "aprovada após conferência visual"
+  },
+  "imagem_revisada_anterior": "rf10_cartaz_matricula_revisado.png"
+}

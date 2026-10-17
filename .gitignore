@@ -1,0 +1,67 @@
+# Credenciais
+.env
+.env.*
+!.env.example
+# Ambientes e caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+# Editor e sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+# Logs e arquivos temporários
+*.log
+*.tmp
+
+dados/processados/rf05_extracao.json
+
+dados/processados/rf06_transcricao.txt
+dados/processados/rf06_transcricao_revisada.txt
+dados/processados/rf06_informacoes.json
+
+# RF08 - documentos e dados de identificacao
+# RF08 - documentos e dados de identificacao
+dados/gabaritos/rf08_gabarito.txt
+dados/gabaritos/rf08_gabarito_inicial.txt
+dados/processados/rf08_texto_bruto.txt
+dados/processados/rf08_texto_corrigido.txt
+dados/processados/rf08_informacoes.json
+dados/gabaritos/rf08_texto.txt
+dados/processados/rf08_texto_revisado.txt
+dados/processados/rf08_comparacao.json
+
+# RF09 - minutas e metadados da solicitacao
+resultados/minutas/rf09_minuta.txt
+resultados/minutas/rf09_minuta_revisada.txt
+resultados/minutas/rf09_informacoes.json
+
+# Dados de entrada, gabaritos e resultados processados
+dados/originais/*
+!dados/originais/.gitkeep
+dados/gabaritos/*
+!dados/gabaritos/.gitkeep
+dados/processados/*
+!dados/processados/.gitkeep
+
+# Resultados de execução, que podem conter dados pessoais
+resultados/audios/*
+!resultados/audios/.gitkeep
+resultados/logs/*
+!resultados/logs/.gitkeep
+resultados/minutas/*
+!resultados/minutas/.gitkeep
+
+# Manter somente a imagem final aprovada e sua proveniência
+resultados/imagens/*
+!resultados/imagens/.gitkeep
+!resultados/imagens/rf10_cartaz_matricula.png
+!resultados/imagens/rf10_cartaz_matricula_revisado_v2.png
+!resultados/imagens/rf10_proveniencia.json
+
+# Arquivos locais do assistente
+.claudio/
