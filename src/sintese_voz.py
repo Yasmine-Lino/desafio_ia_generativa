@@ -35,7 +35,7 @@ def preparar_texto(texto, aprovado):
     return texto
 
 
-def sintetizar_minuta(caminho_minuta, aprovado=False, timeout=180, id_execucao=None, final_rf09=False):
+def sintetizar_minuta(caminho_minuta, aprovado=False, timeout=180, id_execucao=None, final_rf09=False, id_execucao_minuta=None, caminho_log=None):
     caminho_minuta = Path(caminho_minuta)
 
     if id_execucao is None:
@@ -43,6 +43,22 @@ def sintetizar_minuta(caminho_minuta, aprovado=False, timeout=180, id_execucao=N
 
     if not caminho_minuta.is_file():
         raise FileNotFoundError("Arquivo da minuta não encontrado.")
+
+    # O sinalizador --aprovado não substitui uma decisão auditada.
+    if not id_execucao_minuta:
+        raise ValueError("Informe a execução da minuta aprovada (--id-execucao-minuta).")
+    from src.revisao_humana import verificar_integridade_documento
+    from src.audit import listar_execucoes
+    registros = listar_execucoes(caminho_log)
+    decisoes = [r for r in registros if r.get("tipo_evento") == "decisao_humana"
+                and r.get("id_execucao_referenciada") == id_execucao_minuta]
+    if len(decisoes) != 1 or decisoes[0].get("decisao") != "aprovado":
+        raise ValueError("Não há aprovação humana auditada para esta minuta.")
+    if not verificar_integridade_documento(id_execucao_minuta, caminho_log=caminho_log):
+        raise ValueError("O hash da minuta difere da versão aprovada.")
+    documento_aprovado = (RAIZ / decisoes[0]["arquivo_revisado"]).resolve()
+    if caminho_minuta.resolve() != documento_aprovado:
+        raise ValueError("A minuta informada não corresponde à versão aprovada.")
 
     texto_original = caminho_minuta.read_text(encoding="utf-8-sig")
     texto_falado = preparar_texto(texto_original, aprovado)
@@ -247,6 +263,7 @@ def main():
         help="Confirma que o texto foi revisado e aprovado."
     )
 
+    parser.add_argument("--id-execucao-minuta", help="ID auditado da execução da minuta aprovada.")
     parser.add_argument("--final-rf09", action="store_true", help="Gera saída separada da minuta final RF09 sem sobrescrever o ensaio.")
     argumentos = parser.parse_args()
 
@@ -300,6 +317,7 @@ def main():
             aprovado=argumentos.aprovado,
             id_execucao=identificador,
             final_rf09=argumentos.final_rf09,
+            id_execucao_minuta=argumentos.id_execucao_minuta,
         )
 
         dados_auditoria.update({

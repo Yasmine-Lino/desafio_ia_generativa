@@ -101,26 +101,25 @@ def consultar_llm(
 
     inicio = time.perf_counter()
 
-    try:
-        resposta = requests.post(
-            url,
-            headers={
-                "x-goog-api-key": chave,
-                "Content-Type": "application/json"
-            },
-            json=corpo,
-            timeout=timeout
-        )
-
-    except requests.Timeout as erro:
-        raise ErroLLM(
-            "Tempo limite excedido na consulta à API."
-        ) from erro
-
-    except requests.RequestException as erro:
-        raise ErroLLM(
-            "Não foi possível conectar ao serviço Gemini."
-        ) from erro
+    # Repetir somente falhas transitórias; nunca repetir erros 4xx definitivos.
+    for tentativa in range(1, 4):
+        try:
+            resposta = requests.post(
+                url,
+                headers={"x-goog-api-key": chave, "Content-Type": "application/json"},
+                json=corpo,
+                timeout=timeout
+            )
+        except requests.Timeout as erro:
+            if tentativa == 3:
+                raise ErroLLM("Tempo limite excedido na consulta à API após 3 tentativas.") from erro
+        except requests.RequestException as erro:
+            if tentativa == 3:
+                raise ErroLLM("Não foi possível conectar ao serviço Gemini após 3 tentativas.") from erro
+        else:
+            if resposta.status_code not in (429, 500, 502, 503, 504) or tentativa == 3:
+                break
+        time.sleep(min(2 ** (tentativa - 1), 4))
 
     tempo = round(time.perf_counter() - inicio, 2)
 
