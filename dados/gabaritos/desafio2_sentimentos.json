@@ -1,0 +1,62 @@
+[
+  {
+    "id": "A01",
+    "polaridade": "positiva",
+    "justificativa": "Rótulo definido antes da execução"
+  },
+  {
+    "id": "A02",
+    "polaridade": "positiva",
+    "justificativa": "Rótulo definido antes da execução"
+  },
+  {
+    "id": "A03",
+    "polaridade": "positiva",
+    "justificativa": "Rótulo definido antes da execução"
+  },
+  {
+    "id": "A04",
+    "polaridade": "negativa",
+    "justificativa": "Rótulo definido antes da execução"
+  },
+  {
+    "id": "A05",
+    "polaridade": "negativa",
+    "justificativa": "Rótulo definido antes da execução"
+  },
+  {
+    "id": "A06",
+    "polaridade": "negativa",
+    "justificativa": "Rótulo definido antes da execução"
+  },
+  {
+    "id": "A07",
+    "polaridade": "neutra",
+    "justificativa": "Rótulo definido antes da execução"
+  },
+  {
+    "id": "A08",
+    "polaridade": "neutra",
+    "justificativa": "Rótulo definido antes da execução"
+  },
+  {
+    "id": "A09",
+    "polaridade": "neutra",
+    "justificativa": "Rótulo definido antes da execução"
+  },
+  {
+    "id": "A10",
+    "polaridade": "indeterminada",
+    "justificativa": "Misto, ironia ou contexto insuficiente"
+  },
+  {
+    "id": "A11",
+    "polaridade": "indeterminada",
+    "justificativa": "Misto, ironia ou contexto insuficiente"
+  },
+  {
+    "id": "A12",
+    "polaridade": "indeterminada",
+    "justificativa": "Misto, ironia ou contexto insuficiente"
+  }
+]

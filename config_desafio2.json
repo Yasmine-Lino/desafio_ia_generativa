@@ -1,0 +1,13 @@
+{
+    "projeto": "Desafio Pratico 2 - IA Generativa",
+    "ambiente": "desenvolvimento",
+    "provedor_principal": "openai",
+    "provedor_alternativo": "gemini",
+    "modelo_openai": "gpt-4.1-mini",
+    "modelo_gemini": "gemini-3.8-flash",
+    "temperatura": 0.3,
+    "max_tokens": 1024,
+    "revisao_humana_obrigatoria": true,
+    "envio_automatico": false,
+    "limite_chamadas_diarias": 10
+}

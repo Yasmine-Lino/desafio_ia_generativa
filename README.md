@@ -344,3 +344,194 @@ originais e os gabaritos locais são evidências necessárias para a avaliação
 Execute `python -m src.verificar_pendencias` e `python -m src.demonstracao` para conferir o pacote sem chamadas à API. Consulte `documentacao/matriz_conformidade_pdf.md` para a correspondência de **cada requisito do enunciado** com arquivos de evidência e limitações. A execução de testes não comprova, por si só, que existiam gabaritos anteriores às inferências ou logs históricos que não foram coletados.
 
 O áudio RF07 da minuta revisada foi gerado e aprovado por escuta em 17/10/2026; os metadados originais ainda registram revisão pendente no instante da geração, o que é historicamente correto.
+
+## Desafio 2 (Aulas 08 a 14)
+
+### Objetivo
+
+Nesta etapa, a Central Inteligente de Atendimento foi ampliada para
+consultar documentos ficticios, organizar solicitacoes, buscar informacoes
+no acervo e apresentar respostas com fontes. Tambem foram adicionadas
+revisao humana e analise de sentimentos.
+
+O projeto continua sendo um prototipo local, sem envio automatico de respostas.
+
+### Funcionalidades
+
+- Extracao estruturada e validacao de JSON.
+- Resumo, classificacao de solicitacoes e identificacao de entidades.
+- Regras de seguranca para entradas e documentos.
+- Indice local persistente com vetores de hashing lexical.
+- Busca de trechos com similaridade e identificacao das fontes.
+- RAG extrativo com resposta fundamentada ou abstencao.
+- Interface Streamlit para documentos, atendimento e revisao humana.
+- Classificacao de sentimentos com painel de resultados.
+
+### Arquivos principais
+
+| Arquivo ou pasta | Finalidade |
+|---|---|
+| dados/acervo/ | Documentos ficticios |
+| dados/solicitacoes/ | Solicitacoes ficticias |
+| dados/avaliacoes/ | Avaliacoes de atendimento |
+| dados/gabaritos/desafio2_*.json | Gabaritos e testes |
+| src/schemas.py | Validacao de dados |
+| src/nlp.py | Resumo, categorias e entidades |
+| src/guardrails.py | Regras de seguranca |
+| src/ingestion.py | Leitura e divisao de documentos |
+| src/embeddings.py | Indice persistente |
+| src/rag.py | Respostas fundamentadas |
+| src/fluxo_desafio2.py | Fluxo de atendimento e revisao |
+| src/app.py | Interface Streamlit |
+| src/sentiment.py | Classificacao de sentimentos |
+| src/metrics.py | Indicadores |
+| src/avaliar_desafio2.py | Avaliacao offline |
+| testes/teste_desafio2.py | Testes automatizados |
+
+### Instalacao
+
+Na pasta do projeto, ative o ambiente virtual, se estiver utilizando um,
+e instale as dependencias com:
+
+    python -m pip install -r requirements.txt
+
+### Execucao
+
+Para iniciar a interface no Windows PowerShell:
+
+    $env:PYTHONPATH = (Get-Location).Path
+    python -m streamlit run src/app.py
+
+Acesse http://localhost:8501 no navegador.
+
+Na aba Documentos e atendimento, selecione os documentos e use
+Indexar documentos para criar ou atualizar o indice. Depois, digite
+uma solicitacao ficticia e clique em Processar solicitacao.
+
+Na aba Revisao, escolha uma decisao, informe a justificativa e
+registre a avaliacao humana.
+
+Na aba Sentimentos, consulte os resultados das avaliacoes ficticias.
+
+O indice fica armazenado em indice/acervo.json. Para recria-lo,
+execute novamente a indexacao pela interface.
+
+### Testes
+
+Testes automatizados:
+
+    python -m unittest discover -s testes -p "teste_desafio2.py" -v
+
+Avaliacao offline:
+
+    python -m src.avaliar_desafio2
+
+Comparacao de chunking:
+
+    python -m src.comparar_chunking
+
+### Resultados verificados em 30/10/2026
+
+| Avaliacao | Resultado |
+|---|---|
+| Testes automatizados | 9 de 9 aprovados |
+| Recuperacao Top-3 | 5 de 5 (100%) |
+| Abstencao | 2 de 2 (100%) |
+| Sentimentos | 12 de 12 (100%) |
+| Consultas manuais do RAG | 5 de 5 com resultado esperado |
+| Revisao humana | Decisao revisar registrada pela interface |
+
+Nas 12 avaliacoes ficticias, foram identificadas tres positivas,
+tres negativas, tres neutras e tres indeterminadas. Tres casos
+foram encaminhados para revisao.
+
+Os percentuais representam apenas os conjuntos locais avaliados,
+nao uma garantia de acerto em qualquer situacao.
+
+### Validacao de fontes contraditorias - Q08
+
+Foi realizado um teste com duas versoes ficticias de um documento,
+uma informando prazo de 5 dias uteis e outra de 10 dias uteis.
+
+O RAG recuperou os dois trechos e retornou `conflito de fontes`,
+indicando a necessidade de revisao humana, sem escolher um prazo.
+
+Esse cenario foi incluido nos testes automatizados como
+`test_fontes_contraditorias`.
+
+A verificacao atual cobre prazos numericos divergentes entre
+versoes do mesmo documento. Outros tipos de contradicao ainda
+nao foram validados.
+
+### Limitacoes
+
+O indice utiliza hashing lexical com 1024 dimensoes e similaridade
+de cosseno. Nao e um modelo de embeddings semanticos treinado.
+
+O RAG e extrativo e utiliza trechos do acervo. Foi acrescentada
+uma reclassificacao lexical para melhorar a escolha das fontes
+em algumas perguntas, mas ela nao elimina as limitacoes da busca.
+
+A classificacao de sentimentos utiliza regras locais. Os resultados
+nao devem ser tratados como caracteristicas pessoais dos autores.
+
+O adaptador de provedor remoto depende de configuracao e credenciais.
+Nao foi demonstrada equivalencia de qualidade com o fluxo local.
+
+### Privacidade e revisao humana
+
+O projeto utiliza dados ficticios, nao realiza envio automatico
+e exige revisao humana antes de aprovar respostas institucionais.
+
+A interface permite excluir documentos do indice. A exclusao
+de resultados derivados e as regras de retencao ainda precisam
+de verificacao especifica.
+
+### Evidencias e pendencias
+
+O PDF do Desafio 2 exige, entre outros itens:
+
+- Seis documentos ficticios em dois formatos.
+- Seis solicitacoes e respectivos gabaritos.
+- Oito perguntas RAG, incluindo duas sem resposta e uma com conflito.
+- Tres entradas adversariais.
+- Comparacao de duas configuracoes de chunking.
+- Matriz de testes T01 a T15 e regressao de texto e audio ou OCR.
+- Evidencias de aprovacao, rejeicao ou revisao humana.
+- Auditoria, exclusao de documentos e teste de troca de provedor.
+- Relatorio tecnico e registro do uso de IA no desenvolvimento.
+
+Os testes realizados ate agora nao comprovam todos esses itens.
+As evidencias precisam ser conferidas antes de declarar o desafio
+integralmente concluido.
+
+Consulte documentacao/RELATORIO_DESAFIO2.md para a documentacao
+tecnica complementar, quando disponivel.
+
+### Resultado final do Desafio 2
+
+Avaliacao local realizada com dados ficticios, sem chamadas reais
+as APIs de IA nos testes finais.
+
+Resultados:
+- 144 testes automatizados aprovados.
+- 6 solicitacoes ficticias avaliadas.
+- Recuperacao RAG Top-3: 5/5.
+- Abstencao por falta de evidencia: 2/2.
+- Classificacao de sentimentos: 12/12.
+- 3 entradas adversariais encaminhadas para revisao.
+- Decisoes humanas registradas: aprovada, rejeitada e revisar.
+- Testes automatizados de exclusao de documentos.
+
+Para executar os testes:
+python -m pytest testes -q
+
+Para abrir a interface:
+$env:PYTHONPATH = (Get-Location).Path
+python -m streamlit run src/app.py
+
+O relatorio completo e a matriz T01 a T15 estao em:
+documentacao/RELATORIO_DESAFIO2.md
+
+Limitacoes: busca por hashing lexical, provedores testados
+com simulacoes e metricas calculadas em conjunto ficticio pequeno.

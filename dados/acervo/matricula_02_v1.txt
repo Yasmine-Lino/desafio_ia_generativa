@@ -1,0 +1,2 @@
+Documento fictício 02 — Matricula — versão 1
+Seção 1. O pedido de matrícula deve informar protocolo e data. Sem dados completos, encaminhe para revisão humana.

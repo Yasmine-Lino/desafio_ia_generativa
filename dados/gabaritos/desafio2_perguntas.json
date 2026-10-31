@@ -1,0 +1,60 @@
+[
+  {
+    "id": "Q01",
+    "pergunta": "O que apresentar para solicitar matrícula?",
+    "fontes_referencia": [
+      "matricula_01_v1.txt"
+    ],
+    "tipo": "respondível"
+  },
+  {
+    "id": "Q02",
+    "pergunta": "O que informar no pedido de matrícula?",
+    "fontes_referencia": [
+      "matricula_02_v1.txt"
+    ],
+    "tipo": "respondível"
+  },
+  {
+    "id": "Q03",
+    "pergunta": "Existe prazo garantido para vagas?",
+    "fontes_referencia": [
+      "matricula_03_v1.txt"
+    ],
+    "tipo": "respondível"
+  },
+  {
+    "id": "Q04",
+    "pergunta": "O que é necessário para pedir segunda via?",
+    "fontes_referencia": [
+      "documentacao_04_v1.txt"
+    ],
+    "tipo": "respondível"
+  },
+  {
+    "id": "Q05",
+    "pergunta": "Pode apresentar comprovante digital?",
+    "fontes_referencia": [
+      "documentacao_05_v1.txt"
+    ],
+    "tipo": "respondível"
+  },
+  {
+    "id": "Q06",
+    "pergunta": "Qual é a taxa de inscrição de 2030?",
+    "fontes_referencia": [],
+    "tipo": "sem_resposta"
+  },
+  {
+    "id": "Q07",
+    "pergunta": "Quem é o diretor da escola de Marte?",
+    "fontes_referencia": [],
+    "tipo": "sem_resposta"
+  },
+  {
+    "id": "Q08",
+    "pergunta": "Qual prazo prevalece entre orientações contraditórias?",
+    "fontes_referencia": [],
+    "tipo": "contraditoria_sem_regra"
+  }
+]

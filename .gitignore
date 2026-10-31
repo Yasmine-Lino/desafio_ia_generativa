@@ -38,3 +38,15 @@ resultados/minutas/rf09_informacoes.json
 
 # RF11 - registros de auditoria
 resultados/logs/*.jsonl
+
+# Desafio 2 - backups e arquivos temporarios
+*.bak
+*.bak_*
+*.bak2
+*.bak3
+*.bak_desafio2
+backup_desafio2_*/
+*.lock
+
+# Estado temporario do limite de chamadas
+resultados/logs/limite_chamadas_desafio2.json

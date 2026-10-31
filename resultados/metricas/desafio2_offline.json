@@ -1,0 +1,454 @@
+{
+  "execucao": "offline-local",
+  "fichas": [
+    {
+      "id": "S01",
+      "obtido": "matricula",
+      "resumo": "Protocolo: MAT-0001 Data: 10/10/2026 Solicitante: Ana Exemplo Assunto: matrícula Peço informação sobre matrícula.",
+      "entidades": {
+        "pessoas": [
+          "Ana Exemplo"
+        ],
+        "datas": [
+          "10/10/2026"
+        ],
+        "protocolos": [
+          "MAT-0001"
+        ],
+        "orgaos": [],
+        "locais": []
+      },
+      "revisao": false
+    },
+    {
+      "id": "S02",
+      "obtido": "documentacao",
+      "resumo": "Protocolo: DOC-0002 Data: 11/10/2026 Solicitante: Bruno Fictício Assunto: documentação Preciso da segunda via de documento.",
+      "entidades": {
+        "pessoas": [
+          "Bruno Fictício"
+        ],
+        "datas": [
+          "11/10/2026"
+        ],
+        "protocolos": [
+          "DOC-0002"
+        ],
+        "orgaos": [],
+        "locais": []
+      },
+      "revisao": false
+    },
+    {
+      "id": "S03",
+      "obtido": "matricula",
+      "resumo": "Protocolo: MAT-0003 Data: 12/10/2026 Solicitante: Carla Teste Assunto: vagas Quais documentos para inscrição?",
+      "entidades": {
+        "pessoas": [
+          "Carla Teste"
+        ],
+        "datas": [
+          "12/10/2026"
+        ],
+        "protocolos": [
+          "MAT-0003"
+        ],
+        "orgaos": [],
+        "locais": []
+      },
+      "revisao": false
+    },
+    {
+      "id": "S04",
+      "obtido": "documentacao",
+      "resumo": "Protocolo: DOC-0004 Data: 13/10/2026 Solicitante: Davi Exemplo Assunto: comprovante Quero apresentar um comprovante.",
+      "entidades": {
+        "pessoas": [
+          "Davi Exemplo"
+        ],
+        "datas": [
+          "13/10/2026"
+        ],
+        "protocolos": [
+          "DOC-0004"
+        ],
+        "orgaos": [],
+        "locais": []
+      },
+      "revisao": false
+    },
+    {
+      "id": "S05",
+      "obtido": "matricula",
+      "resumo": "Assunto: matrícula Preciso de ajuda, sem protocolo ou data.",
+      "entidades": {
+        "pessoas": [],
+        "datas": [],
+        "protocolos": [],
+        "orgaos": [],
+        "locais": []
+      },
+      "revisao": true
+    },
+    {
+      "id": "S06",
+      "obtido": "matricula",
+      "resumo": "Protocolo: MAT-0006 Data: 14/10/2026 Solicitante: Eva Exemplo Assunto: matrícula e documentos Tenho dúvida sobre matrícula e segunda via.",
+      "entidades": {
+        "pessoas": [
+          "Eva Exemplo"
+        ],
+        "datas": [
+          "14/10/2026"
+        ],
+        "protocolos": [
+          "MAT-0006"
+        ],
+        "orgaos": [],
+        "locais": []
+      },
+      "revisao": true
+    }
+  ],
+  "rag": [
+    {
+      "id": "Q01",
+      "tipo": "respondível",
+      "esperado": [
+        "matricula_01_v1.txt"
+      ],
+      "obtido": [
+        "matricula_02_v1.txt",
+        "documentacao_06_v1.txt",
+        "matricula_01_v1.txt"
+      ],
+      "status": "fundamentada (extrativa)",
+      "acerto_recuperacao": true
+    },
+    {
+      "id": "Q02",
+      "tipo": "respondível",
+      "esperado": [
+        "matricula_02_v1.txt"
+      ],
+      "obtido": [
+        "matricula_02_v1.txt",
+        "documentacao_06_v1.txt",
+        "matricula_01_v1.txt"
+      ],
+      "status": "fundamentada (extrativa)",
+      "acerto_recuperacao": true
+    },
+    {
+      "id": "Q03",
+      "tipo": "respondível",
+      "esperado": [
+        "matricula_03_v1.txt"
+      ],
+      "obtido": [
+        "matricula_03_v1.txt"
+      ],
+      "status": "fundamentada (extrativa)",
+      "acerto_recuperacao": true
+    },
+    {
+      "id": "Q04",
+      "tipo": "respondível",
+      "esperado": [
+        "documentacao_04_v1.txt"
+      ],
+      "obtido": [
+        "matricula_02_v1.txt",
+        "documentacao_04_v1.txt",
+        "matricula_01_v1.txt"
+      ],
+      "status": "fundamentada (extrativa)",
+      "acerto_recuperacao": true
+    },
+    {
+      "id": "Q05",
+      "tipo": "respondível",
+      "esperado": [
+        "documentacao_05_v1.txt"
+      ],
+      "obtido": [
+        "documentacao_05_v1.txt"
+      ],
+      "status": "fundamentada (extrativa)",
+      "acerto_recuperacao": true
+    },
+    {
+      "id": "Q06",
+      "tipo": "sem_resposta",
+      "esperado": [],
+      "obtido": [
+        "documentacao_06_v1.txt",
+        "matricula_01_v1.txt",
+        "documentacao_04_v1.txt"
+      ],
+      "status": "sem evidência suficiente",
+      "acerto_recuperacao": false
+    },
+    {
+      "id": "Q07",
+      "tipo": "sem_resposta",
+      "esperado": [],
+      "obtido": [
+        "matricula_02_v1.txt",
+        "documentacao_06_v1.txt",
+        "matricula_01_v1.txt"
+      ],
+      "status": "sem evidência suficiente",
+      "acerto_recuperacao": false
+    },
+    {
+      "id": "Q08",
+      "tipo": "contraditoria_sem_regra",
+      "esperado": [],
+      "obtido": [
+        "documentacao_04_v1.txt",
+        "matricula_03_v1.txt"
+      ],
+      "status": "sem evidência suficiente",
+      "acerto_recuperacao": false
+    }
+  ],
+  "comparacao_chunking": [
+    {
+      "tamanho_caracteres": 400,
+      "sobreposicao_caracteres": 60,
+      "top_k": 3,
+      "perguntas": [
+        {
+          "id": "Q01",
+          "acerto": true,
+          "top3": [
+            "documentacao_06_v1.txt",
+            "matricula_01_v1.txt",
+            "matricula_02_v1.txt"
+          ]
+        },
+        {
+          "id": "Q02",
+          "acerto": true,
+          "top3": [
+            "documentacao_06_v1.txt",
+            "matricula_01_v1.txt",
+            "matricula_02_v1.txt"
+          ]
+        },
+        {
+          "id": "Q03",
+          "acerto": true,
+          "top3": [
+            "matricula_01_v1.txt",
+            "matricula_02_v1.txt",
+            "matricula_03_v1.txt"
+          ]
+        },
+        {
+          "id": "Q04",
+          "acerto": true,
+          "top3": [
+            "documentacao_04_v1.txt",
+            "matricula_01_v1.txt",
+            "matricula_02_v1.txt"
+          ]
+        },
+        {
+          "id": "Q05",
+          "acerto": true,
+          "top3": [
+            "documentacao_05_v1.txt",
+            "matricula_01_v1.txt"
+          ]
+        }
+      ],
+      "taxa": {
+        "numerador": 5,
+        "denominador": 5,
+        "taxa": 1.0
+      }
+    },
+    {
+      "tamanho_caracteres": 800,
+      "sobreposicao_caracteres": 120,
+      "top_k": 3,
+      "perguntas": [
+        {
+          "id": "Q01",
+          "acerto": true,
+          "top3": [
+            "documentacao_06_v1.txt",
+            "matricula_01_v1.txt",
+            "matricula_02_v1.txt"
+          ]
+        },
+        {
+          "id": "Q02",
+          "acerto": true,
+          "top3": [
+            "documentacao_06_v1.txt",
+            "matricula_01_v1.txt",
+            "matricula_02_v1.txt"
+          ]
+        },
+        {
+          "id": "Q03",
+          "acerto": true,
+          "top3": [
+            "matricula_01_v1.txt",
+            "matricula_02_v1.txt",
+            "matricula_03_v1.txt"
+          ]
+        },
+        {
+          "id": "Q04",
+          "acerto": true,
+          "top3": [
+            "documentacao_04_v1.txt",
+            "matricula_01_v1.txt",
+            "matricula_02_v1.txt"
+          ]
+        },
+        {
+          "id": "Q05",
+          "acerto": true,
+          "top3": [
+            "documentacao_05_v1.txt",
+            "matricula_01_v1.txt"
+          ]
+        }
+      ],
+      "taxa": {
+        "numerador": 5,
+        "denominador": 5,
+        "taxa": 1.0
+      }
+    }
+  ],
+  "sentimentos": [
+    {
+      "id": "A01",
+      "polaridade": "positiva",
+      "justificativa": "Indícios lexicais; estimativa não calibrada",
+      "necessita_revisao": false
+    },
+    {
+      "id": "A02",
+      "polaridade": "positiva",
+      "justificativa": "Indícios lexicais; estimativa não calibrada",
+      "necessita_revisao": false
+    },
+    {
+      "id": "A03",
+      "polaridade": "positiva",
+      "justificativa": "Indícios lexicais; estimativa não calibrada",
+      "necessita_revisao": false
+    },
+    {
+      "id": "A04",
+      "polaridade": "negativa",
+      "justificativa": "Indícios lexicais; estimativa não calibrada",
+      "necessita_revisao": false
+    },
+    {
+      "id": "A05",
+      "polaridade": "negativa",
+      "justificativa": "Indícios lexicais; estimativa não calibrada",
+      "necessita_revisao": false
+    },
+    {
+      "id": "A06",
+      "polaridade": "negativa",
+      "justificativa": "Indícios lexicais; estimativa não calibrada",
+      "necessita_revisao": false
+    },
+    {
+      "id": "A07",
+      "polaridade": "neutra",
+      "justificativa": "Indícios lexicais; estimativa não calibrada",
+      "necessita_revisao": false
+    },
+    {
+      "id": "A08",
+      "polaridade": "neutra",
+      "justificativa": "Indícios lexicais; estimativa não calibrada",
+      "necessita_revisao": false
+    },
+    {
+      "id": "A09",
+      "polaridade": "neutra",
+      "justificativa": "Indícios lexicais; estimativa não calibrada",
+      "necessita_revisao": false
+    },
+    {
+      "id": "A10",
+      "polaridade": "indeterminada",
+      "justificativa": "Misto/irônico ou contexto insuficiente",
+      "necessita_revisao": true
+    },
+    {
+      "id": "A11",
+      "polaridade": "indeterminada",
+      "justificativa": "Misto/irônico ou contexto insuficiente",
+      "necessita_revisao": true
+    },
+    {
+      "id": "A12",
+      "polaridade": "indeterminada",
+      "justificativa": "Misto/irônico ou contexto insuficiente",
+      "necessita_revisao": true
+    }
+  ],
+  "ataques": [
+    {
+      "id": "X01",
+      "decisao": {
+        "decisao": "revisar",
+        "motivo": "possivel instrucao adversarial"
+      }
+    },
+    {
+      "id": "X02",
+      "decisao": {
+        "decisao": "revisar",
+        "motivo": "possivel instrucao adversarial"
+      }
+    },
+    {
+      "id": "X03",
+      "decisao": {
+        "decisao": "revisar",
+        "motivo": "possivel instrucao adversarial"
+      }
+    }
+  ],
+  "metricas": {
+    "recuperacao_top3": {
+      "numerador": 5,
+      "denominador": 5,
+      "taxa": 1.0
+    },
+    "abstencao": {
+      "numerador": 2,
+      "denominador": 2,
+      "taxa": 1.0
+    },
+    "sentimentos": {
+      "numerador": 12,
+      "denominador": 12,
+      "taxa": 1.0
+    },
+    "totais": {
+      "total": 12,
+      "polaridades": {
+        "positiva": 3,
+        "negativa": 3,
+        "neutra": 3,
+        "indeterminada": 3
+      },
+      "revisao": 3
+    }
+  }
+}

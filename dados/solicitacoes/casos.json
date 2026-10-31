@@ -1,0 +1,32 @@
+[
+  {
+    "id": "S01",
+    "texto": "Protocolo: MAT-0001\nData: 10/10/2026\nSolicitante: Ana Exemplo\nAssunto: matrícula\nPeço informação sobre matrícula.",
+    "esperado_revisao": false
+  },
+  {
+    "id": "S02",
+    "texto": "Protocolo: DOC-0002\nData: 11/10/2026\nSolicitante: Bruno Fictício\nAssunto: documentação\nPreciso da segunda via de documento.",
+    "esperado_revisao": false
+  },
+  {
+    "id": "S03",
+    "texto": "Protocolo: MAT-0003\nData: 12/10/2026\nSolicitante: Carla Teste\nAssunto: vagas\nQuais documentos para inscrição?",
+    "esperado_revisao": false
+  },
+  {
+    "id": "S04",
+    "texto": "Protocolo: DOC-0004\nData: 13/10/2026\nSolicitante: Davi Exemplo\nAssunto: comprovante\nQuero apresentar um comprovante.",
+    "esperado_revisao": false
+  },
+  {
+    "id": "S05",
+    "texto": "Assunto: matrícula\nPreciso de ajuda, sem protocolo ou data.",
+    "esperado_revisao": true
+  },
+  {
+    "id": "S06",
+    "texto": "Protocolo: MAT-0006\nData: 14/10/2026\nSolicitante: Eva Exemplo\nAssunto: matrícula e documentos\nTenho dúvida sobre matrícula e segunda via.",
+    "esperado_revisao": true
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "A01",
+    "texto": "Atendimento ótimo e gentil."
+  },
+  {
+    "id": "A02",
+    "texto": "Excelente atendimento, obrigado."
+  },
+  {
+    "id": "A03",
+    "texto": "Fiquei satisfeito, problema resolvido."
+  },
+  {
+    "id": "A04",
+    "texto": "Demora e atendimento ruim."
+  },
+  {
+    "id": "A05",
+    "texto": "Houve erro e atraso."
+  },
+  {
+    "id": "A06",
+    "texto": "Péssimo atendimento, não resolveu."
+  },
+  {
+    "id": "A07",
+    "texto": "Recebi o número de protocolo hoje."
+  },
+  {
+    "id": "A08",
+    "texto": "O atendimento aconteceu na terça-feira."
+  },
+  {
+    "id": "A09",
+    "texto": "O pedido está em análise na unidade."
+  },
+  {
+    "id": "A10",
+    "texto": "Atendimento bom, mas com demora."
+  },
+  {
+    "id": "A11",
+    "texto": "Excelente, só que não."
+  },
+  {
+    "id": "A12",
+    "texto": "Ok."
+  }
+]

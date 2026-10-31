@@ -1,0 +1,260 @@
+{
+  "modelo": "hashing-lexical-v1",
+  "resultados": [
+    {
+      "tamanho_caracteres": 300,
+      "sobreposicao_caracteres": 50,
+      "top_k": 3,
+      "acertos": 5,
+      "total": 5,
+      "taxa": 1.0,
+      "perguntas": [
+        {
+          "id": "Q01",
+          "acerto": true,
+          "referencias": [
+            "matricula_01_v1.txt"
+          ],
+          "top_k": [
+            {
+              "id": "matricula_01_v1:p1:t0",
+              "documento": "matricula_01_v1.txt",
+              "similaridade": 0.38576
+            },
+            {
+              "id": "matricula_02_v1:p1:t0",
+              "documento": "matricula_02_v1.txt",
+              "similaridade": 0.24019
+            },
+            {
+              "id": "documentacao_06_v1:p1:t0",
+              "documento": "documentacao_06_v1.txt",
+              "similaridade": 0.15162
+            }
+          ]
+        },
+        {
+          "id": "Q02",
+          "acerto": true,
+          "referencias": [
+            "matricula_02_v1.txt"
+          ],
+          "top_k": [
+            {
+              "id": "matricula_02_v1:p1:t0",
+              "documento": "matricula_02_v1.txt",
+              "similaridade": 0.37062
+            },
+            {
+              "id": "matricula_01_v1:p1:t0",
+              "documento": "matricula_01_v1.txt",
+              "similaridade": 0.28571
+            },
+            {
+              "id": "documentacao_06_v1:p1:t0",
+              "documento": "documentacao_06_v1.txt",
+              "similaridade": 0.28074
+            }
+          ]
+        },
+        {
+          "id": "Q03",
+          "acerto": true,
+          "referencias": [
+            "matricula_03_v1.txt"
+          ],
+          "top_k": [
+            {
+              "id": "matricula_03_v1:p1:t0",
+              "documento": "matricula_03_v1.txt",
+              "similaridade": 0.2582
+            },
+            {
+              "id": "matricula_02_v1:p1:t0",
+              "documento": "matricula_02_v1.txt",
+              "similaridade": 0.08771
+            },
+            {
+              "id": "matricula_01_v1:p1:t0",
+              "documento": "matricula_01_v1.txt",
+              "similaridade": 0.08452
+            }
+          ]
+        },
+        {
+          "id": "Q04",
+          "acerto": true,
+          "referencias": [
+            "documentacao_04_v1.txt"
+          ],
+          "top_k": [
+            {
+              "id": "matricula_01_v1:p1:t0",
+              "documento": "matricula_01_v1.txt",
+              "similaridade": 0.20045
+            },
+            {
+              "id": "matricula_02_v1:p1:t0",
+              "documento": "matricula_02_v1.txt",
+              "similaridade": 0.13868
+            },
+            {
+              "id": "documentacao_04_v1:p1:t0",
+              "documento": "documentacao_04_v1.txt",
+              "similaridade": 0.13608
+            }
+          ]
+        },
+        {
+          "id": "Q05",
+          "acerto": true,
+          "referencias": [
+            "documentacao_05_v1.txt"
+          ],
+          "top_k": [
+            {
+              "id": "documentacao_05_v1:p1:t0",
+              "documento": "documentacao_05_v1.txt",
+              "similaridade": 0.31277
+            },
+            {
+              "id": "matricula_01_v1:p1:t0",
+              "documento": "matricula_01_v1.txt",
+              "similaridade": 0.09449
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tamanho_caracteres": 600,
+      "sobreposicao_caracteres": 100,
+      "top_k": 3,
+      "acertos": 5,
+      "total": 5,
+      "taxa": 1.0,
+      "perguntas": [
+        {
+          "id": "Q01",
+          "acerto": true,
+          "referencias": [
+            "matricula_01_v1.txt"
+          ],
+          "top_k": [
+            {
+              "id": "matricula_01_v1:p1:t0",
+              "documento": "matricula_01_v1.txt",
+              "similaridade": 0.38576
+            },
+            {
+              "id": "matricula_02_v1:p1:t0",
+              "documento": "matricula_02_v1.txt",
+              "similaridade": 0.24019
+            },
+            {
+              "id": "documentacao_06_v1:p1:t0",
+              "documento": "documentacao_06_v1.txt",
+              "similaridade": 0.15162
+            }
+          ]
+        },
+        {
+          "id": "Q02",
+          "acerto": true,
+          "referencias": [
+            "matricula_02_v1.txt"
+          ],
+          "top_k": [
+            {
+              "id": "matricula_02_v1:p1:t0",
+              "documento": "matricula_02_v1.txt",
+              "similaridade": 0.37062
+            },
+            {
+              "id": "matricula_01_v1:p1:t0",
+              "documento": "matricula_01_v1.txt",
+              "similaridade": 0.28571
+            },
+            {
+              "id": "documentacao_06_v1:p1:t0",
+              "documento": "documentacao_06_v1.txt",
+              "similaridade": 0.28074
+            }
+          ]
+        },
+        {
+          "id": "Q03",
+          "acerto": true,
+          "referencias": [
+            "matricula_03_v1.txt"
+          ],
+          "top_k": [
+            {
+              "id": "matricula_03_v1:p1:t0",
+              "documento": "matricula_03_v1.txt",
+              "similaridade": 0.2582
+            },
+            {
+              "id": "matricula_02_v1:p1:t0",
+              "documento": "matricula_02_v1.txt",
+              "similaridade": 0.08771
+            },
+            {
+              "id": "matricula_01_v1:p1:t0",
+              "documento": "matricula_01_v1.txt",
+              "similaridade": 0.08452
+            }
+          ]
+        },
+        {
+          "id": "Q04",
+          "acerto": true,
+          "referencias": [
+            "documentacao_04_v1.txt"
+          ],
+          "top_k": [
+            {
+              "id": "matricula_01_v1:p1:t0",
+              "documento": "matricula_01_v1.txt",
+              "similaridade": 0.20045
+            },
+            {
+              "id": "matricula_02_v1:p1:t0",
+              "documento": "matricula_02_v1.txt",
+              "similaridade": 0.13868
+            },
+            {
+              "id": "documentacao_04_v1:p1:t0",
+              "documento": "documentacao_04_v1.txt",
+              "similaridade": 0.13608
+            }
+          ]
+        },
+        {
+          "id": "Q05",
+          "acerto": true,
+          "referencias": [
+            "documentacao_05_v1.txt"
+          ],
+          "top_k": [
+            {
+              "id": "documentacao_05_v1:p1:t0",
+              "documento": "documentacao_05_v1.txt",
+              "similaridade": 0.31277
+            },
+            {
+              "id": "matricula_01_v1:p1:t0",
+              "documento": "matricula_01_v1.txt",
+              "similaridade": 0.09449
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "escolhida": {
+    "tamanho_caracteres": 600,
+    "sobreposicao_caracteres": 100
+  },
+  "justificativa": "Maior acerto top-3; em empate, chunks maiores preservam mais contexto."
+}

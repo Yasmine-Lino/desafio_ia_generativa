@@ -1,0 +1,196 @@
+{
+  "teste": "T03",
+  "total_solicitacoes": 6,
+  "solicitacoes_aprovadas": 6,
+  "campos_corretos": 30,
+  "total_campos": 30,
+  "taxa_concordancia": 100.0,
+  "resultados": [
+    {
+      "id": "S01",
+      "aprovado": true,
+      "comparacoes": {
+        "categoria": {
+          "esperado": "matricula",
+          "obtido": "matricula",
+          "correto": true
+        },
+        "protocolo": {
+          "esperado": "MAT-0001",
+          "obtido": "MAT-0001",
+          "correto": true
+        },
+        "data": {
+          "esperado": "10/10/2026",
+          "obtido": "10/10/2026",
+          "correto": true
+        },
+        "solicitante": {
+          "esperado": "Ana Exemplo",
+          "obtido": "Ana Exemplo",
+          "correto": true
+        },
+        "necessita_revisao": {
+          "esperado": false,
+          "obtido": false,
+          "correto": true
+        }
+      }
+    },
+    {
+      "id": "S02",
+      "aprovado": true,
+      "comparacoes": {
+        "categoria": {
+          "esperado": "documentacao",
+          "obtido": "documentacao",
+          "correto": true
+        },
+        "protocolo": {
+          "esperado": "DOC-0002",
+          "obtido": "DOC-0002",
+          "correto": true
+        },
+        "data": {
+          "esperado": "11/10/2026",
+          "obtido": "11/10/2026",
+          "correto": true
+        },
+        "solicitante": {
+          "esperado": "Bruno Fictício",
+          "obtido": "Bruno Fictício",
+          "correto": true
+        },
+        "necessita_revisao": {
+          "esperado": false,
+          "obtido": false,
+          "correto": true
+        }
+      }
+    },
+    {
+      "id": "S03",
+      "aprovado": true,
+      "comparacoes": {
+        "categoria": {
+          "esperado": "matricula",
+          "obtido": "matricula",
+          "correto": true
+        },
+        "protocolo": {
+          "esperado": "MAT-0003",
+          "obtido": "MAT-0003",
+          "correto": true
+        },
+        "data": {
+          "esperado": "12/10/2026",
+          "obtido": "12/10/2026",
+          "correto": true
+        },
+        "solicitante": {
+          "esperado": "Carla Teste",
+          "obtido": "Carla Teste",
+          "correto": true
+        },
+        "necessita_revisao": {
+          "esperado": false,
+          "obtido": false,
+          "correto": true
+        }
+      }
+    },
+    {
+      "id": "S04",
+      "aprovado": true,
+      "comparacoes": {
+        "categoria": {
+          "esperado": "documentacao",
+          "obtido": "documentacao",
+          "correto": true
+        },
+        "protocolo": {
+          "esperado": "DOC-0004",
+          "obtido": "DOC-0004",
+          "correto": true
+        },
+        "data": {
+          "esperado": "13/10/2026",
+          "obtido": "13/10/2026",
+          "correto": true
+        },
+        "solicitante": {
+          "esperado": "Davi Exemplo",
+          "obtido": "Davi Exemplo",
+          "correto": true
+        },
+        "necessita_revisao": {
+          "esperado": false,
+          "obtido": false,
+          "correto": true
+        }
+      }
+    },
+    {
+      "id": "S05",
+      "aprovado": true,
+      "comparacoes": {
+        "categoria": {
+          "esperado": "matricula",
+          "obtido": "matricula",
+          "correto": true
+        },
+        "protocolo": {
+          "esperado": null,
+          "obtido": null,
+          "correto": true
+        },
+        "data": {
+          "esperado": null,
+          "obtido": null,
+          "correto": true
+        },
+        "solicitante": {
+          "esperado": null,
+          "obtido": null,
+          "correto": true
+        },
+        "necessita_revisao": {
+          "esperado": true,
+          "obtido": true,
+          "correto": true
+        }
+      }
+    },
+    {
+      "id": "S06",
+      "aprovado": true,
+      "comparacoes": {
+        "categoria": {
+          "esperado": "matricula",
+          "obtido": "matricula",
+          "correto": true
+        },
+        "protocolo": {
+          "esperado": "MAT-0006",
+          "obtido": "MAT-0006",
+          "correto": true
+        },
+        "data": {
+          "esperado": "14/10/2026",
+          "obtido": "14/10/2026",
+          "correto": true
+        },
+        "solicitante": {
+          "esperado": "Eva Exemplo",
+          "obtido": "Eva Exemplo",
+          "correto": true
+        },
+        "necessita_revisao": {
+          "esperado": true,
+          "obtido": true,
+          "correto": true
+        }
+      }
+    }
+  ]
+}
