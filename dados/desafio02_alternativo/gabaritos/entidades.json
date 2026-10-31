@@ -1,0 +1,123 @@
+{
+  "_meta": {
+    "descricao": "Gabarito de entidades por solicitacao (RF15)",
+    "versao_schema": "1.0.0",
+    "data_criacao": "2026-10-28",
+    "principio": "Separar extracao literal (presente no texto) de informacao inferida (deduzida, nunca completada por suposicao).",
+    "tipos": ["pessoa", "orgao", "local", "data", "protocolo", "curso", "cota"],
+    "regras": [
+      "Entidade literal: aparece textualmente na solicitacao.",
+      "Entidade inferida: pode ser deduzida do contexto (ex.: 'Cuiaba' implica ETEC Cuiaba se o curso for ofertado la), mas deve ser marcada como inferida.",
+      "Entidade ausente: nao aparece nem pode ser deduzida com seguranca. Deve constar em campos_ausentes.",
+      "Nao completar entidade ausente por suposicao (RF15)."
+    ]
+  },
+  "solicitacoes": [
+    {
+      "id": "sol01",
+      "literal": {
+        "pessoa": ["Maria Fernanda Souza"],
+        "orgao": ["ETEC Cuiaba"],
+        "local": ["Cuiaba"],
+        "data": ["12/04/2026", "segundo semestre de 2026"],
+        "protocolo": ["2026-000142"],
+        "curso": ["Tecnico em Enfermagem"],
+        "cota": ["L2"]
+      },
+      "inferida": {
+        "orgao": [],
+        "local": []
+      },
+      "ausentes": []
+    },
+    {
+      "id": "sol02",
+      "literal": {
+        "pessoa": ["Joao Pedro Almeida"],
+        "orgao": [],
+        "local": ["Varzea Grande"],
+        "data": ["20/04/2026"],
+        "protocolo": ["2026-000187"],
+        "curso": ["Tecnico em Administracao"],
+        "cota": ["L1"]
+      },
+      "inferida": {
+        "orgao": ["ETEC Varzea Grande"],
+        "local": []
+      },
+      "ausentes": [],
+      "observacao": "A ETEC de Varzea Grande nao e citada explicitamente; e inferida pela localidade. Deve ser marcada como inferida."
+    },
+    {
+      "id": "sol03",
+      "literal": {
+        "pessoa": ["Ana Clara Ribeiro"],
+        "orgao": ["ETEC Agua Boa"],
+        "local": ["Santa Terezinha"],
+        "data": ["25/04/2026", "21/07/2026"],
+        "protocolo": ["2026-000203"],
+        "curso": ["Tecnico em Agropecuaria"],
+        "cota": []
+      },
+      "inferida": {
+        "orgao": [],
+        "local": []
+      },
+      "ausentes": [],
+      "observacao": "Caso contraditorio: a solicitacao cita 21/07/2026, mas o Retificador 06 altera para 05/10/2026. O gabarito espera que a extracao literal preserve o que o cidadao escreveu, e o RAG corrija a informacao na resposta."
+    },
+    {
+      "id": "sol04",
+      "literal": {
+        "pessoa": ["Carlos Eduardo Lima"],
+        "orgao": ["ETEC Rondonopolis"],
+        "local": ["Rondonopolis"],
+        "data": ["30/04/2026"],
+        "protocolo": ["2026-000221"],
+        "curso": ["Tecnico em Desenvolvimento de Sistemas"],
+        "cota": []
+      },
+      "inferida": {
+        "orgao": [],
+        "local": []
+      },
+      "ausentes": []
+    },
+    {
+      "id": "sol05",
+      "literal": {
+        "pessoa": ["Fernanda Oliveira"],
+        "orgao": [],
+        "local": ["Cuiaba"],
+        "data": ["05/05/2026"],
+        "protocolo": [],
+        "curso": [],
+        "cota": []
+      },
+      "inferida": {
+        "orgao": [],
+        "local": []
+      },
+      "ausentes": ["protocolo", "curso"],
+      "observacao": "Solicitacao incompleta: sem curso e sem protocolo. Nao inferir curso. Encaminhar para revisao."
+    },
+    {
+      "id": "sol06",
+      "literal": {
+        "pessoa": ["Lucas Martins"],
+        "orgao": [],
+        "local": [],
+        "data": ["10/05/2026"],
+        "protocolo": ["2026-000298"],
+        "curso": [],
+        "cota": []
+      },
+      "inferida": {
+        "orgao": [],
+        "local": []
+      },
+      "ausentes": ["curso", "pedido_claro"],
+      "observacao": "Solicitacao ambigua: sem curso e sem pedido claro. Nao inferir. Encaminhar para revisao."
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "_meta": {
+    "descricao": "Gabarito das 8 perguntas de avaliacao do RAG (Desafio 02)",
+    "versao_schema": "1.0.0",
+    "data_criacao": "2026-10-28",
+    "total_perguntas": 8,
+    "distribuicao": {
+      "respondiveis": 5,
+      "sem_resposta": 2,
+      "contraditoria": 1
+    },
+    "observacao": "Fontes apontam para documentos do acervo em dados/acervo/. Trechos de referencia sao literais dos documentos."
+  },
+  "perguntas": [
+    {
+      "id": "q01",
+      "tipo": "respondivel",
+      "pergunta": "Qual e o prazo de inscricao no processo seletivo das ETECs 2026/2?",
+      "resposta_esperada": "De 07/04/2026 a 13/05/2026, conforme o Edital Retificador 03, que alterou o cronograma original.",
+      "status_esperado": "fundamentada",
+      "fontes_esperadas": [
+        {
+          "doc_id": "DOC02",
+          "arquivo": "dados/acervo/doc02_retificador_03_cronograma.txt",
+          "versao": "1.0",
+          "secao": "1.1.b",
+          "trecho_referencia": "Periodo de inscricao: 07/04/2026 a 13/05/2026."
+        }
+      ],
+      "armadilha": "O doc01 (original) diz 03/05/2026. A resposta correta usa o retificador mais recente.",
+      "justificativa": "Pergunta respondivel com fonte clara e vigente. Exige que o RAG priorize o retificador sobre o original."
+    },
+    {
+      "id": "q02",
+      "tipo": "respondivel",
+      "pergunta": "Quais sao as modalidades de cota e seus percentuais?",
+      "resposta_esperada": "AC (ampla concorrencia) 40%, L1 (negros/pardos) 20%, L2 (escola publica) 20%, L3 (indigena) 15%, L4 (PcD) 5%.",
+      "status_esperado": "fundamentada",
+      "fontes_esperadas": [
+        {
+          "doc_id": "DOC01",
+          "arquivo": "dados/acervo/doc01_edital_006_2026.txt",
+          "versao": "1.0",
+          "secao": "3.1",
+          "trecho_referencia": "AC - Ampla concorrencia: 40% das vagas. L1 - Negros (preto ou pardo): 20% das vagas. L2 - Or iundos de escola publica: 20% das vagas. L3 - Indigena: 15% das vagas. L4 - Pessoa com deficiencia (PcD): 5% das vagas."
+        },
+        {
+          "doc_id": "DOC05",
+          "arquivo": "dados/acervo/doc05_orientacao_cotas.txt",
+          "versao": "1.0",
+          "secao": "1",
+          "trecho_referencia": "AC - Ampla concorrencia: 40% das vagas."
+        }
+      ],
+      "justificativa": "Pergunta respondivel. Duas fontes convergentes (doc01 e doc05) reforcam a resposta."
+    },
+    {
+      "id": "q03",
+      "tipo": "respondivel",
+      "pergunta": "Como funciona a heteroidentificacao para a cota L1?",
+      "resposta_esperada": "O candidato autodeclarado negro (preto ou pardo) passa por Comissao de Heteroidentificacao, que analisa foto, video (mp4, ate 2 min, pode ser gravado em casa) e documento oficial. O criterio e fenotipico, nao genetico. A matricula so e efetivada se a autodeclaracao for ratificada.",
+      "status_esperado": "fundamentada",
+      "fontes_esperadas": [
+        {
+          "doc_id": "DOC05",
+          "arquivo": "dados/acervo/doc05_orientacao_cotas.txt",
+          "versao": "1.0",
+          "secao": "2",
+          "trecho_referencia": "O procedimento consiste na analise de foto e video enviados pelo candidato. O video deve ser em formato .mp4, com duracao maxima de 2 minutos, e pode ser gravado em casa. O criterio utilizado e fenotipico."
+        }
+      ],
+      "justificativa": "Pergunta respondivel com fonte detalhada no doc05."
+    },
+    {
+      "id": "q04",
+      "tipo": "respondivel",
+      "pergunta": "Quais documentos sao obrigatorios para a matricula?",
+      "resposta_esperada": "Comprovante de escolaridade, documento oficial de identificacao com foto, CPF, certidao de nascimento ou casamento, foto 3x4, comprovante de residencia, titulo de eleitor, quitacao com a Justica Eleitoral (maiores de 18) e obrigacoes militares (homens maiores de 18).",
+      "status_esperado": "fundamentada",
+      "fontes_esperadas": [
+        {
+          "doc_id": "DOC06",
+          "arquivo": "dados/acervo/doc06_procedimento_matricula.txt",
+          "versao": "1.0",
+          "secao": "2",
+          "trecho_referencia": "a) Comprovante de escolaridade. b) Documento oficial de identificacao com foto. c) CPF. d) Certidao de nascimento ou certidao de casamento. e) Uma foto 3x4 atual. f) Comprovante de residencia dos ultimos 3 meses. g) Titulo de eleitor. h) Quitacao com a Justica Eleitoral. i) Quitacao com obrigacoes militares."
+        }
+      ],
+      "justificativa": "Pergunta respondivel com fonte detalhada no doc06."
+    },
+    {
+      "id": "q05",
+      "tipo": "respondivel",
+      "pergunta": "Quando comecam as aulas do curso Tecnico em Enfermagem da ETEC Cuiaba?",
+      "resposta_esperada": "Em 21/07/2026. O curso de Enfermagem da ETEC Cuiaba nao esta entre os cursos cuja data foi alterada pelo Retificador 06.",
+      "status_esperado": "fundamentada",
+      "fontes_esperadas": [
+        {
+          "doc_id": "DOC01",
+          "arquivo": "dados/acervo/doc01_edital_006_2026.txt",
+          "versao": "1.0",
+          "secao": "5.6",
+          "trecho_referencia": "Inicio das aulas: 21/07/2026."
+        },
+        {
+          "doc_id": "DOC03",
+          "arquivo": "dados/acervo/doc03_retificador_06_inicio_aulas.txt",
+          "versao": "1.0",
+          "secao": "1.1",
+          "trecho_referencia": "Fica alterada para o dia 05 de outubro de 2026 a data de inicio das aulas dos seguintes cursos: ETEC Agua Boa - Agropecuaria - Santa Terezinha; ETEC Barra do Garcas - Enfermagem - Barra do Garcas; ..."
+        }
+      ],
+      "justificativa": "Pergunta respondivel que exige raciocinio negativo: o curso nao esta na lista de excecoes do Retificador 06, entao vale a regra geral."
+    },
+    {
+      "id": "q06",
+      "tipo": "sem_resposta",
+      "pergunta": "Qual e a nota de corte do curso Tecnico em Enfermagem?",
+      "resposta_esperada": null,
+      "status_esperado": "sem_evidencia_suficiente",
+      "comportamento_esperado": "abster_se",
+      "fontes_esperadas": [],
+      "justificativa": "O processo seletivo e por sorteio eletronico, sem prova e sem nota de corte (doc01 secao 6.1 e doc04 P7). O RAG deve abster-se e informar que nao ha nota de corte, em vez de inventar um valor."
+    },
+    {
+      "id": "q07",
+      "tipo": "sem_resposta",
+      "pergunta": "Quantos candidatos se inscreveram no processo seletivo 2026/2?",
+      "resposta_esperada": null,
+      "status_esperado": "sem_evidencia_suficiente",
+      "comportamento_esperado": "abster_se",
+      "fontes_esperadas": [],
+      "justificativa": "O edital nao divulga o numero de inscritos (doc04 P8 diz explicitamente que essa informacao nao e divulgada). O RAG deve abster-se."
+    },
+    {
+      "id": "q08",
+      "tipo": "contraditoria",
+      "pergunta": "Quando comecam as aulas do curso Tecnico em Agropecuaria ofertado em Santa Terezinha pela ETEC Agua Boa?",
+      "resposta_esperada": "Conflito de fontes: o edital original (doc01) indica 21/07/2026; o Retificador 06 (doc03, publicado em 03/08/2026) altera para 05/10/2026. A fonte mais recente (Retificador 06) deve prevalecer, mas a divergencia deve ser apresentada ao operador para revisao.",
+      "status_esperado": "conflito_de_fontes",
+      "comportamento_esperado": "apresentar_divergencia_e_encaminhar_revisao",
+      "fontes_esperadas": [
+        {
+          "doc_id": "DOC01",
+          "arquivo": "dados/acervo/doc01_edital_006_2026.txt",
+          "versao": "1.0",
+          "secao": "5.6",
+          "trecho_referencia": "Inicio das aulas: 21/07/2026."
+        },
+        {
+          "doc_id": "DOC03",
+          "arquivo": "dados/acervo/doc03_retificador_06_inicio_aulas.txt",
+          "versao": "1.0",
+          "secao": "1.1.a",
+          "trecho_referencia": "Fica alterada para o dia 05 de outubro de 2026 a data de inicio das aulas dos seguintes cursos: a) ETEC Agua Boa - Agropecuaria - Santa Terezinha."
+        }
+      ],
+      "regra_de_prioridade": "A fonte com data de publicacao mais recente prevalece (Retificador 06, 03/08/2026), mas a divergencia deve ser explicitada e a decisao final e humana.",
+      "justificativa": "Caso contraditorio previsto no enunciado. O RAG nao deve esconder o conflito; deve apresenta-lo e encaminhar para revisao."
+    }
+  ]
+}

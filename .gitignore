@@ -55,3 +55,9 @@ resultados/logs/limite_chamadas_desafio2.json
 *.orig
 *.rej
 resultados/logs/limite_chamadas_desafio2.json
+
+# Indices Chroma e cache de modelos
+indice/chroma_desafio02/
+indice/testes_tmp/
+*.sqlite3
+*.sqlite3-*

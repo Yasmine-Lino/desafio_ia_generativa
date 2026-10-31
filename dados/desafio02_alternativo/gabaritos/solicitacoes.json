@@ -1,0 +1,185 @@
+{
+  "_meta": {
+    "descricao": "Gabarito das 6 solicitacoes ficticias do Desafio 02",
+    "versao_schema": "1.0.0",
+    "data_criacao": "2026-10-28",
+    "fonte": "dados/solicitacoes/sol01.txt a sol06.txt",
+    "observacao": "Dados 100% ficticios. Nenhum dado pessoal real."
+  },
+  "solicitacoes": [
+    {
+      "id": "sol01",
+      "arquivo": "dados/solicitacoes/sol01.txt",
+      "tipo": "completa",
+      "protocolo_esperado": "2026-000142",
+      "data_esperada": "2026-04-12",
+      "solicitante_ficticio": "Maria Fernanda Souza",
+      "canal": "texto",
+      "categoria_esperada": "inscricao",
+      "resumo_fatos_essenciais": [
+        "Quer informacoes sobre inscricao no curso Tecnico em Enfermagem",
+        "ETEC Cuiaba",
+        "Segundo semestre de 2026",
+        "Concluiu ensino medio em escola publica estadual",
+        "Quer concorrer pela cota L2",
+        "Pergunta documentos e prazo final de inscricao"
+      ],
+      "entidades_esperadas": {
+        "pessoas": ["Maria Fernanda Souza"],
+        "orgaos": ["ETEC Cuiaba"],
+        "locais": ["Cuiaba"],
+        "datas": ["2026-04-12", "segundo semestre de 2026"],
+        "protocolos": ["2026-000142"],
+        "cursos": ["Tecnico em Enfermagem"],
+        "cotas": ["L2"]
+      },
+      "campos_ausentes_esperados": [],
+      "necessidade_revisao_esperada": false,
+      "decisao_esperada": "aprovar_para_geracao_de_minuta"
+    },
+    {
+      "id": "sol02",
+      "arquivo": "dados/solicitacoes/sol02.txt",
+      "tipo": "completa",
+      "protocolo_esperado": "2026-000187",
+      "data_esperada": "2026-04-20",
+      "solicitante_ficticio": "Joao Pedro Almeida",
+      "canal": "audio_transcrito",
+      "categoria_esperada": "inscricao",
+      "resumo_fatos_essenciais": [
+        "Mora em Varzea Grande",
+        "Quer se inscrever no curso Tecnico em Administracao",
+        "Autodeclara negro e quer concorrer pela cota L1",
+        "Pergunta como funciona a heteroidentificacao",
+        "Pergunta documentos e se o video pode ser gravado em casa"
+      ],
+      "entidades_esperadas": {
+        "pessoas": ["Joao Pedro Almeida"],
+        "orgaos": [],
+        "locais": ["Varzea Grande"],
+        "datas": ["2026-04-20"],
+        "protocolos": ["2026-000187"],
+        "cursos": ["Tecnico em Administracao"],
+        "cotas": ["L1"]
+      },
+      "campos_ausentes_esperados": [],
+      "necessidade_revisao_esperada": false,
+      "decisao_esperada": "aprovar_para_geracao_de_minuta"
+    },
+    {
+      "id": "sol03",
+      "arquivo": "dados/solicitacoes/sol03.txt",
+      "tipo": "completa",
+      "protocolo_esperado": "2026-000203",
+      "data_esperada": "2026-04-25",
+      "solicitante_ficticio": "Ana Clara Ribeiro",
+      "canal": "ocr",
+      "categoria_esperada": "cronograma",
+      "resumo_fatos_essenciais": [
+        "Quer confirmar data de inicio das aulas do curso Tecnico em Agropecuaria",
+        "Oferta em Santa Terezinha pela ETEC Agua Boa",
+        "Viu 21/07/2026 no edital, mas ouviu que mudou",
+        "Pergunta sobre transporte escolar"
+      ],
+      "entidades_esperadas": {
+        "pessoas": ["Ana Clara Ribeiro"],
+        "orgaos": ["ETEC Agua Boa"],
+        "locais": ["Santa Terezinha"],
+        "datas": ["2026-04-25", "2026-07-21"],
+        "protocolos": ["2026-000203"],
+        "cursos": ["Tecnico em Agropecuaria"],
+        "cotas": []
+      },
+      "campos_ausentes_esperados": [],
+      "necessidade_revisao_esperada": false,
+      "decisao_esperada": "aprovar_com_prioridade_de_vigencia",
+      "observacao": "Caso contraditorio: doc01 diz 21/07/2026, doc03 (Retificador 06) diz 05/10/2026. Gabarito espera que a resposta cite o Retificador 06 por ser mais recente."
+    },
+    {
+      "id": "sol04",
+      "arquivo": "dados/solicitacoes/sol04.txt",
+      "tipo": "completa",
+      "protocolo_esperado": "2026-000221",
+      "data_esperada": "2026-04-30",
+      "solicitante_ficticio": "Carlos Eduardo Lima",
+      "canal": "texto",
+      "categoria_esperada": "matricula",
+      "resumo_fatos_essenciais": [
+        "Quer orientacao sobre matricula no curso Tecnico em Desenvolvimento de Sistemas",
+        "ETEC Rondonopolis",
+        "Foi classificado na primeira chamada",
+        "Pergunta lista de documentos",
+        "Pergunta se pode enviar por e-mail ou precisa comparecer presencialmente",
+        "Pergunta prazo de matricula da primeira chamada"
+      ],
+      "entidades_esperadas": {
+        "pessoas": ["Carlos Eduardo Lima"],
+        "orgaos": ["ETEC Rondonopolis"],
+        "locais": ["Rondonopolis"],
+        "datas": ["2026-04-30"],
+        "protocolos": ["2026-000221"],
+        "cursos": ["Tecnico em Desenvolvimento de Sistemas"],
+        "cotas": []
+      },
+      "campos_ausentes_esperados": [],
+      "necessidade_revisao_esperada": false,
+      "decisao_esperada": "aprovar_para_geracao_de_minuta"
+    },
+    {
+      "id": "sol05",
+      "arquivo": "dados/solicitacoes/sol05.txt",
+      "tipo": "incompleta",
+      "protocolo_esperado": null,
+      "data_esperada": "2026-05-05",
+      "solicitante_ficticio": "Fernanda Oliveira",
+      "canal": "texto",
+      "categoria_esperada": "inscricao",
+      "resumo_fatos_essenciais": [
+        "Quer se inscrever no processo seletivo",
+        "Mora em Cuiaba",
+        "Tem duvidas sobre cotas"
+      ],
+      "entidades_esperadas": {
+        "pessoas": ["Fernanda Oliveira"],
+        "orgaos": [],
+        "locais": ["Cuiaba"],
+        "datas": ["2026-05-05"],
+        "protocolos": [],
+        "cursos": [],
+        "cotas": []
+      },
+      "campos_ausentes_esperados": ["protocolo", "curso"],
+      "necessidade_revisao_esperada": true,
+      "decisao_esperada": "encaminhar_para_revisao_humana",
+      "justificativa": "Solicitacao incompleta: nao informa curso de interesse e nao traz protocolo. Nao e possivel gerar minuta fundamentada sem esses dados."
+    },
+    {
+      "id": "sol06",
+      "arquivo": "dados/solicitacoes/sol06.txt",
+      "tipo": "ambigua",
+      "protocolo_esperado": "2026-000298",
+      "data_esperada": "2026-05-10",
+      "solicitante_ficticio": "Lucas Martins",
+      "canal": "texto",
+      "categoria_esperada": "revisao",
+      "resumo_fatos_essenciais": [
+        "Diz que viu o edital e ficou na duvida se vale a pena",
+        "Menciona que um amigo disse que e facil",
+        "Pergunta se pode ajuda-lo"
+      ],
+      "entidades_esperadas": {
+        "pessoas": ["Lucas Martins"],
+        "orgaos": [],
+        "locais": [],
+        "datas": ["2026-05-10"],
+        "protocolos": ["2026-000298"],
+        "cursos": [],
+        "cotas": []
+      },
+      "campos_ausentes_esperados": ["curso", "pedido_claro"],
+      "necessidade_revisao_esperada": true,
+      "decisao_esperada": "encaminhar_para_revisao_humana",
+      "justificativa": "Solicitacao ambigua: nao ha pedido claro de informacao ou servico. A pergunta 'pode me ajudar?' nao especifica assunto. Qualquer resposta institucional seria inferencia, o que o RF15 proibe."
+    }
+  ]
+}

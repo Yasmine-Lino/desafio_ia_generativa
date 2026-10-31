@@ -1,0 +1,111 @@
+{
+  "_meta": {
+    "descricao": "Gabarito das 12 avaliacoes de atendimento ficticias (RF22)",
+    "versao_schema": "1.0.0",
+    "data_criacao": "2026-10-28",
+    "total_avaliacoes": 12,
+    "distribuicao": {
+      "positiva": 3,
+      "negativa": 3,
+      "neutra": 3,
+      "ambigua_ou_mista": 3
+    },
+    "regras_de_rotulagem": [
+      "Rotulo positivo: elogio explicito ao atendimento sem ressalva relevante.",
+      "Rotulo negativo: critica explicita ao atendimento, com prejuizo percebido.",
+      "Rotulo neutro: relato factual sem juizo de valor claro.",
+      "Rotulo indeterminado: mistura de elogio e critica, ironia ou falta de contexto suficiente para decidir.",
+      "Confianca declarada pelo modelo nao e usada como probabilidade de acerto.",
+      "Nao inferir personalidade, diagnostico ou caracteristica sensivel do autor."
+    ]
+  },
+  "avaliacoes": [
+    {
+      "id": "aval01",
+      "arquivo": "dados/avaliacoes/aval01.txt",
+      "rotulo_esperado": "positiva",
+      "justificativa": "Elogio explicito ('excelente', 'muita paciencia e clareza', 'recomendo'), sem ressalva.",
+      "necessidade_revisao_esperada": false
+    },
+    {
+      "id": "aval02",
+      "arquivo": "dados/avaliacoes/aval02.txt",
+      "rotulo_esperado": "positiva",
+      "justificativa": "Elogio explicito ('muito bem atendido', 'parabens pela equipe'), resolucao do problema no mesmo dia.",
+      "necessidade_revisao_esperada": false
+    },
+    {
+      "id": "aval03",
+      "arquivo": "dados/avaliacoes/aval03.txt",
+      "rotulo_esperado": "positiva",
+      "justificativa": "Elogio explicito ('otimo atendimento', 'rapido', 'completa', 'fiquei satisfeita').",
+      "necessidade_revisao_esperada": false
+    },
+    {
+      "id": "aval04",
+      "arquivo": "dados/avaliacoes/aval04.txt",
+      "rotulo_esperado": "negativa",
+      "justificativa": "Critica explicita ('pessimo', 'esperei mais de uma hora', 'informacao errada', 'falta de organizacao').",
+      "necessidade_revisao_esperada": false
+    },
+    {
+      "id": "aval05",
+      "arquivo": "dados/avaliacoes/aval05.txt",
+      "rotulo_esperado": "negativa",
+      "justificativa": "Critica explicita ('nao resolveram nada', 'atendimento frio e sem empatia', 'nao recomendo').",
+      "necessidade_revisao_esperada": false
+    },
+    {
+      "id": "aval06",
+      "arquivo": "dados/avaliacoes/aval06.txt",
+      "rotulo_esperado": "negativa",
+      "justificativa": "Critica explicita ('horrivel', 'perdi o prazo', 'ninguem atendeu', 'muito insatisfeito').",
+      "necessidade_revisao_esperada": false
+    },
+    {
+      "id": "aval07",
+      "arquivo": "dados/avaliacoes/aval07.txt",
+      "rotulo_esperado": "neutra",
+      "justificativa": "Relato factual ('dentro do esperado', 'sem nada de excepcional'), sem elogio nem critica.",
+      "necessidade_revisao_esperada": false
+    },
+    {
+      "id": "aval08",
+      "arquivo": "dados/avaliacoes/aval08.txt",
+      "rotulo_esperado": "neutra",
+      "justificativa": "Relato factual ('fui atendido', 'demorou um pouco, mas veio correta', 'sem reclamacoes').",
+      "necessidade_revisao_esperada": false
+    },
+    {
+      "id": "aval09",
+      "arquivo": "dados/avaliacoes/aval09.txt",
+      "rotulo_esperado": "neutra",
+      "justificativa": "Relato factual ('atendimento padrao', 'nada a destacar').",
+      "necessidade_revisao_esperada": false
+    },
+    {
+      "id": "aval10",
+      "arquivo": "dados/avaliacoes/aval10.txt",
+      "rotulo_esperado": "indeterminada",
+      "justificativa": "Mista: elogio ao atendente ('muito educado e prestativo') + critica a informacao ('desatualizada') + duvida ('fiquei na duvida se posso confiar'). O rotulo depende de qual dimensao pesa mais (pessoa vs. informacao). Admitir indeterminacao e registrar a ambiguidade.",
+      "necessidade_revisao_esperada": true,
+      "ambiguidade": "Elogio e critica coexistem em proporcao semelhante."
+    },
+    {
+      "id": "aval11",
+      "arquivo": "dados/avaliacoes/aval11.txt",
+      "rotulo_esperado": "indeterminada",
+      "justificativa": "Mista: elogio ao atendimento presencial ('adorei') + critica ao sistema ('site confuso'). Sao objetos diferentes (atendimento vs. ferramenta). Nao ha um sentimento unico sobre o atendimento como um todo.",
+      "necessidade_revisao_esperada": true,
+      "ambiguidade": "Sentimentos opostos sobre objetos distintos (pessoa e sistema)."
+    },
+    {
+      "id": "aval12",
+      "arquivo": "dados/avaliacoes/aval12.txt",
+      "rotulo_esperado": "indeterminada",
+      "justificativa": "Mista e com falta de contexto: 'nao sei se foi bom ou ruim', 'atendeu bem, mas nao resolveu'. O proprio autor declara incerteza. Forcar rotulo seria inventar.",
+      "necessidade_revisao_esperada": true,
+      "ambiguidade": "Autor declara explicitamente nao saber; comportamento e elogio leve, resultado e falha."
+    }
+  ]
+}
