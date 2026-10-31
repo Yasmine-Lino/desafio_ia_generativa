@@ -181,6 +181,7 @@ O arquivo `.env.example` apresenta as variáveis de ambiente previstas:
 
 ```dotenv
 GEMINI_API_KEY=
+OPENAI_API_KEY=
 GROQ_API_KEY=
 HF_TOKEN=
 ```
@@ -199,7 +200,7 @@ Copy-Item .env.example .env
 cp .env.example .env
 ```
 
-Abra o arquivo `.env` e preencha as credenciais correspondentes aos serviços que pretende utilizar.
+Abra o arquivo `.env` e preencha as credenciais correspondentes aos serviços que pretende utilizar. Na configuração local atual, são utilizadas `GEMINI_API_KEY` e `OPENAI_API_KEY`; `GROQ_API_KEY` e `HF_TOKEN` permanecem no `.env.example` para funcionalidades que utilizem esses provedores.
 
 **Cuidados de segurança:**
 
@@ -223,7 +224,7 @@ O comando é o mesmo para Windows, Linux e macOS.
 Na última execução realizada durante o desenvolvimento, o projeto apresentou:
 
 ```text
-Ran 126 tests
+Ran 139 tests
 
 OK
 ```
@@ -294,7 +295,7 @@ As principais limitações e precauções são:
 
 Os requisitos **RF01 a RF13 foram implementados e publicados no repositório**.
 
-A suíte automatizada apresentou **126 testes aprovados** na última execução.
+A suíte automatizada apresentou **139 testes aprovados** na última execução.
 
 As evidências, limitações e revisões estão registradas na documentação do projeto.
 
