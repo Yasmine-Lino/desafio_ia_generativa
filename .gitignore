@@ -61,3 +61,14 @@ indice/chroma_desafio02/
 indice/testes_tmp/
 *.sqlite3
 *.sqlite3-*
+
+# Desafio 2 - indices e arquivos gerados localmente
+indice/desafio2_avaliacao.json
+indice/*/data_level0.bin
+indice/*/header.bin
+indice/*/length.bin
+indice/*/link_lists.bin
+
+# Registros locais de revisao
+resultados/logs/desafio02_alternativo/revisoes.jsonl
+resultados/minutas/revisoes_desafio2.jsonl

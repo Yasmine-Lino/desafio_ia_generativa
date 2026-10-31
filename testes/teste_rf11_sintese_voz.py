@@ -10,7 +10,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 from src import sintese_voz
-from src.audit import listar_execucoes
+from src.audit import listar_execucoes, registrar_execucao
+from src.revisao_humana import revisar_documento
+from src import revisao_humana
 
 
 class TestesAuditoriaVozRF11(unittest.TestCase):
@@ -47,16 +49,20 @@ class TestesAuditoriaVozRF11(unittest.TestCase):
             / "rf07_informacoes.json"
         )
 
-    def executar(self):
-        with patch.object(
-            sys,
-            "argv",
-            [
-                "sintese_voz.py",
-                str(self.minuta),
-                "--aprovado",
-            ],
-        ):
+    def executar(self, id_execucao_minuta=None):
+        argumentos = [
+            "sintese_voz.py",
+            str(self.minuta),
+            "--aprovado",
+        ]
+
+        if id_execucao_minuta is not None:
+            argumentos.extend([
+                "--id-execucao-minuta",
+                id_execucao_minuta,
+            ])
+
+        with patch.object(sys, "argv", argumentos):
             sintese_voz.main()
 
     def resultado_simulado(self, id_execucao):
@@ -207,7 +213,28 @@ class TestesAuditoriaVozRF11(unittest.TestCase):
             },
         }
 
+        execucao = registrar_execucao(
+            {
+                "requisito": "RF09",
+                "origem": "minuta",
+                "modalidade_entrada": "texto",
+                "arquivo_saida": "resultados/minutas/minuta.txt",
+                "status": "sucesso",
+                "revisao_humana": "pendente",
+            },
+            caminho=self.log,
+        )
+
+        revisar_documento(
+            id_execucao=execucao["id_execucao"],
+            decisao="aprovado",
+            arquivo_revisado="resultados/minutas/minuta.txt",
+            caminho_log=self.log,
+            raiz_projeto=self.raiz,
+        )
+
         with (
+            patch.object(revisao_humana, "RAIZ", self.raiz),
             patch.object(
                 sintese_voz,
                 "load_dotenv",
@@ -223,7 +250,7 @@ class TestesAuditoriaVozRF11(unittest.TestCase):
                 return_value=resposta,
             ) as consulta,
         ):
-            self.executar()
+            self.executar(execucao["id_execucao"])
 
         consulta.assert_called_once()
 
@@ -242,9 +269,16 @@ class TestesAuditoriaVozRF11(unittest.TestCase):
 
         registros = listar_execucoes(self.log)
 
-        self.assertEqual(len(registros), 1)
-        self.assertEqual(registros[0]["requisito"], "RF07")
-        self.assertEqual(registros[0]["status"], "sucesso")
+        self.assertEqual(len(registros), 3)
+
+        audios = [
+            registro
+            for registro in registros
+            if registro.get("requisito") == "RF07"
+        ]
+
+        self.assertEqual(len(audios), 1)
+        self.assertEqual(audios[0]["status"], "sucesso")
 
         self.assertEqual(informacoes["tokens_total"], 45)
         self.assertTrue(
@@ -252,7 +286,7 @@ class TestesAuditoriaVozRF11(unittest.TestCase):
         )
         self.assertEqual(
             informacoes["id_execucao"],
-            registros[0]["id_execucao"],
+            audios[0]["id_execucao"],
         )
 
         self.assertNotIn(
