@@ -106,3 +106,24 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+def carregar_proveniencia():
+    """Lê e valida o registro atual sem alterar a decisão humana."""
+    validar_png(ORIGINAL)
+    validar_png(REVISADA)
+    if not METADADOS.is_file():
+        raise FileNotFoundError("Registro de proveniência não encontrado.")
+    try:
+        dados = json.loads(METADADOS.read_text(encoding="utf-8-sig"))
+    except (OSError, json.JSONDecodeError) as erro:
+        raise ValueError("Registro de proveniência inválido.") from erro
+    if not isinstance(dados, dict) or dados.get("identificacao_ia") is not True:
+        raise ValueError("A proveniência deve identificar a geração por IA.")
+    if dados.get("imagem_original") != ORIGINAL.name:
+        raise ValueError("Imagem original diferente da proveniência.")
+    if dados.get("imagem_revisada") != REVISADA.name:
+        raise ValueError("Imagem revisada diferente da proveniência.")
+    if dados.get("aprovado") is True and dados.get("revisao_humana_realizada") is not True:
+        raise ValueError("Aprovação exige revisão humana registrada.")
+    return dados

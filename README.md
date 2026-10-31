@@ -535,3 +535,8 @@ documentacao/RELATORIO_DESAFIO2.md
 
 Limitacoes: busca por hashing lexical, provedores testados
 com simulacoes e metricas calculadas em conjunto ficticio pequeno.
+
+
+### Integração com a revisão do Adriano
+
+As decisões e pendências de integração estão em `documentacao/PLANO_INTEGRACAO_ADRIANO_YASMINE.md`. A imagem RF10 v2 é uma alternativa e não foi aprovada automaticamente.

@@ -1,3 +1,6 @@
+import re
+from difflib import SequenceMatcher
+import unicodedata
 import base64
 import json
 import os
@@ -267,3 +270,37 @@ def main():
         print("Erro:", erro)
 if __name__ == "__main__":
     main()
+
+
+def normalizar_texto(texto):
+    texto = unicodedata.normalize("NFKD", texto.casefold())
+    texto = "".join(
+        caractere
+        for caractere in texto
+        if not unicodedata.combining(caractere)
+    )
+    palavras = re.findall(r"\w+", texto, flags=re.UNICODE)
+    return " ".join(palavras)
+
+
+def comparar_transcricao(transcricao, referencia):
+    transcricao_normalizada = normalizar_texto(transcricao)
+    referencia_normalizada = normalizar_texto(referencia)
+
+    if not transcricao_normalizada or not referencia_normalizada:
+        raise ValueError(
+            "A transcrição e o gabarito precisam conter texto."
+        )
+
+    similaridade = SequenceMatcher(
+        None,
+        transcricao_normalizada,
+        referencia_normalizada,
+    ).ratio()
+
+    return {
+        "correspondencia_exata_normalizada": (
+            transcricao_normalizada == referencia_normalizada
+        ),
+        "similaridade": round(similaridade, 4),
+    }

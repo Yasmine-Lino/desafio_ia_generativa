@@ -50,3 +50,8 @@ backup_desafio2_*/
 
 # Estado temporario do limite de chamadas
 resultados/logs/limite_chamadas_desafio2.json
+
+# Integração - arquivos locais de avaliação e backup
+*.orig
+*.rej
+resultados/logs/limite_chamadas_desafio2.json
