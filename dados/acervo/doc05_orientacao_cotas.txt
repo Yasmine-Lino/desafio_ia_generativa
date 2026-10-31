@@ -1,0 +1,26 @@
+DOCUMENTO INSTITUCIONAL FICTICIO PARA FINS ACADEMICOS
+Identificador: DOC05
+Titulo: Orientacoes sobre Cotas - Processo Seletivo ETECs 2026/2
+Versao: 1.0
+Data de publicacao: 01/04/2026
+
+1. MODALIDADES DE COTA
+1.1. AC - Ampla concorrencia: 40% das vagas. Todos os candidatos concorrem, independentemente de opcao de cota.
+1.2. L1 - Negros (preto ou pardo): 20%. Requer autodeclaracao no ato da inscricao e passagem pela Comissao de Heteroidentificacao.
+1.3. L2 - Oriundos de escola publica: 20%. Requer comprovacao de que cursou integralmente o ensino medio em escola publica.
+1.4. L3 - Indigena: 15%. Requer autodeclaracao e declaracao de vinculo com a comunidade indigena.
+1.5. L4 - Pessoa com deficiencia (PcD): 5%. Requer laudo medico emitido nos ultimos 12 meses, com CID.
+
+2. HETEROIDENTIFICACAO (L1)
+2.1. O candidato que se autodeclarar negro (preto ou pardo) passa por Comissao de Heteroidentificacao.
+2.2. O procedimento consiste na analise de foto e video enviados pelo candidato, alem de documento oficial de identificacao.
+2.3. O video deve ser em formato .mp4, com duracao maxima de 2 minutos, e pode ser gravado em casa.
+2.4. A foto deve ser clara, com iluminacao adequada e rosto visivel, em formato .jpg ou .png.
+2.5. Os arquivos devem ser nomeados no padrao NomeCompleto_CPF.
+2.6. O criterio utilizado e fenotipico (cor da pele, labios, nariz, cabelos, formato do rosto). Nao e considerado o genotipo (ascendencia familiar).
+2.7. A matricula nao e efetivada se a autodeclaracao nao for ratificada pela Comissao.
+
+3. ESCOLA PUBLICA (L2)
+3.1. Considera-se escola publica a instituicao criada ou mantida pelo Poder Publico.
+3.2. Nao se enquadram: escolas do Sistema S (SENAI, SESI, SENAC, SENAT), escolas conveniadas, fundacoes e instituicoes similares, mesmo que gratuitas.
+3.3. Bolsistas em instituicoes privadas nao tem direito a cota L2.

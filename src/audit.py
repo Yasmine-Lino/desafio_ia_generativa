@@ -3,8 +3,14 @@
 import json
 import re
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
+
+DIR_LOGS = Path("resultados/logs")
+DIR_LOGS.mkdir(parents=True, exist_ok=True)
+
+# ... o resto do arquivo continua aqui embaixo ...
 
 RAIZ = Path(__file__).resolve().parent.parent
 PASTA_LOGS = RAIZ / "resultados" / "logs"
@@ -364,3 +370,94 @@ def consultar_revisao_humana(id_execucao, caminho=None):
         return decisoes[0]["decisao"]
 
     return execucoes[0].get("revisao_humana", "pendente")
+
+
+
+# =========================================================================
+# Funcoes do Desafio 02 (acrescentadas para nao quebrar o Desafio 01)
+# =========================================================================
+
+import re
+
+PADROES_SEGREDO = [
+    (re.compile(r"(GEMINI_API_KEY\s*=\s*)\S+", re.IGNORECASE), r"\1***"),
+    (re.compile(r"(GROQ_API_KEY\s*=\s*)\S+", re.IGNORECASE), r"\1***"),
+    (re.compile(r"(HF_TOKEN\s*=\s*)\S+", re.IGNORECASE), r"\1***"),
+    (re.compile(r"([a-zA-Z0-9_\-]{30,})"), r"***MASCARADO***"),
+    (re.compile(r"\b\d{3}\.\d{3}\.\d{3}-\d{2}\b"), "***CPF***"),
+]
+
+def mascarar(texto: str) -> str:
+    """Remove credenciais, CPFs e tokens longos do texto."""
+    for padrao, substituto in PADROES_SEGREDO:
+        texto = padrao.sub(substituto, texto)
+    return texto
+
+def registrar_evento(
+    tipo: str,
+    dados: dict[str, Any],
+    arquivo_log: str = "auditoria.jsonl",
+) -> str:
+    """Grava um evento em JSONL e mascara segredos."""
+    id_evento = str(uuid.uuid4())
+    evento = {
+        "id": id_evento,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "tipo": tipo,
+        "dados": _mascarar_dados(dados),
+    }
+    caminho = DIR_LOGS / arquivo_log
+    with open(caminho, "a", encoding="utf-8") as f:
+        f.write(json.dumps(evento, ensure_ascii=False) + "\n")
+    return id_evento
+
+def _mascarar_dados(dados: Any) -> Any:
+    if isinstance(dados, str):
+        return mascarar(dados)
+    if isinstance(dados, dict):
+        return {k: _mascarar_dados(v) for k, v in dados.items()}
+    if isinstance(dados, list):
+        return [_mascarar_dados(x) for x in dados]
+    return dados
+
+
+# ================== FUNCOES DESAFIO 02 ==================
+import re
+import uuid
+from datetime import datetime, timezone
+from typing import Any
+
+PADROES_SEGREDO = [
+    (re.compile(r"(GEMINI_API_KEY\s*=\s*)\S+", re.IGNORECASE), r"\1***"),
+    (re.compile(r"(GROQ_API_KEY\s*=\s*)\S+", re.IGNORECASE), r"\1***"),
+    (re.compile(r"(HF_TOKEN\s*=\s*)\S+", re.IGNORECASE), r"\1***"),
+    (re.compile(r"([a-zA-Z0-9_\-]{30,})"), r"***MASCARADO***"),
+    (re.compile(r"\b\d{3}\.\d{3}\.\d{3}-\d{2}\b"), "***CPF***"),
+]
+
+def mascarar(texto: str) -> str:
+    for padrao, sub in PADROES_SEGREDO:
+        texto = padrao.sub(sub, texto)
+    return texto
+
+def registrar_evento(tipo: str, dados: dict[str, Any], arquivo_log: str = "auditoria.jsonl") -> str:
+    id_evento = str(uuid.uuid4())
+    evento = {
+        "id": id_evento,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "tipo": tipo,
+        "dados": _mascarar_dados(dados),
+    }
+    caminho = DIR_LOGS / arquivo_log
+    with open(caminho, "a", encoding="utf-8") as f:
+        f.write(json.dumps(evento, ensure_ascii=False) + "\n")
+    return id_evento
+
+def _mascarar_dados(dados: Any) -> Any:
+    if isinstance(dados, str):
+        return mascarar(dados)
+    if isinstance(dados, dict):
+        return {k: _mascarar_dados(v) for k, v in dados.items()}
+    if isinstance(dados, list):
+        return [_mascarar_dados(x) for x in dados]
+    return dados

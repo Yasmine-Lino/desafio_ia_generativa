@@ -182,3 +182,33 @@ def consultar_llm(
             "configurados neste projeto."
         )
     }
+
+
+# ================== FUNCOES DESAFIO 02 ==================
+import os
+from typing import Any
+
+class LLMAdaptadorMock:
+    def __init__(self, nome: str = "mock"):
+        self.nome = nome
+        self.chamadas = 0
+    def completar(self, prompt: str, **kwargs: Any) -> str:
+        self.chamadas += 1
+        if "Classifique" in prompt: return "inscricao"
+        if "Resuma" in prompt: return "Resumo simulado."
+        if "entidades" in prompt: return '{"entidades": [], "ausentes": []}'
+        if "sentimento" in prompt: return '{"polaridade": "neutra", "justificativa": "Simulado"}'
+        return "SEM_EVIDENCIA"
+
+class LLMAdaptadorGemini:
+    def __init__(self, modelo: str = "gemini-1.5-flash"):
+        self.modelo = modelo
+        self.api_key = os.getenv("GEMINI_API_KEY")
+        if not self.api_key: raise ValueError("GEMINI_API_KEY nao configurada")
+    def completar(self, prompt: str, **kwargs: Any) -> str:
+        raise NotImplementedError("Use Mock offline.")
+
+def criar_llm(nome: str = "mock") -> Any:
+    if nome.lower() == "mock": return LLMAdaptadorMock()
+    if nome.lower() == "gemini": return LLMAdaptadorGemini()
+    raise ValueError(f"Provedor desconhecido: {nome}")

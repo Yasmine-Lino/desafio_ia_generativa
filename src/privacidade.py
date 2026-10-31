@@ -90,3 +90,29 @@ def minimizar_campos(dados, campos_permitidos):
             resultado[campo] = valor
 
     return resultado
+
+
+# ================== FUNCOES DESAFIO 02 ==================
+from typing import Any
+from src.audit import registrar_evento
+
+def excluir_documento(doc_id: str, indice: Any = None) -> dict[str, Any]:
+    from src.embeddings import IndiceVetorial
+    idx = indice or IndiceVetorial()
+    removidos = idx.remover_documento(doc_id)
+    evento = {"acao": "exclusao_documento", "doc_id": doc_id, "chunks_removidos": removidos}
+    registrar_evento("privacidade", evento)
+    return evento
+
+def registrar_revisao_humana(texto_solicitacao: str, status: str, justificativa: str, participacao_ia: bool = True, caminho_log: str = "revisoes.jsonl") -> str:
+    if status not in {"aprovada", "rejeitada", "revisao"}:
+        raise ValueError(f"Status invalido: {status}")
+    if status in {"rejeitada", "revisao"} and not justificativa:
+        raise ValueError("Justificativa obrigatoria")
+    dados = {
+        "status": status,
+        "justificativa": justificativa,
+        "participacao_ia": participacao_ia,
+        "texto_solicitacao": texto_solicitacao,
+    }
+    return registrar_evento("revisao_humana", dados, arquivo_log=caminho_log)
