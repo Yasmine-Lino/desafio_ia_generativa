@@ -1,12 +1,12 @@
-# Desafio Prático 1 — IA Generativa
+# Desafios Práticos 1 e 2 — IA Generativa
 
 Projeto desenvolvido no **Módulo 01 — IA Generativa**, do curso FIC Dev IA.
 
 ## Integrantes da Equipe
 
--   **Adriano Froes da Costa** - \[GitHub:AdrianoFroes\]
--   **Líbia Canhete Alves e Cruz** - \[GitHub: libia-alves\]
--   **Yasmine Lino Franco** - \[GitHub: Yasmine-Lino\]
+- **Adriano Froes da Costa** - [GitHub: AdrianoFroes](https://github.com/AdrianoFroes)
+- **Líbia Canhete Alves e Cruz** - [GitHub: libia-alves](https://github.com/libia-alves)
+- **Yasmine Lino Franco** - [GitHub: Yasmine-Lino](https://github.com/Yasmine-Lino)
 
 ------------------------------------------------------------------------
 
@@ -540,3 +540,58 @@ com simulacoes e metricas calculadas em conjunto ficticio pequeno.
 ### Integração com a revisão do Adriano
 
 As decisões e pendências de integração estão em `documentacao/PLANO_INTEGRACAO_ADRIANO_YASMINE.md`. A imagem RF10 v2 é uma alternativa e não foi aprovada automaticamente.
+
+## Integração do Desafio 2 — Adriano, Líbia e Yasmine
+
+A integração reuniu as implementações da equipe sem substituir o projeto principal.
+
+A implementação alternativa foi organizada em `src/alternativo_desafio02/`,
+com testes próprios em `testes_alternativos_desafio02/`.
+
+Foram integrados módulos de validação, NLP, guardrails, ingestão,
+embeddings, RAG, sentimentos, privacidade e auditoria.
+
+### Como executar os testes da integração
+
+Na pasta principal do projeto, com o ambiente virtual ativado:
+
+    python -m pytest testes testes_alternativos_desafio02 -q --tb=short
+
+Os resultados anteriores de 9 e 144 testes permanecem no README
+como registros históricos da implementação principal.
+
+A execução conjunta mais recente, realizada em 31/10/2026,
+aprovou 250 testes das duas implementações.
+
+### Resultados da integração
+
+Em 31/10/2026, utilizando Windows e Python 3.12, a execução conjunta
+dos testes apresentou:
+
+- 250 testes aprovados.
+- Nenhuma falha.
+- Um aviso de depreciação.
+- RF16: 19 testes aprovados.
+- RF19: 4 testes aprovados.
+- RF21: 9 testes aprovados.
+- RF24: 6 testes aprovados.
+
+No diagnóstico do RF19, foram indexados 44 chunks. O RAG respondeu
+corretamente a 4 de 5 perguntas respondíveis e se absteve corretamente
+nas 2 perguntas sem resposta.
+
+### Limitações identificadas
+
+- O adaptador Gemini alternativo ainda não realiza chamadas reais à API.
+- A detecção de contradições Q08 foi testada em um cenário específico.
+- Uma pergunta respondível do RF19 ficou sem evidência suficiente.
+- Os arquivos de testes RF20 e RF23 da implementação alternativa estão vazios.
+- O mascaramento de dados cobre os padrões testados, não todos os dados pessoais.
+
+A aprovação dos testes não comprova que todos os requisitos estejam concluídos.
+
+### Documentação da integração
+
+- `documentacao/RELATORIO_DESAFIO2.md`
+- `documentacao/relatorio_tecnico_desafio02.md`
+- `documentacao/PLANO_INTEGRACAO_ADRIANO_YASMINE.md`
