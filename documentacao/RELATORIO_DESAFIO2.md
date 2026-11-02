@@ -419,3 +419,32 @@ ou eliminacao de todas as copias e backups.
 - A evidencia completa de regressao multimodal e a medicao de
   afirmacoes integralmente sustentadas devem ser conferidas
   antes de declarar atendimento integral ao enunciado.
+
+## Verificacao complementar do T15 - regressao multimodal
+
+Foi executada uma verificacao conjunta dos testes existentes de
+processamento textual, validacao de OCR e conformidade do audio.
+
+Ambiente: Windows, Python 3.12.10, pytest 9.1.1.
+
+Comando:
+python -m pytest testes/teste_rf05.py testes/teste_rf08.py testes/teste_conformidade_final.py -v --tb=short
+
+Resultado: 11 testes aprovados, nenhuma falha, em 0,59 segundo.
+
+- Texto (RF05): 5 testes aprovados.
+- Validacao de entrada OCR (RF08): 3 testes aprovados.
+- Audio e conformidade: 3 testes aprovados.
+
+A comparacao historica do OCR, registrada em
+dados/processados/rf08_comparacao.json, apresentou 21 campos
+correspondentes em 22 (95,45%), com divergencia no campo
+datamatricula.
+
+Limitacao: os testes nao executaram novamente as APIs de
+transcricao, OCR ou sintese de voz. A comparacao historica de
+OCR nao substitui um teste automatizado de regressao da
+qualidade de extracao.
+
+Situacao do T15: parcialmente comprovado. A conformidade
+integral depende da conferencia dos criterios do enunciado.
