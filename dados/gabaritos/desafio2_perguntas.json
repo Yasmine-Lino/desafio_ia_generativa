@@ -54,7 +54,10 @@
   {
     "id": "Q08",
     "pergunta": "Qual prazo prevalece entre orientações contraditórias?",
-    "fontes_referencia": [],
+    "fontes_referencia": [
+      "prazo_matricula_v1.txt",
+      "prazo_matricula_v2.txt"
+    ],
     "tipo": "contraditoria_sem_regra"
   }
 ]

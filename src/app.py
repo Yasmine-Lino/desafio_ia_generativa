@@ -1,5 +1,6 @@
 """Interface Streamlit local do Desafio 2 (RF20/22/24)."""
 from pathlib import Path
+import hashlib
 import json
 import streamlit as st
 from src.embeddings import Indice
@@ -17,6 +18,13 @@ with t1:
     st.write(f"Índice: {len(indice.dados['itens'])} trechos | versão {indice.dados['versao_indice']} | modelo {indice.dados['modelo']}")
     arquivos=sorted(Path("dados/acervo").glob("*.txt"))+sorted(Path("dados/acervo").glob("*.pdf"))
     selecionados=st.multiselect("Documentos para indexar",[str(x) for x in arquivos],default=[str(x) for x in arquivos if x.suffix.lower()==".txt"])
+    arquivos_indexados = {x["documento"]: x["hash"] for x in indice.dados["itens"].values()}
+    if any(
+        Path(nome).name not in arquivos_indexados
+        or arquivos_indexados[Path(nome).name] != hashlib.sha256(Path(nome).read_bytes()).hexdigest()
+        for nome in selecionados
+    ):
+        st.warning("Índice desatualizado ou documentos ainda não indexados. Clique em Indexar documentos.")
     if st.button("Indexar documentos"):
         try: indice.indexar(selecionados);st.success("Índice atualizado")
         except Exception as e:st.error(str(e))
@@ -39,7 +47,7 @@ with t1:
     if "ultimo" in st.session_state:
         r=st.session_state["ultimo"]
         st.subheader("Ficha e resumo");st.json(r["ficha"])
-        st.subheader("Resposta e fontes");st.write(r["rag"]["status"]);st.write(r["rag"]["resposta"]);st.json(r["rag"]["trechos"])
+        st.subheader("Minuta preliminar (extrativa) e fontes");st.write(r["rag"]["status"]);st.write(r["rag"]["resposta"] or "Não localizado");st.json(r["rag"]["trechos"])
 with t2:
     if "ultimo" not in st.session_state:st.info("Processe uma solicitação primeiro")
     else:

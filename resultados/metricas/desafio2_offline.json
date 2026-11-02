@@ -119,7 +119,7 @@
       ],
       "obtido": [
         "matricula_02_v1.txt",
-        "documentacao_06_v1.txt",
+        "prazo_matricula_v1.txt",
         "matricula_01_v1.txt"
       ],
       "status": "fundamentada (extrativa)",
@@ -133,7 +133,7 @@
       ],
       "obtido": [
         "matricula_02_v1.txt",
-        "documentacao_06_v1.txt",
+        "prazo_matricula_v1.txt",
         "matricula_01_v1.txt"
       ],
       "status": "fundamentada (extrativa)",
@@ -146,6 +146,7 @@
         "matricula_03_v1.txt"
       ],
       "obtido": [
+        "prazo_matricula_v2.txt",
         "matricula_03_v1.txt"
       ],
       "status": "fundamentada (extrativa)",
@@ -182,9 +183,9 @@
       "tipo": "sem_resposta",
       "esperado": [],
       "obtido": [
+        "documentacao_04_v1.txt",
         "documentacao_06_v1.txt",
-        "matricula_01_v1.txt",
-        "documentacao_04_v1.txt"
+        "prazo_matricula_v2.txt"
       ],
       "status": "sem evidência suficiente",
       "acerto_recuperacao": false
@@ -194,7 +195,7 @@
       "tipo": "sem_resposta",
       "esperado": [],
       "obtido": [
-        "matricula_02_v1.txt",
+        "prazo_matricula_v1.txt",
         "documentacao_06_v1.txt",
         "matricula_01_v1.txt"
       ],
@@ -204,13 +205,16 @@
     {
       "id": "Q08",
       "tipo": "contraditoria_sem_regra",
-      "esperado": [],
-      "obtido": [
-        "documentacao_04_v1.txt",
-        "matricula_03_v1.txt"
+      "esperado": [
+        "prazo_matricula_v1.txt",
+        "prazo_matricula_v2.txt"
       ],
-      "status": "sem evidência suficiente",
-      "acerto_recuperacao": false
+      "obtido": [
+        "prazo_matricula_v1.txt",
+        "prazo_matricula_v2.txt"
+      ],
+      "status": "conflito de fontes",
+      "acerto_recuperacao": true
     }
   ],
   "comparacao_chunking": [
@@ -223,27 +227,27 @@
           "id": "Q01",
           "acerto": true,
           "top3": [
-            "documentacao_06_v1.txt",
             "matricula_01_v1.txt",
-            "matricula_02_v1.txt"
+            "matricula_02_v1.txt",
+            "prazo_matricula_v1.txt"
           ]
         },
         {
           "id": "Q02",
           "acerto": true,
           "top3": [
-            "documentacao_06_v1.txt",
             "matricula_01_v1.txt",
-            "matricula_02_v1.txt"
+            "matricula_02_v1.txt",
+            "prazo_matricula_v1.txt"
           ]
         },
         {
           "id": "Q03",
           "acerto": true,
           "top3": [
-            "matricula_01_v1.txt",
-            "matricula_02_v1.txt",
-            "matricula_03_v1.txt"
+            "matricula_03_v1.txt",
+            "prazo_matricula_v1.txt",
+            "prazo_matricula_v2.txt"
           ]
         },
         {
@@ -279,27 +283,27 @@
           "id": "Q01",
           "acerto": true,
           "top3": [
-            "documentacao_06_v1.txt",
             "matricula_01_v1.txt",
-            "matricula_02_v1.txt"
+            "matricula_02_v1.txt",
+            "prazo_matricula_v1.txt"
           ]
         },
         {
           "id": "Q02",
           "acerto": true,
           "top3": [
-            "documentacao_06_v1.txt",
             "matricula_01_v1.txt",
-            "matricula_02_v1.txt"
+            "matricula_02_v1.txt",
+            "prazo_matricula_v1.txt"
           ]
         },
         {
           "id": "Q03",
           "acerto": true,
           "top3": [
-            "matricula_01_v1.txt",
-            "matricula_02_v1.txt",
-            "matricula_03_v1.txt"
+            "matricula_03_v1.txt",
+            "prazo_matricula_v1.txt",
+            "prazo_matricula_v2.txt"
           ]
         },
         {
@@ -440,6 +444,7 @@
       "denominador": 12,
       "taxa": 1.0
     },
+    "conflito_q08": true,
     "totais": {
       "total": 12,
       "polaridades": {

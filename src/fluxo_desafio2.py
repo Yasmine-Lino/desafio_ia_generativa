@@ -2,6 +2,7 @@
 import datetime
 import json
 import uuid
+import time
 from pathlib import Path
 from .nlp import ficha
 from .embeddings import Indice
@@ -9,12 +10,12 @@ from .rag import responder
 from .guardrails import avaliar_texto
 
 def executar(texto,indice,arquivo_log="resultados/logs/desafio2.jsonl"):
-    id_exec=str(uuid.uuid4());inicio=datetime.datetime.now(datetime.timezone.utc).isoformat()
+    id_exec=str(uuid.uuid4());inicio=datetime.datetime.now(datetime.timezone.utc).isoformat();marco=time.perf_counter()
     dados=ficha(texto)
     pergunta=dados["estrutura"]["assunto"] or texto[:150]
     rag=responder(pergunta,indice)
     status="pendente" if rag["status"].startswith("fundamentada") and not dados["estrutura"]["necessita_revisao"] else "revisar"
-    resultado={"id":id_exec,"inicio":inicio,"esquema":"2.0","prompt":"extrativo-v1","indice":indice.dados["versao_indice"],"consulta":"[minimizada]","ids_recuperados":[x["id"] for x in rag["trechos"]],"ficha":dados,"rag":rag,"status":status,"decisao_humana":None,"envio_automatico":False}
+    resultado={"id":id_exec,"inicio":inicio,"esquema":"2.0","prompt":"extrativo-v1","indice":indice.dados["versao_indice"],"modelo_indice":indice.dados["modelo"],"latencia_segundos":round(time.perf_counter()-marco,4),"tokens":None,"custo_estimado":None,"consulta":"[minimizada]","ids_recuperados":[x["id"] for x in rag["trechos"]],"ficha":dados,"rag":rag,"status":status,"decisao_humana":None,"envio_automatico":False}
     log=Path(arquivo_log);log.parent.mkdir(parents=True,exist_ok=True)
     with log.open("a",encoding="utf-8") as f:f.write(json.dumps({k:v for k,v in resultado.items() if k not in ("ficha","rag")},ensure_ascii=False)+"\n")
     return resultado
@@ -25,6 +26,12 @@ def revisar(resultado,decisao,justificativa,destino="resultados/minutas/revisoes
     registro={"id":resultado["id"],"decisao":decisao,"justificativa":justificativa,"horario":datetime.datetime.now(datetime.timezone.utc).isoformat(),"ia_participou":True}
     p=Path(destino);p.parent.mkdir(parents=True,exist_ok=True)
     with p.open("a",encoding="utf-8") as f:f.write(json.dumps(registro,ensure_ascii=False)+"\n")
+    # Mesmo identificador da execução para vincular a decisão à trilha de auditoria.
+    if destino == "resultados/minutas/revisoes_desafio2.jsonl":
+        log = Path("resultados/logs/desafio2.jsonl")
+        log.parent.mkdir(parents=True, exist_ok=True)
+        with log.open("a", encoding="utf-8") as arquivo:
+            arquivo.write(json.dumps({"id": resultado["id"], "evento": "decisao_humana", "decisao": decisao, "horario": registro["horario"], "justificativa_registrada": True}, ensure_ascii=False) + "\n")
     return registro
 
 

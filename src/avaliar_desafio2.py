@@ -37,7 +37,7 @@ def executar():
     ataques=[{"id":x["id"],"decisao":avaliar_texto(x["texto"])} for x in ler("dados/gabaritos/desafio2_adversariais.json")]
     respondiveis=[x for x in rag if x["tipo"]=="respondível"]
     sem=[x for x in rag if x["tipo"]=="sem_resposta"]
-    saida={"execucao":"offline-local","fichas":fichas,"rag":rag,"comparacao_chunking":comparacao,"sentimentos":sent,"ataques":ataques,"metricas":{"recuperacao_top3":proporcao(sum(x["acerto_recuperacao"] for x in respondiveis),len(respondiveis)),"abstencao":proporcao(sum(x["status"]=="sem evidência suficiente" for x in sem),len(sem)),"sentimentos":proporcao(sum(x["polaridade"]==gab[x["id"]] for x in sent),len(sent)),"totais":sentimentos(sent)}}
+    saida={"execucao":"offline-local","fichas":fichas,"rag":rag,"comparacao_chunking":comparacao,"sentimentos":sent,"ataques":ataques,"metricas":{"recuperacao_top3":proporcao(sum(x["acerto_recuperacao"] for x in respondiveis),len(respondiveis)),"abstencao":proporcao(sum(x["status"]=="sem evidência suficiente" for x in sem),len(sem)),"sentimentos":proporcao(sum(x["polaridade"]==gab[x["id"]] for x in sent),len(sent)),"conflito_q08":next((x["status"]=="conflito de fontes" and len(set(x["obtido"]).intersection(x["esperado"]))==2 for x in rag if x["id"]=="Q08"),False),"totais":sentimentos(sent)}}
     p=Path("resultados/metricas/desafio2_offline.json");p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(saida,ensure_ascii=False,indent=2),encoding="utf-8")
     return saida
 if __name__=="__main__":print(json.dumps(executar()["metricas"],ensure_ascii=False,indent=2))

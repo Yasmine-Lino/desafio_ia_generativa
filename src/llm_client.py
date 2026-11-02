@@ -102,7 +102,7 @@ def consultar_llm(
     inicio = time.perf_counter()
 
     # Repetir somente falhas transitórias; nunca repetir erros 4xx definitivos.
-    for tentativa in range(1, 4):
+    for tentativa in range(1, 3):
         try:
             resposta = requests.post(
                 url,
@@ -111,13 +111,13 @@ def consultar_llm(
                 timeout=timeout
             )
         except requests.Timeout as erro:
-            if tentativa == 3:
-                raise ErroLLM("Tempo limite excedido na consulta à API após 3 tentativas.") from erro
+            if tentativa == 2:
+                raise ErroLLM("Tempo limite excedido na consulta à API após 2 tentativas.") from erro
         except requests.RequestException as erro:
-            if tentativa == 3:
-                raise ErroLLM("Não foi possível conectar ao serviço Gemini após 3 tentativas.") from erro
+            if tentativa == 2:
+                raise ErroLLM("Não foi possível conectar ao serviço Gemini após 2 tentativas.") from erro
         else:
-            if resposta.status_code not in (429, 500, 502, 503, 504) or tentativa == 3:
+            if resposta.status_code not in (429, 500, 502, 503, 504) or tentativa == 2:
                 break
         time.sleep(min(2 ** (tentativa - 1), 4))
 
