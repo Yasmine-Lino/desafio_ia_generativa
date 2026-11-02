@@ -222,13 +222,23 @@ def responder(pergunta: str, indice: IndiceVetorial, llm: LLMProtocol | None = N
             melhor_relevante = r
             break
 
+    # Validar o contexto antes de qualquer resposta
+    trechos = [r["texto"] for r in resultados]
+    contexto = montar_contexto_seguro(trechos)
+
+    if contexto.decisao != Decisao.PERMITIR:
+        return RespostaRAG(
+            pergunta=pergunta,
+            status=StatusResposta.SEM_EVIDENCIA,
+            resposta=None,
+            fontes=[],
+            motivo="contexto suspeito; revisao humana necessaria",
+            precisa_revisao=True,
+        )
+
     if llm is None:
         return RespostaRAG(pergunta=pergunta, status=StatusResposta.FUNDAMENTADA, resposta=f"[{melhor_relevante['metadados']['doc_id']}] {melhor_relevante['texto'][:300].strip()}", fontes=[_fonte_do_resultado(r) for r in resultados], motivo="modo offline")
 
-    trechos = [r["texto"] for r in resultados]
-    contexto = montar_contexto_seguro(trechos)
-    if contexto.decisao == Decisao.BLOQUEAR:
-        return RespostaRAG(pergunta=pergunta, status=StatusResposta.SEM_EVIDENCIA, resposta=None, fontes=[_fonte_do_resultado(r) for r in resultados], motivo="contexto malicioso", precisa_revisao=True)
 
     prompt = PROMPT_RAG.format(contexto=contexto.texto_saneado, pergunta=pergunta)
     bruto = llm.completar(prompt).strip()
