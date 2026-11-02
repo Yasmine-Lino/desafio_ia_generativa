@@ -166,6 +166,41 @@ def executar_rag_provedor(
             "envio_automatico": False
         }
 
+    # Validacao da resposta antes da exibicao.
+    from .guardrails import avaliar_texto
+    from .alternativo_desafio02.guardrails import (
+        Decisao,
+        validar_saida,
+    )
+
+    texto_saida = geracao.get("texto")
+
+    if not isinstance(texto_saida, str) or not texto_saida.strip():
+        return {
+            "status": "revisar",
+            "rag": rag,
+            "geracao": None,
+            "provedor_solicitado": provedor,
+            "motivo": "Resposta vazia ou invalida.",
+            "envio_automatico": False
+        }
+
+    avaliacao = avaliar_texto(texto_saida)
+    validacao = validar_saida(texto_saida)
+
+    if (
+        avaliacao["decisao"] != "permitir"
+        or validacao.decisao != Decisao.PERMITIR
+    ):
+        return {
+            "status": "revisar",
+            "rag": rag,
+            "geracao": None,
+            "provedor_solicitado": provedor,
+            "motivo": "Resposta bloqueada pelos controles de seguranca.",
+            "envio_automatico": False
+        }
+
     return {
         "status": "revisar",
         "rag": rag,
