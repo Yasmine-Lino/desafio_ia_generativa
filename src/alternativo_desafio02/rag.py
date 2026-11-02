@@ -182,23 +182,40 @@ def _tem_evidencia_suficiente(pergunta: str, resultados: list[dict[str, Any]]) -
         if any(len(t) >= 8 for t in encontrados): return True, encontrados
     return False, []
 
-def responder(pergunta: str, indice: IndiceVetorial, llm: LLMProtocol | None = None, top_k: int = 12) -> RespostaRAG:
-    # REGRA EXTRA PARA Q08: forca a deteccao do conflito conhecido entre DOC01 e DOC03
-    if "agropecuaria" in pergunta.lower() and "santa terezinha" in pergunta.lower():
-        fake_resultados = [
-            {"metadados": {"doc_id": "DOC01", "data_publicacao": "31/03/2026"}, "texto": "Inicio das aulas: 21/07/2026. Agropecuaria Santa Terezinha.", "chunk_id": "manual1", "distancia": 0.1},
-            {"metadados": {"doc_id": "DOC03", "data_publicacao": "03/08/2026"}, "texto": "Inicio das aulas: 05/10/2026. Agropecuaria Santa Terezinha.", "chunk_id": "manual2", "distancia": 0.1},
-        ]
-        for f in fake_resultados:
-            f["similaridade"] = 1.0 - f["distancia"]
-            f["_vigencia"] = _parse_data(f["metadados"]["data_publicacao"])
-        conflito = _detectar_conflito(fake_resultados, pergunta)
-        return RespostaRAG(
-            pergunta=pergunta, status=StatusResposta.CONFLITO, resposta=None,
-            fontes=[_fonte_do_resultado(r) for r in fake_resultados],
-            conflito=conflito, motivo="fontes contraditorias detectadas (regra explicita)", precisa_revisao=True,
-        )
+def _citacoes_conferem_com_fontes(resposta: str, resultados: list[dict[str, Any]]) -> bool:
+    """Verifica IDs recuperados e suporte lexical mínimo; não é prova semântica."""
+    citacoes = re.findall(r"\[\s*(DOC\d{2})\s*\]", resposta, re.IGNORECASE)
+    if not citacoes:
+        return False
+    fontes: dict[str, list[str]] = {}
+    for resultado in resultados:
+        doc_id = str(resultado.get("metadados", {}).get("doc_id", "")).upper()
+        fontes.setdefault(doc_id, []).append(resultado.get("texto", ""))
+    if any(c.upper() not in fontes for c in citacoes):
+        return False
 
+    # Cada afirmacao deve ter uma citacao; uma citacao nao valida outras frases.
+    for frase in re.split(r"(?<=[.!?])\s+|\n+", resposta):
+        if not frase.strip():
+            continue
+        ids = [c.upper() for c in re.findall(r"\[\s*(DOC\d{2})\s*\]", frase, re.IGNORECASE)]
+        if not ids:
+            return False
+        texto_afirmacao = re.sub(r"\[\s*DOC\d{2}\s*\]", "", frase, flags=re.IGNORECASE)
+        termos = {t for t in re.findall(r"\w{4,}", texto_afirmacao.casefold())
+                 if t not in STOPWORDS_PERGUNTA}
+        # Respostas sem conteudo verificavel alem do identificador nao sao fundamentadas.
+        if not termos:
+            return False
+        if not any(
+            len({t for t in termos if t in trecho.casefold()}) >= max(1, min(2, len(termos)))
+            for doc_id in ids for trecho in fontes[doc_id]
+        ):
+            return False
+    return True
+
+
+def responder(pergunta: str, indice: IndiceVetorial, llm: LLMProtocol | None = None, top_k: int = 12) -> RespostaRAG:
     resultados = buscar_com_reranking(indice, pergunta, top_k=top_k)
     if not resultados:
         return RespostaRAG(pergunta=pergunta, status=StatusResposta.SEM_EVIDENCIA, resposta=None, motivo="nenhum trecho recuperado", precisa_revisao=True)
@@ -210,17 +227,6 @@ def responder(pergunta: str, indice: IndiceVetorial, llm: LLMProtocol | None = N
     tem_ev, encontrados = _tem_evidencia_suficiente(pergunta, resultados)
     if not tem_ev:
         return RespostaRAG(pergunta=pergunta, status=StatusResposta.SEM_EVIDENCIA, resposta=None, fontes=[_fonte_do_resultado(r) for r in resultados], motivo="nenhum trecho contem termo-chave da pergunta", precisa_revisao=True)
-
-    conflito = _detectar_conflito(resultados, pergunta)
-    if conflito:
-        return RespostaRAG(pergunta=pergunta, status=StatusResposta.CONFLITO, resposta=None, fontes=[_fonte_do_resultado(r) for r in resultados], conflito=conflito, motivo="fontes contraditorias detectadas", precisa_revisao=True)
-
-    termos = _expandir_termos(pergunta)
-    melhor_relevante = melhor
-    for r in resultados:
-        if any(t in r["texto"].lower() for t in termos):
-            melhor_relevante = r
-            break
 
     # Validar o contexto antes de qualquer resposta
     trechos = [r["texto"] for r in resultados]
@@ -236,6 +242,17 @@ def responder(pergunta: str, indice: IndiceVetorial, llm: LLMProtocol | None = N
             precisa_revisao=True,
         )
 
+    conflito = _detectar_conflito(resultados, pergunta)
+    if conflito:
+        return RespostaRAG(pergunta=pergunta, status=StatusResposta.CONFLITO, resposta=None, fontes=[_fonte_do_resultado(r) for r in resultados], conflito=conflito, motivo="fontes contraditorias detectadas", precisa_revisao=True)
+
+    termos = _expandir_termos(pergunta)
+    melhor_relevante = melhor
+    for r in resultados:
+        if any(t in r["texto"].lower() for t in termos):
+            melhor_relevante = r
+            break
+
     if llm is None:
         return RespostaRAG(pergunta=pergunta, status=StatusResposta.FUNDAMENTADA, resposta=f"[{melhor_relevante['metadados']['doc_id']}] {melhor_relevante['texto'][:300].strip()}", fontes=[_fonte_do_resultado(r) for r in resultados], motivo="modo offline")
 
@@ -249,10 +266,22 @@ def responder(pergunta: str, indice: IndiceVetorial, llm: LLMProtocol | None = N
         return RespostaRAG(pergunta=pergunta, status=StatusResposta.CONFLITO, resposta=None, fontes=[_fonte_do_resultado(r) for r in resultados], conflito=conflito, motivo="LLM declarou conflito", precisa_revisao=True)
 
     check = validar_saida(bruto, exigir_citacao=True)
-    if check.decisao == Decisao.BLOQUEAR:
-        bruto = check.texto_saneado or bruto
-    if check.decisao == Decisao.REVISAR:
-        return RespostaRAG(pergunta=pergunta, status=StatusResposta.SEM_EVIDENCIA, resposta=bruto, fontes=[_fonte_do_resultado(r) for r in resultados], motivo="sem citacao", precisa_revisao=True)
+    if check.decisao != Decisao.PERMITIR:
+        # Nunca exibir a saida original bloqueada, nem classificá-la como fundamentada.
+        return RespostaRAG(
+            pergunta=pergunta, status=StatusResposta.SEM_EVIDENCIA, resposta=None,
+            fontes=[_fonte_do_resultado(r) for r in resultados],
+            motivo="saida bloqueada ou citacao ausente; revisao humana necessaria",
+            precisa_revisao=True,
+        )
+
+    if not _citacoes_conferem_com_fontes(bruto, resultados):
+        return RespostaRAG(
+            pergunta=pergunta, status=StatusResposta.SEM_EVIDENCIA, resposta=None,
+            fontes=[_fonte_do_resultado(r) for r in resultados],
+            motivo="citacao inexistente ou afirmacao sem suporte textual; revisao humana necessaria",
+            precisa_revisao=True,
+        )
 
     return RespostaRAG(pergunta=pergunta, status=StatusResposta.FUNDAMENTADA, resposta=bruto, fontes=[_fonte_do_resultado(r) for r in resultados], motivo="sintese com citacao")
 

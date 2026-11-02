@@ -268,7 +268,13 @@ def carregar_gabarito(caminho: str | Path = "dados/desafio02_alternativo/gabarit
 
 
 def carregar_solicitacao(sol_id: str) -> str:
-    caminho = Path(f"dados/desafio02_alternativo/solicitacoes/{sol_id}.txt")
+    # IDs sao nomes de casos, nunca caminhos arbitrarios fornecidos pelo operador.
+    if not isinstance(sol_id, str) or not re.fullmatch(r"sol\d{2}", sol_id):
+        raise ValueError("identificador de solicitacao invalido")
+    pasta = Path("dados/desafio02_alternativo/solicitacoes").resolve()
+    caminho = (pasta / f"{sol_id}.txt").resolve()
+    if not caminho.is_relative_to(pasta):
+        raise ValueError("arquivo fora do diretorio de solicitacoes")
     return caminho.read_text(encoding="utf-8")
 
 
