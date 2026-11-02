@@ -46,6 +46,7 @@ def executar_provedor(
 
     config = carregar_config_desafio2()
     provedor = modo if modo is not None else config["provedor_principal"]
+    inicio = time.perf_counter()
 
     registro = {
         "id": str(uuid.uuid4()),
@@ -57,6 +58,8 @@ def executar_provedor(
         "erro_tipo": None,
         "modelo": None,
         "tokens": None,
+        "custo_estimado_usd": None,
+        "latencia_segundos": None,
         "envio_automatico": False
     }
 
@@ -65,6 +68,7 @@ def executar_provedor(
         registro["status"] = "sucesso"
         registro["modelo"] = resultado.get("modelo")
         registro["tokens"] = resultado.get("tokens")
+        registro["custo_estimado_usd"] = resultado.get("custo")
         return resultado
 
     except Exception as erro:
@@ -73,11 +77,15 @@ def executar_provedor(
         raise
 
     finally:
+        registro["latencia_segundos"] = round(
+            time.perf_counter() - inicio, 4
+        )
+
         log = Path(arquivo_log)
         log.parent.mkdir(parents=True, exist_ok=True)
 
-        with log.open("a", encoding="utf-8") as f:
-            f.write(
+        with log.open("a", encoding="utf-8") as arquivo:
+            arquivo.write(
                 json.dumps(registro, ensure_ascii=False) + "\n"
             )
 
