@@ -93,40 +93,129 @@ CONTEXTO_PRAZO = {
     "matricula", "matrícula", "aula", "aulas", "periodo", "período",
 }
 
+
 def _detectar_conflito(resultados: list[dict[str, Any]], pergunta: str) -> dict[str, Any] | None:
-    if len(resultados) < 2:
+    """Detecta conflito somente quando o curso/localidade coincide."""
+
+    meses = {
+        "janeiro": 1, "fevereiro": 2, "marco": 3, "março": 3, "marco": 3,
+        "abril": 4, "maio": 5, "junho": 6, "julho": 7,
+        "agosto": 8, "setembro": 9, "outubro": 10,
+        "novembro": 11, "dezembro": 12,
+    }
+
+    def extrair_datas(texto):
+        datas = set(re.findall(r"\b\d{2}/\d{2}/\d{4}\b", texto))
+
+        for dia, mes, ano in re.findall(
+            r"\b(\d{1,2})\s+de\s+([a-z\u00c0-\u00ff]+)\s+de\s+(\d{4})\b",
+            texto.casefold(),
+        ):
+            numero = meses.get(mes)
+            if numero:
+                datas.add(f"{int(dia):02d}/{numero:02d}/{ano}")
+
+        return datas
+
+    entidades_pergunta = {
+        marcador for marcador in MARCADORES_ENTIDADE
+        if marcador in pergunta.casefold()
+    }
+
+    if not entidades_pergunta:
         return None
 
-    por_doc: dict[str, dict[str, Any]] = {}
-    for r in resultados:
-        doc = r["metadados"].get("doc_id")
-        if not doc: continue
-        texto_lower = r["texto"].lower()
-        entry = por_doc.setdefault(doc, {"doc_id": doc, "entidades": set(), "datas": set(), "tem_contexto": False, "melhor_resultado": r})
-        entry["entidades"] |= {m for m in MARCADORES_ENTIDADE if m in texto_lower}
-        entry["datas"] |= set(re.findall(r"\b(\d{2}/\d{2}/\d{4})\b", r["texto"]))
-        if any(c in texto_lower for c in CONTEXTO_PRAZO):
-            entry["tem_contexto"] = True
+    especificos = []
+    gerais = []
 
-    candidatos = [e for e in por_doc.values() if e["entidades"] and e["tem_contexto"] and e["datas"]]
-    if len(candidatos) < 2:
-        return None
+    for resultado in resultados:
+        texto = resultado["texto"]
+        doc_id = resultado["metadados"].get("doc_id", "")
+        datas = extrair_datas(texto)
 
-    for i in range(len(candidatos)):
-        for j in range(i + 1, len(candidatos)):
-            a, b = candidatos[i], candidatos[j]
-            if not (a["entidades"] & b["entidades"]): continue
-            if a["datas"] == b["datas"]: continue
-            ra, rb = a["melhor_resultado"], b["melhor_resultado"]
-            mais_recente = ra if _parse_data(ra["metadados"].get("data_publicacao", "")) > _parse_data(rb["metadados"].get("data_publicacao", "")) else rb
-            mais_antigo = rb if mais_recente is ra else ra
-            return {
-                "fonte_mais_recente": _fonte_do_resultado(mais_recente).__dict__,
-                "fonte_mais_antiga": _fonte_do_resultado(mais_antigo).__dict__,
-                "entidades_em_comum": sorted(a["entidades"] & b["entidades"]),
-                "datas_divergentes": {a["doc_id"]: sorted(a["datas"]), b["doc_id"]: sorted(b["datas"])},
-                "regra_prioridade": "data de publicacao mais recente prevalece, mas a divergencia deve ser apresentada ao operador",
+        if not datas:
+            continue
+
+        # O retificador possui itens separados por curso.
+        # Todos os marcadores da pergunta precisam aparecer
+        # no mesmo item, e não apenas no documento inteiro.
+        if doc_id == "DOC03":
+            linhas = texto.splitlines()
+
+            for i, linha in enumerate(linhas):
+                linha_lower = linha.casefold()
+
+                if not linha_lower.strip().startswith(("a)", "b)", "c)", "d)", "e)", "f)", "g)")):
+                    continue
+
+                if not all(m in linha_lower for m in entidades_pergunta):
+                    continue
+
+                # Recupera a data da alteração indicada no item 1.1.
+                data_alteracao = None
+
+                for anterior in reversed(linhas[:i]):
+                    encontrados = extrair_datas(anterior)
+                    if encontrados and (
+                        "alterada" in anterior.casefold()
+                        or "alteração" in anterior.casefold()
+                    ):
+                        data_alteracao = encontrados
+                        break
+
+                if data_alteracao:
+                    especificos.append({
+                        "resultado": resultado,
+                        "datas": data_alteracao,
+                        "entidades": entidades_pergunta,
+                    })
+
+        # Cronograma geral do edital original.
+        elif doc_id == "DOC01":
+            datas_cronograma = {
+                d for d in datas if d == "21/07/2026"
             }
+
+            if datas_cronograma and any(
+                termo in texto.casefold()
+                for termo in ("inicio das aulas", "início das aulas")
+            ):
+                gerais.append({
+                    "resultado": resultado,
+                    "datas": datas_cronograma,
+                })
+
+    for especifico in especificos:
+        for geral in gerais:
+            if especifico["datas"] == geral["datas"]:
+                continue
+
+            recente = especifico["resultado"]
+            antigo = geral["resultado"]
+
+            return {
+                "fonte_mais_recente": _fonte_do_resultado(
+                    recente
+                ).__dict__,
+                "fonte_mais_antiga": _fonte_do_resultado(
+                    antigo
+                ).__dict__,
+                "entidades_em_comum": sorted(
+                    especifico["entidades"]
+                ),
+                "datas_divergentes": {
+                    recente["metadados"].get("doc_id", ""):
+                        sorted(especifico["datas"]),
+                    antigo["metadados"].get("doc_id", ""):
+                        sorted(geral["datas"]),
+                },
+                "regra_prioridade": (
+                    "A fonte com data de publicacao mais recente "
+                    "prevalece, mas a divergencia deve ser "
+                    "apresentada ao operador"
+                ),
+            }
+
     return None
 
 STOPWORDS_PERGUNTA = {

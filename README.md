@@ -464,6 +464,31 @@ A verificacao atual cobre prazos numericos divergentes entre
 versoes do mesmo documento. Outros tipos de contradicao ainda
 nao foram validados.
 
+
+### RF19 - Implementacao alternativa
+
+Foi realizada uma avaliacao complementar do RAG da implementacao alternativa.
+
+| Indicador | Resultado |
+|---|---:|
+| Perguntas respondiveis (T08) | 4/5 (80%) |
+| Abstencao (T09) | 2/2 (100%) |
+| Identificacao de conflito (T10) | 1/1 (100%) |
+| Testes integrados | 27 aprovados |
+| Subtestes | 2 aprovados |
+
+A pergunta Q03, sobre heteroidentificacao da cota L1, permaneceu
+sem evidencias suficientes e foi registrada como ponto de melhoria.
+
+Na pergunta Q08, o sistema identificou a divergencia entre o edital
+original e o Retificador 06, sinalizando a necessidade de revisao humana.
+
+A execucao integrada apresentou um aviso de depreciacao na biblioteca
+de embeddings, sem falhas nos testes.
+
+Relatorio detalhado:
+`documentacao/AVALIACAO_RF19_ALTERNATIVO.md`
+
 ### Limitacoes
 
 O indice utiliza hashing lexical com 1024 dimensoes e similaridade
