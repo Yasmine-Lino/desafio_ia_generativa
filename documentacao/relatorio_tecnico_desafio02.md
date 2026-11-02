@@ -61,3 +61,24 @@ sem falhas nessa execucao.
 
 Os resultados demonstram o funcionamento das partes cobertas pelos testes,
 mas nao comprovam implementacao integral de todos os requisitos do desafio.
+
+## 5. Atualizacao de evidencias em 02/11/2026
+
+A equipe informou a aprovacao de 100 testes da suite alternativa no Windows,
+10 testes especificos de auditoria RF21 e a regressao T15 com 1 teste e 2
+subtestes aprovados. A compilacao de `avaliar_sentimentos_real.py` tambem foi
+verificada. Esses resultados nao substituem as demonstracoes manuais previstas
+na matriz T01–T15.
+
+A tentativa real de classificacao de sentimentos pelo Gemini nao foi concluida:
+12 tentativas terminaram em HTTP 503, HTTP 429 ou timeout, sem classificacoes
+validas. A acuracia real e nao calculavel (0/0). Foi identificada divergencia
+de identificadores: a entrada usa A01–A12 e o gabarito alternativo antigo usa
+aval01–aval12, alem de apontar para arquivos TXT ausentes. O script foi
+atualizado para usar `dados/gabaritos/desafio2_sentimentos.json`, validar os
+IDs e representar acuracia sem amostras como nula. Nao foi feita nova chamada
+real apos essa correcao.
+
+Permanecem pendentes: demonstracao manual de T11 e T14; medicao da proporcao
+de respostas RAG com todas as afirmacoes sustentadas; consolidacao de RF23 com
+numeradores e denominadores; e publicacao confirmada na branch `main`.

@@ -1,2 +1,6 @@
 {"id": "ccc1321f-9643-44a1-8bb1-853a34596544", "tipo": "privacidade", "data_hora": "2026-11-02T16:08:24.568103+00:00", "dados": {"acao": "exclusao_documento", "doc_id": "DOC99", "chunks_removidos": 1}}
 {"id": "2e19da39-eedb-43c4-bf0c-b0bc537b9b40", "tipo": "privacidade", "data_hora": "2026-11-02T16:08:28.628237+00:00", "dados": {"acao": "exclusao_documento", "doc_id": "DOC99", "chunks_removidos": 0}}
+{"id": "c411666a-f9bc-4ac7-badf-414bd3dbb857", "tipo": "privacidade", "data_hora": "2026-11-02T21:06:36.372425+00:00", "dados": {"acao": "exclusao_documento", "doc_id": "DOC99", "chunks_removidos": 1}}
+{"id": "9967c51e-d533-4fb3-b165-ed6d084b8da9", "tipo": "privacidade", "data_hora": "2026-11-02T21:06:41.241035+00:00", "dados": {"acao": "exclusao_documento", "doc_id": "DOC99", "chunks_removidos": 0}}
+{"id": "87d558ee-41b4-4a26-887b-2ccb345d78d9", "tipo": "privacidade", "data_hora": "2026-11-02T21:29:19.085468+00:00", "dados": {"acao": "exclusao_documento", "doc_id": "DOC99", "chunks_removidos": 1}}
+{"id": "8fdcbe24-8701-491d-b4c0-cd0aa3a54bd1", "tipo": "privacidade", "data_hora": "2026-11-02T21:29:22.711695+00:00", "dados": {"acao": "exclusao_documento", "doc_id": "DOC99", "chunks_removidos": 0}}

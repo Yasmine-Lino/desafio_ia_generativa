@@ -9,11 +9,11 @@
   "metricas": {
     "total": 0,
     "acertos": 0,
-    "acuracia": 0.0,
+    "acuracia": null,
     "ambiguas": {
       "total": 0,
       "acertos": 0,
-      "proporcao": 0.0
+      "proporcao": null
     },
     "detalhes": []
   },
@@ -69,5 +69,33 @@
       "erro": "Limite de requisições ou cota atingida. HTTP 429."
     }
   ],
-  "observacao": "Classificacao realizada por API real. Acuracia calculada contra o gabarito ficticio. Nao representa validacao em dados reais."
+  "observacao": "A tentativa real de 02/11/2026 terminou sem classificacoes validas: 12 erros HTTP 503/429 ou timeout. A acuracia e nao calculavel (0/0), nao 0%. A execucao original usou IDs aval01-aval12 do gabarito alternativo, enquanto o conjunto de entrada usa A01-A12. O script foi ajustado para usar dados/gabaritos/desafio2_sentimentos.json e validar a correspondencia dos IDs antes de comparar. Nao houve nova chamada real apos esse ajuste.",
+  "ids_entrada": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A08",
+    "A09",
+    "A10",
+    "A11",
+    "A12"
+  ],
+  "ids_gabarito_usado_na_execucao": [
+    "aval01",
+    "aval02",
+    "aval03",
+    "aval04",
+    "aval05",
+    "aval06",
+    "aval07",
+    "aval08",
+    "aval09",
+    "aval10",
+    "aval11",
+    "aval12"
+  ]
 }

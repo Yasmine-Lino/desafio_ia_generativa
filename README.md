@@ -565,7 +565,6 @@ com simulacoes e metricas calculadas em conjunto ficticio pequeno.
 
 ### Integração com a revisão do Adriano
 
-As decisões e pendências de integração estão em `documentacao/PLANO_INTEGRACAO_ADRIANO_YASMINE.md`. A imagem RF10 v2 é uma alternativa e não foi aprovada automaticamente.
 
 ## Integração do Desafio 2 — Adriano, Líbia e Yasmine
 
@@ -620,4 +619,61 @@ A aprovação dos testes não comprova que todos os requisitos estejam concluíd
 
 - `documentacao/RELATORIO_DESAFIO2.md`
 - `documentacao/relatorio_tecnico_desafio02.md`
-- `documentacao/PLANO_INTEGRACAO_ADRIANO_YASMINE.md`
+
+### Atualizacao de fechamento — 02/11/2026
+
+Esta secao registra as verificacoes mais recentes e complementa os resultados
+historicos acima. Os numeros de execucoes anteriores foram mantidos como
+historico e nao devem ser somados entre si.
+
+| Verificacao | Resultado observado | Interpretacao |
+|---|---:|---|
+| Suíte `testes_alternativos_desafio02/` | 100 aprovados | Testes automatizados alternativos executados no Windows com Python 3.12.10. |
+| Auditoria RF21 (`teste_rf21_auditoria.py`) | 10 aprovados | Testes automatizados do registro e tratamento de eventos. |
+| Regressao T15 | 1 teste + 2 subtestes aprovados | Entradas texto e OCR percorreram o fluxo automatizado; a decisao de revisao do teste e simulada. |
+| Compilacao de `avaliar_sentimentos_real.py` | Aprovada | Verificacao sintatica; nao executa chamadas a API. |
+| Tentativa real Gemini RF22 | 0 classificacoes validas em 12 tentativas | Foram observados HTTP 503, HTTP 429 e timeout; acuracia nao calculavel (0/0). |
+
+#### RF22 — conjunto de sentimentos A01–A12
+
+O conjunto utilizado em `dados/avaliacoes/avaliacoes.json` possui os IDs
+`A01` a `A12`. O gabarito correspondente e
+`dados/gabaritos/desafio2_sentimentos.json`, tambem com IDs `A01` a `A12`.
+O gabarito alternativo em `dados/desafio02_alternativo/gabaritos/sentimentos.json`
+referencia arquivos `aval01.txt` a `aval12.txt`, que nao existem no pacote, e
+nao deve ser usado para avaliar o conjunto A01–A12.
+
+O script `src/alternativo_desafio02/avaliar_sentimentos_real.py` foi ajustado
+para usar o gabarito correspondente e interromper a execucao se os IDs nao
+coincidirem. A tentativa real anterior do Gemini nao produziu classificacoes
+validas. Portanto, o resultado e **nao calculavel (0/0)**, e nao 0% nem 100%.
+Os testes com mocks/regras locais validam somente o comportamento local e nao
+substituem uma execucao real do provedor.
+
+#### RF23, T11 e T14 — limites das evidencias
+
+A matriz T01–T15 deve distinguir teste automatizado de demonstracao manual.
+A regressao T15 aprovada nao comprova uma decisao humana real pela interface.
+A existencia dos testes de revisao e exclusao tambem nao substitui a evidencia
+manual de T11 (operador registrando decisao e justificativa) e T14 (exclusao,
+log e busca posterior sem o documento). Esses dois criterios permanecem
+pendentes de demonstracao manual documentada.
+
+A proporcao de respostas RAG com todas as afirmacoes sustentadas ainda nao foi
+medida com numerador e denominador. Os resultados Top-3 e de abstencao nao
+podem ser usados como substitutos dessa metrica RF23.
+
+#### Publicacao e pacote
+
+O commit `650b743` foi criado na branch `integracao` em 02/11/2026. Isso nao
+comprova publicacao na branch `main`. A publicacao deve ser confirmada na
+maquina que possui o repositorio Git e acesso ao remoto, seguindo o checklist
+de entrega. O ZIP recebido para esta atualizacao nao contem a pasta `.git`;
+portanto, nao permite verificar o estado remoto nem executar `git push`.
+
+### Material de apresentação
+
+- `documentacao/SLIDE_RESUMO_CANVA.pptx`: slide-resumo em formato PowerPoint, que pode ser importado no Canva.
+- `documentacao/ROTEIRO_APRESENTACAO_VIDEO.md`: roteiro organizado pelos seis blocos e tempos da seção 14 do PDF.
+
+O PDF exige apresentação de até 15 minutos, mas não especifica gravação de vídeo, duração ou formato. O roteiro pode ser usado como apoio à apresentação ou gravação complementar. O slide-resumo não substitui uma apresentação completa de 15 minutos.
