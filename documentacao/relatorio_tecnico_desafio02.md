@@ -82,3 +82,22 @@ real apos essa correcao.
 Permanecem pendentes: demonstracao manual de T11 e T14; medicao da proporcao
 de respostas RAG com todas as afirmacoes sustentadas; consolidacao de RF23 com
 numeradores e denominadores; e publicacao confirmada na branch `main`.
+
+
+## 6. Demonstra??o manual T14 ? 02/11/2026
+
+Foi realizada a exclus?o manual do documento `documentacao_04_v1.txt`.
+
+A opera??o removeu um trecho do ?ndice, preservou o arquivo original
+e registrou o evento em `resultados/logs/exclusoes_desafio2.jsonl`.
+
+Ap?s a exclus?o, o ?ndice foi carregado novamente e uma busca foi
+executada utilizando termos relacionados ao conte?do do documento.
+
+Resultados:
+- Documento exclu?do encontrado: False.
+- Outros documentos permaneceram dispon?veis.
+- ?ndice atualizado: vers?o 4.
+- Auditoria: exclus?o registrada.
+
+A demonstra??o confirma o comportamento esperado do T14.

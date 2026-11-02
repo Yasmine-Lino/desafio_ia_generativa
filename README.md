@@ -677,3 +677,16 @@ portanto, nao permite verificar o estado remoto nem executar `git push`.
 - `documentacao/ROTEIRO_APRESENTACAO_VIDEO.md`: roteiro organizado pelos seis blocos e tempos da seção 14 do PDF.
 
 O PDF exige apresentação de até 15 minutos, mas não especifica gravação de vídeo, duração ou formato. O roteiro pode ser usado como apoio à apresentação ou gravação complementar. O slide-resumo não substitui uma apresentação completa de 15 minutos.
+
+
+### Evid?ncia complementar ? T14 (02/11/2026)
+
+A exclus?o manual do documento `documentacao_04_v1.txt` foi demonstrada.
+Um trecho foi removido do ?ndice, o arquivo original foi preservado
+e o evento foi registrado na auditoria.
+
+Ap?s recarregar o ?ndice, a busca n?o encontrou o documento exclu?do.
+Os demais documentos continuaram dispon?veis.
+
+Evid?ncia: `resultados/logs/exclusoes_desafio2.jsonl`.
+Situa??o: demonstra??o manual conclu?da.
