@@ -1,0 +1,73 @@
+{
+  "projeto": "Central Inteligente de Atendimento",
+  "requisito": "RF22",
+  "provedor": "Gemini",
+  "modelo": "gemini-3.8-flash",
+  "origem_dados": "dados/avaliacoes/avaliacoes.json",
+  "total_avaliacoes": 12,
+  "chamadas_realizadas": 0,
+  "metricas": {
+    "total": 0,
+    "acertos": 0,
+    "acuracia": 0.0,
+    "ambiguas": {
+      "total": 0,
+      "acertos": 0,
+      "proporcao": 0.0
+    },
+    "detalhes": []
+  },
+  "tokens_entrada": 0,
+  "tokens_saida": 0,
+  "erros": [
+    {
+      "id": "aval01",
+      "erro": "Serviço temporariamente indisponível. HTTP 503."
+    },
+    {
+      "id": "aval02",
+      "erro": "Serviço temporariamente indisponível. HTTP 503."
+    },
+    {
+      "id": "aval03",
+      "erro": "Serviço temporariamente indisponível. HTTP 503."
+    },
+    {
+      "id": "aval04",
+      "erro": "Tempo limite excedido na consulta à API após 2 tentativas."
+    },
+    {
+      "id": "aval05",
+      "erro": "Serviço temporariamente indisponível. HTTP 503."
+    },
+    {
+      "id": "aval06",
+      "erro": "Serviço temporariamente indisponível. HTTP 503."
+    },
+    {
+      "id": "aval07",
+      "erro": "Serviço temporariamente indisponível. HTTP 503."
+    },
+    {
+      "id": "aval08",
+      "erro": "Serviço temporariamente indisponível. HTTP 503."
+    },
+    {
+      "id": "aval09",
+      "erro": "Limite de requisições ou cota atingida. HTTP 429."
+    },
+    {
+      "id": "aval10",
+      "erro": "Limite de requisições ou cota atingida. HTTP 429."
+    },
+    {
+      "id": "aval11",
+      "erro": "Limite de requisições ou cota atingida. HTTP 429."
+    },
+    {
+      "id": "aval12",
+      "erro": "Limite de requisições ou cota atingida. HTTP 429."
+    }
+  ],
+  "observacao": "Classificacao realizada por API real. Acuracia calculada contra o gabarito ficticio. Nao representa validacao em dados reais."
+}

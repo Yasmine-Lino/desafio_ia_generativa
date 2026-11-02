@@ -39,7 +39,7 @@ class MotorEmbedding:
     def __init__(self, modelo: str = MODELO_EMBEDDING):
         self.modelo_nome = modelo
         self._model = SentenceTransformer(modelo)
-        self.dimensao = self._model.get_sentence_embedding_dimension()
+        self.dimensao = self._model.get_embedding_dimension()
 
     @classmethod
     def obter(cls, modelo: str = MODELO_EMBEDDING) -> "MotorEmbedding":
@@ -93,35 +93,68 @@ class IndiceVetorial:
     def contar(self) -> int:
         return self.colecao.count()
 
-    def indexar_chunks(self, chunks: list[dict[str, Any]], forcar: bool = False) -> dict[str, Any]:
-        """
-        chunks: lista de {id, texto, metadados}
-        Idempotente: mesmo id nao duplica; hash igual pula (a menos que forcar=True).
-        """
+    def indexar_chunks(
+        self,
+        chunks: list[dict[str, Any]],
+        forcar: bool = False
+    ) -> dict[str, Any]:
         if not chunks:
-            return {"inseridos": 0, "ignorados": 0}
+            return {"inseridos": 0, "atualizados": 0, "ignorados": 0}
 
-        ids_existentes: set[str] = set()
-        if not forcar:
-            existentes = self.colecao.get(ids=[c["id"] for c in chunks], include=["metadatas"])
-            for cid, meta in zip(existentes["ids"], existentes["metadatas"] or []):
-                ids_existentes.add(cid)
+        ids = [c["id"] for c in chunks]
 
-        novos = [c for c in chunks if c["id"] not in ids_existentes]
-        ignorados = len(chunks) - len(novos)
+        if len(ids) != len(set(ids)):
+            raise ValueError("Existem IDs duplicados na lista de chunks.")
 
-        if not novos:
-            return {"inseridos": 0, "ignorados": ignorados}
-
-        textos = [c["texto"] for c in novos]
-        vetores = self.motor.gerar(textos)
-        self.colecao.upsert(
-            ids=[c["id"] for c in novos],
-            embeddings=vetores,
-            documents=textos,
-            metadatas=[c["metadados"] for c in novos],
+        existentes = self.colecao.get(
+            ids=ids,
+            include=["metadatas"]
         )
-        return {"inseridos": len(novos), "ignorados": ignorados}
+
+        hashes_existentes = {
+            cid: (meta or {}).get("hash_chunk")
+            for cid, meta in zip(
+                existentes["ids"],
+                existentes["metadatas"] or []
+            )
+        }
+
+        novos = []
+        atualizados = []
+        ignorados = 0
+
+        for chunk in chunks:
+            cid = chunk["id"]
+            hash_novo = (
+                chunk["metadados"].get("hash_chunk")
+                or hash_texto(chunk["texto"])
+            )
+
+            if cid not in hashes_existentes:
+                novos.append(chunk)
+            elif forcar or hashes_existentes[cid] != hash_novo:
+                atualizados.append(chunk)
+            else:
+                ignorados += 1
+
+        para_indexar = novos + atualizados
+
+        if para_indexar:
+            textos = [c["texto"] for c in para_indexar]
+            vetores = self.motor.gerar(textos)
+
+            self.colecao.upsert(
+                ids=[c["id"] for c in para_indexar],
+                embeddings=vetores,
+                documents=textos,
+                metadatas=[c["metadados"] for c in para_indexar],
+            )
+
+        return {
+            "inseridos": len(novos),
+            "atualizados": len(atualizados),
+            "ignorados": ignorados
+        }
 
     def buscar(self, consulta: str, top_k: int = 5) -> list[dict[str, Any]]:
         """

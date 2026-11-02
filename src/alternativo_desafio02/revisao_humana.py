@@ -1,9 +1,9 @@
-"""Revisão humana de documentos vinculados à auditoria."""
+﻿"""Revisao humana vinculada a auditoria alternativa."""
 
 import hashlib
 from pathlib import Path
 
-from src.audit import (
+from src.alternativo_desafio02.audit import (
     RAIZ,
     listar_execucoes,
     registrar_decisao_humana,
@@ -15,9 +15,9 @@ def revisar_documento(
     decisao,
     arquivo_revisado,
     caminho_log=None,
-    raiz_projeto=None
+    raiz_projeto=None,
 ):
-    """Registra a decisão humana sobre uma versão específica."""
+    """Registra decisao humana sobre documento de uma execucao."""
 
     raiz = Path(raiz_projeto) if raiz_projeto else RAIZ
     raiz = raiz.resolve()
@@ -25,88 +25,74 @@ def revisar_documento(
     documento = (raiz / arquivo_revisado).resolve()
 
     if not documento.is_relative_to(raiz):
-        raise ValueError(
-            "O documento revisado deve estar dentro do projeto."
-        )
+        raise ValueError("Documento fora da pasta do projeto.")
 
     if not documento.is_file():
-        raise ValueError("Documento revisado não encontrado.")
+        raise ValueError("Documento revisado nao encontrado.")
 
     if decisao not in ("aprovado", "rejeitado"):
-        raise ValueError("Decisão humana inválida.")
+        raise ValueError("Decisao humana invalida.")
 
     registros = listar_execucoes(caminho_log)
 
     execucoes = [
-        registro
-        for registro in registros
-        if registro.get("id_execucao") == id_execucao
-        and registro.get("tipo_evento", "execucao") == "execucao"
+        r for r in registros
+        if r.get("id_execucao") == id_execucao
+        and r.get("tipo_evento", "execucao") == "execucao"
     ]
 
     if len(execucoes) != 1:
-        raise ValueError("Execução não encontrada ou duplicada.")
+        raise ValueError("Execucao nao encontrada ou duplicada.")
 
     execucao = execucoes[0]
 
     if execucao.get("status") != "sucesso":
-        raise ValueError(
-            "Não é possível revisar uma execução malsucedida."
-        )
+        raise ValueError("Execucao malsucedida nao pode ser revisada.")
 
     if execucao.get("revisao_humana") != "pendente":
-        raise ValueError("A execução não está pendente de revisão.")
+        raise ValueError("Execucao nao esta pendente de revisao.")
 
-    # Confere o vínculo do documento com a execução original.
     arquivo_original = execucao.get("arquivo_saida")
 
     if not arquivo_original:
-        raise ValueError(
-            "A execução não identifica o arquivo de saída."
-        )
+        raise ValueError("Execucao sem arquivo de saida registrado.")
 
     original = Path(arquivo_original)
-    revisado = Path(documento.relative_to(raiz).as_posix())
-
-    nome_revisado = (
-        original.stem + "_revisada" + original.suffix
-    )
 
     caminhos_permitidos = {
         original.as_posix(),
-        (original.parent / nome_revisado).as_posix()
+        (original.parent / (
+            original.stem + "_revisada" + original.suffix
+        )).as_posix(),
     }
 
-    if revisado.as_posix() not in caminhos_permitidos:
-        raise ValueError(
-            "Documento não corresponde à execução auditada."
-        )
+    caminho_relativo = documento.relative_to(raiz).as_posix()
+
+    if caminho_relativo not in caminhos_permitidos:
+        raise ValueError("Documento nao corresponde a execucao.")
 
     conteudo = documento.read_bytes()
 
     if not conteudo:
-        raise ValueError("Documento revisado está vazio.")
+        raise ValueError("Documento revisado esta vazio.")
 
     hash_documento = hashlib.sha256(conteudo).hexdigest()
 
-    caminho_relativo = documento.relative_to(raiz).as_posix()
-
-    evento = registrar_decisao_humana(
+    return registrar_decisao_humana(
         id_execucao=id_execucao,
         decisao=decisao,
         caminho=caminho_log,
         arquivo_revisado=caminho_relativo,
-        sha256_documento=hash_documento
+        sha256_documento=hash_documento,
     )
 
-    return evento
 
 def verificar_integridade_documento(
     id_execucao,
     caminho_log=None,
-    raiz_projeto=None
+    raiz_projeto=None,
 ):
-    """Verifica se o documento mantém o conteúdo registrado na revisão."""
+    """Confere se o documento continua igual ao revisado."""
 
     raiz = Path(raiz_projeto) if raiz_projeto else RAIZ
     raiz = raiz.resolve()
@@ -114,25 +100,21 @@ def verificar_integridade_documento(
     registros = listar_execucoes(caminho_log)
 
     decisoes = [
-        registro
-        for registro in registros
-        if registro.get("tipo_evento") == "decisao_humana"
-        and registro.get("id_execucao_referenciada") == id_execucao
+        r for r in registros
+        if r.get("tipo_evento") == "decisao_humana"
+        and r.get("id_execucao_referenciada") == id_execucao
     ]
 
     if len(decisoes) != 1:
-        raise ValueError(
-            "Não existe uma decisão humana única para esta execução."
-        )
+        raise ValueError("Decisao humana unica nao encontrada.")
 
     decisao = decisoes[0]
+
     caminho_registrado = decisao.get("arquivo_revisado")
     hash_registrado = decisao.get("sha256_documento")
 
     if not caminho_registrado or not hash_registrado:
-        raise ValueError(
-            "A decisão não possui identificação da versão revisada."
-        )
+        raise ValueError("Identificacao do documento incompleta.")
 
     documento = (raiz / caminho_registrado).resolve()
 
