@@ -68,3 +68,85 @@ def test_rf21_registra_falha_sem_expor_contexto():
         assert registro["envio_automatico"] is False
         assert "Pergunta confidencial de teste" not in conteudo
         assert "Contexto confidencial de teste" not in conteudo
+
+def test_t12_troca_provedor_preserva_indice(tmp_path):
+    from unittest.mock import Mock, patch
+
+    from src.fluxo_desafio2 import executar_rag_provedor
+
+    indice = Mock()
+    indice.dados = {
+        "versao_indice": 2,
+        "modelo": "hashing-lexical-v1",
+        "itens": {},
+    }
+
+    rag_simulado = {
+        "status": "fundamentada (extrativa)",
+        "resposta": "O prazo e de 30 dias.",
+        "trechos": [
+            {
+                "documento": "norma_ficticia.txt",
+                "versao": "1",
+                "pagina": 1,
+                "texto": "O prazo e de 30 dias.",
+            }
+        ],
+    }
+
+    versao_original = indice.dados["versao_indice"]
+    log = tmp_path / "provedores_t12.jsonl"
+
+    with (
+        patch(
+            "src.rag.responder",
+            return_value=rag_simulado,
+        ) as recuperar,
+        patch(
+            "src.fluxo_desafio2.executar_provedor",
+            side_effect=[
+                RuntimeError("Falha simulada"),
+                {
+                    "provedor": "gemini",
+                    "texto": "O prazo e de 30 dias.",
+                },
+            ],
+        ) as gerar,
+    ):
+        primeira = executar_rag_provedor(
+            "Qual e o prazo?",
+            indice,
+            modo="openai",
+            arquivo_log=log,
+        )
+
+        segunda = executar_rag_provedor(
+            "Qual e o prazo?",
+            indice,
+            modo="gemini",
+            arquivo_log=log,
+        )
+
+    assert primeira["status"] == "revisar"
+    assert primeira["erro_tipo"] == "RuntimeError"
+    assert primeira["envio_automatico"] is False
+
+    assert segunda["status"] == "revisar"
+    assert segunda["geracao"]["provedor"] == "gemini"
+    assert segunda["envio_automatico"] is False
+
+    assert recuperar.call_count == 2
+    assert gerar.call_count == 2
+
+    assert all(
+        chamada.args[1] is indice
+        for chamada in recuperar.call_args_list
+    )
+
+    assert [
+        chamada.kwargs["modo"]
+        for chamada in gerar.call_args_list
+    ] == ["openai", "gemini"]
+
+    indice.indexar.assert_not_called()
+    assert indice.dados["versao_indice"] == versao_original
