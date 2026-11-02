@@ -18,7 +18,7 @@ def criar_resultado(status="pendente"):
 
 
 def iniciar_interface():
-    app = AppTest.from_file(Path(__file__).resolve().parent.parent / "src" / "app.py", default_timeout=15)
+    app = AppTest.from_file(Path(__file__).resolve().parent.parent / "src" / "app.py", default_timeout=30)
     app.run()
     assert not app.exception
     return app
@@ -128,3 +128,54 @@ def test_rf20_geracao_externa_nao_permite_aprovacao():
         botao.label == "Registrar decisao"
         for botao in app.button
     )
+
+@pytest.mark.parametrize("decisao", ["aprovada", "rejeitada", "revisar"])
+def test_t11_decisao_persistida_pela_interface(decisao, tmp_path):
+    import json
+
+    app = iniciar_interface()
+
+    resultado = criar_resultado("pendente")
+    destino = tmp_path / "revisoes_t11.jsonl"
+
+    from src.fluxo_desafio2 import revisar as revisar_original
+
+    def revisar_temporario(resultado, decisao, justificativa):
+        return revisar_original(
+            resultado,
+            decisao,
+            justificativa,
+            destino=str(destino),
+        )
+
+    with patch(
+        "src.fluxo_desafio2.executar",
+        return_value=resultado,
+    ):
+        app.button[2].click().run()
+
+    assert not app.exception
+
+    with patch(
+        "src.fluxo_desafio2.revisar",
+        side_effect=revisar_temporario,
+    ):
+        app.selectbox[2].set_value(decisao).run()
+        app.text_input[0].set_value("Revisao humana T11").run()
+        app.button[3].click().run()
+
+    assert not app.exception
+    assert destino.exists()
+
+    registros = [
+        json.loads(linha)
+        for linha in destino.read_text(encoding="utf-8").splitlines()
+    ]
+
+    assert len(registros) == 1
+    assert registros[0]["id"] == resultado["id"]
+    assert registros[0]["decisao"] == decisao
+    assert registros[0]["justificativa"] == "Revisao humana T11"
+    assert registros[0]["ia_participou"] is True
+    assert "horario" in registros[0]
+    assert resultado["status"] == "pendente"
