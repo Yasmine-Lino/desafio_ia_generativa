@@ -120,10 +120,61 @@ with t2:
                 except Exception as erro:
                     st.error(str(erro))
 with t3:
-    caminho=Path("dados/avaliacoes/avaliacoes.json")
+    caminho = Path("dados/avaliacoes/avaliacoes.json")
+
     if caminho.exists():
-        avaliacoes=json.loads(caminho.read_text(encoding="utf-8"))
-        saidas=[classificar(x) for x in avaliacoes]
-        st.json(sentimentos(saidas));st.dataframe(saidas)
-        st.bar_chart(sentimentos(saidas)["polaridades"])
-    else:st.info("Avaliações fictícias não encontradas")
+        avaliacoes = json.loads(caminho.read_text(encoding="utf-8"))
+        saidas = [classificar(x) for x in avaliacoes]
+
+        ids = set()
+        unicos = []
+
+        for item in saidas:
+            if item["id"] not in ids:
+                unicos.append(item)
+                ids.add(item["id"])
+
+        polaridade = st.selectbox(
+            "Filtrar por sentimento",
+            ["Todas", "positiva", "negativa", "neutra", "indeterminada"],
+        )
+
+        revisao = st.selectbox(
+            "Filtrar por revisao",
+            ["Todas", "Necessita revisao", "Nao necessita revisao"],
+        )
+
+        filtrados = [
+            item for item in unicos
+            if (polaridade == "Todas" or item["polaridade"] == polaridade)
+            and (
+                revisao == "Todas"
+                or (
+                    revisao == "Necessita revisao"
+                    and item["necessita_revisao"]
+                )
+                or (
+                    revisao == "Nao necessita revisao"
+                    and not item["necessita_revisao"]
+                )
+            )
+        ]
+
+        total = len(unicos)
+        quantidade = len(filtrados)
+        percentual = quantidade / total * 100 if total else 0
+
+        st.write(
+            f"Avaliacoes filtradas: {quantidade} de {total} "
+            f"({quantidade}/{total} = {percentual:.1f}%)"
+        )
+
+        if filtrados:
+            resumo = sentimentos(filtrados)
+            st.json(resumo)
+            st.dataframe(filtrados)
+            st.bar_chart(resumo["polaridades"])
+        else:
+            st.info("Nenhuma avaliacao encontrada para os filtros selecionados.")
+    else:
+        st.info("Avaliacoes ficticias nao encontradas")
