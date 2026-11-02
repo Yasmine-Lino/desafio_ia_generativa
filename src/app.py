@@ -5,7 +5,7 @@ import json
 import streamlit as st
 from src.embeddings import Indice
 from src.exclusao_desafio2 import excluir_documento
-from src.fluxo_desafio2 import executar, revisar
+from src.fluxo_desafio2 import executar, revisar, executar_rag_provedor
 from src.sentiment import classificar
 from src.metrics import sentimentos
 
@@ -40,23 +40,85 @@ with t1:
             st.success(f"Trechos removidos: {evento['trechos_removidos']}. Exclusão registrada.")
         except Exception as e:
             st.error(str(e))
-    entrada=st.text_area("Solicitação fictícia")
-    if st.button("Processar solicitação"):
-        try:st.session_state["ultimo"]=executar(entrada,indice)
-        except Exception as e:st.error(str(e))
+    entrada=st.text_area("Solicitacao ficticia")
+
+    modo=st.selectbox(
+        "Modo de processamento",
+        ["Extrativo (local)", "OpenAI", "Gemini"],
+        index=0,
+    )
+
+    if st.button("Processar solicitacao"):
+        try:
+            resultado=executar(entrada,indice)
+            st.session_state["ultimo"]=resultado
+            st.session_state.pop("ultima_geracao_externa",None)
+
+            if modo in ("OpenAI","Gemini"):
+                if resultado["status"] == "revisar":
+                    st.warning(
+                        "Solicitacao exige revisao. "
+                        "O provedor externo nao sera chamado."
+                    )
+                else:
+                    externo=executar_rag_provedor(
+                        entrada,
+                        indice,
+                        modo=modo.lower(),
+                    )
+                    st.session_state["ultima_geracao_externa"]=externo
+
+        except Exception as erro:
+            st.error(str(erro))
+
+    if "ultima_geracao_externa" in st.session_state:
+        externo=st.session_state["ultima_geracao_externa"]
+        st.subheader("Geracao com provedor externo")
+        st.write("Provedor:",externo["provedor_solicitado"])
+        st.write("Estado:",externo["status"])
+
+        if externo.get("geracao"):
+            st.write(externo["geracao"].get("texto",""))
+        else:
+            st.warning(
+                "Geracao nao realizada. "
+                "Consulte as evidencias e revise a solicitacao."
+            )
     if "ultimo" in st.session_state:
         r=st.session_state["ultimo"]
         st.subheader("Ficha e resumo");st.json(r["ficha"])
         st.subheader("Minuta preliminar (extrativa) e fontes");st.write(r["rag"]["status"]);st.write(r["rag"]["resposta"] or "Não localizado");st.json(r["rag"]["trechos"])
 with t2:
-    if "ultimo" not in st.session_state:st.info("Processe uma solicitação primeiro")
+    if "ultimo" not in st.session_state:
+        st.info("Processe uma solicitacao primeiro")
     else:
-        r=st.session_state["ultimo"];st.write("Estado:",r["status"])
-        decisao=st.selectbox("Decisão",["revisar","rejeitada","aprovada"])
-        motivo=st.text_input("Justificativa")
-        if st.button("Registrar decisão"):
-            try:st.success(str(revisar(r,decisao,motivo)))
-            except Exception as e:st.error(str(e))
+        r = st.session_state["ultimo"]
+        externo = st.session_state.get("ultima_geracao_externa")
+
+        if externo is not None:
+            st.warning(
+                "A geracao externa ainda nao esta vinculada "
+                "ao registro de revisao humana. "
+                "Nao e possivel aprova-la nesta interface."
+            )
+            st.write(
+                "Provedor externo:",
+                externo["provedor_solicitado"],
+            )
+            st.write("Estado da geracao:", externo["status"])
+        else:
+            st.write("Estado:", r["status"])
+            decisao = st.selectbox(
+                "Decisao",
+                ["revisar", "rejeitada", "aprovada"],
+            )
+            motivo = st.text_input("Justificativa")
+
+            if st.button("Registrar decisao"):
+                try:
+                    st.success(str(revisar(r, decisao, motivo)))
+                except Exception as erro:
+                    st.error(str(erro))
 with t3:
     caminho=Path("dados/avaliacoes/avaliacoes.json")
     if caminho.exists():
