@@ -20,7 +20,7 @@
 | T11 | Aprovar e rejeitar pela interface | Persistir estados e justificativas, sem envio automático | Registros de decisões documentados; comprovação prática na interface deve ser preservada | `src/app.py`; `resultados/minutas/revisoes_desafio2.jsonl` | Parcial |
 | T12 | Troca de provedor e falha | Preservar índice, tratar e auditar falha | Testes com provedores simulados; falta evidência consolidada do índice antes/depois | `src/provedor_desafio2.py`; `src/fluxo_desafio2.py`; `testes/teste_desafio2.py` | Parcial |
 | T13 | Filtro, duplicata e conjunto vazio | Totais e denominadores corretos, sem divisão por zero | Métricas e testes existem; resultados dos três subcasos não reunidos | `src/metrics.py`; testes de métricas | Parcial |
-| T14 | Excluir documento e derivados | Trechos ausentes da busca e exclus?o auditada | Documento documentacao_04_v1.txt exclu?do; 1 trecho removido; original preservado; ?ndice recarregado; busca posterior n?o encontrou o documento | resultados/logs/exclusoes_desafio2.jsonl; indice/acervo.json; execu??o manual de busca | Demonstrado manualmente |
+| T14 | Excluir documento e derivados | Trechos ausentes da busca e exclusão auditada | Testes automatizados de exclusão disponíveis; falta anexar execução e registro completo | `src/exclusao_desafio2.py`; `testes/teste_desafio2_exclusao.py` | Parcial |
 | T15 | Reexecutar entrada textual e OCR anteriores | Entradas seguem até minuta e revisão | **Windows: 1 teste e 2 subtestes aprovados (texto e OCR)**; extração, RAG, status, revisão simulada e auditoria verificados. Não demonstra aprovação humana real nem qualidade integral da minuta | `testes/teste_t15_regressao_integrada.py` (novo arquivo local); saída pytest informada pela equipe | Regressão automatizada aprovada; aceite integral pendente de demonstração |
 
 ## Execução recente — T15 e regressão conjunta
@@ -52,18 +52,13 @@ Ambiente informado: Windows, Python 3.12.10, pytest 9.1.1.
 
 **Nota:** esta matriz é um documento de auditoria, não um registro fabricado de testes. A existência de um arquivo de teste ou de uma função não foi tratada como aprovação do cenário completo.
 
-## Evid?ncia manual complementar ? T14
 
-Em 02/11/2026 foi realizada a demonstra??o manual da exclus?o
-do documento `documentacao_04_v1.txt`.
+## Atualização de execução — 02/11/2026 (Windows)
 
-Resultados:
-- Um trecho removido do ?ndice.
-- Documento original preservado.
-- ?ndice atualizado para a vers?o 4.
-- Auditoria registrada em `resultados/logs/exclusoes_desafio2.jsonl`.
-- ?ndice recarregado ap?s a exclus?o.
-- Busca posterior n?o encontrou o documento exclu?do.
-- Outros documentos continuaram dispon?veis.
-
-A demonstra??o confirma o comportamento esperado do T14.
+- Suíte integrada executada com `python -m pytest testes testes_alternativos_desafio02 -q --tb=short`: **292 passed, 36 warnings, 2 subtests passed**. Os avisos são de depreciação do Pandas/Streamlit.
+- Testes focados de segurança/unificação: **18 passed**. Testes específicos de prompt injection: **6 passed**.
+- O fluxo externo passou a validar a resposta gerada com os guardrails antes de devolvê-la. Resposta vazia ou bloqueada resulta em encaminhamento para revisão.
+- RF22 real: **0 classificações válidas/12 tentativas**; HTTP 503, HTTP 429 e timeout. Acurácia real **não calculável (0/0)**.
+- T11 e T14 continuam **parciais** até capturas e registros de execução manual que comprovem decisões pela interface e exclusão seguida de ausência na busca. As capturas preliminares disponíveis mostram a interface, mas não comprovam esses resultados.
+- RF23: manter separados os indicadores medidos (por exemplo, recuperação Top-3 5/5 e abstenção 2/2) da métrica de afirmações integralmente sustentadas, ainda pendente.
+- Commit `06a8c62` publicado na branch `main`; push confirmado em 02/11/2026.

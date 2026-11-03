@@ -565,6 +565,7 @@ com simulacoes e metricas calculadas em conjunto ficticio pequeno.
 
 ### Integração com a revisão do Adriano
 
+A imagem RF10 v2 é uma alternativa e não foi aprovada automaticamente.
 
 ## Integração do Desafio 2 — Adriano, Líbia e Yasmine
 
@@ -620,6 +621,7 @@ A aprovação dos testes não comprova que todos os requisitos estejam concluíd
 - `documentacao/RELATORIO_DESAFIO2.md`
 - `documentacao/relatorio_tecnico_desafio02.md`
 
+
 ### Atualizacao de fechamento — 02/11/2026
 
 Esta secao registra as verificacoes mais recentes e complementa os resultados
@@ -665,28 +667,45 @@ podem ser usados como substitutos dessa metrica RF23.
 
 #### Publicacao e pacote
 
-O commit `650b743` foi criado na branch `integracao` em 02/11/2026. Isso nao
-comprova publicacao na branch `main`. A publicacao deve ser confirmada na
-maquina que possui o repositorio Git e acesso ao remoto, seguindo o checklist
-de entrega. O ZIP recebido para esta atualizacao nao contem a pasta `.git`;
-portanto, nao permite verificar o estado remoto nem executar `git push`.
+O commit `06a8c62` foi publicado na branch `main` do GitHub em 02/11/2026. O push foi confirmado e a branch local ficou sincronizada com `origin/main`.
 
 ### Material de apresentação
 
-- `documentacao/SLIDE_RESUMO_CANVA.pptx`: slide-resumo em formato PowerPoint, que pode ser importado no Canva.
-- `documentacao/ROTEIRO_APRESENTACAO_VIDEO.md`: roteiro organizado pelos seis blocos e tempos da seção 14 do PDF.
 
 O PDF exige apresentação de até 15 minutos, mas não especifica gravação de vídeo, duração ou formato. O roteiro pode ser usado como apoio à apresentação ou gravação complementar. O slide-resumo não substitui uma apresentação completa de 15 minutos.
 
+---
 
-### Evid?ncia complementar ? T14 (02/11/2026)
+## Fechamento do Desafio Prático 02 — atualização de 02/11/2026
 
-A exclus?o manual do documento `documentacao_04_v1.txt` foi demonstrada.
-Um trecho foi removido do ?ndice, o arquivo original foi preservado
-e o evento foi registrado na auditoria.
+Esta seção complementa o histórico dos RF01–RF13. Os resultados abaixo se referem à evolução do Desafio 02 e não substituem os registros anteriores.
 
-Ap?s recarregar o ?ndice, a busca n?o encontrou o documento exclu?do.
-Os demais documentos continuaram dispon?veis.
+### Testes integrados e correção de segurança
 
-Evid?ncia: `resultados/logs/exclusoes_desafio2.jsonl`.
-Situa??o: demonstra??o manual conclu?da.
+Na execução realizada no Windows, com o ambiente virtual ativado, foi executado:
+
+```powershell
+python -m pytest testes testes_alternativos_desafio02 -q --tb=short
+```
+
+Resultado informado: **292 testes aprovados, 0 falhas, 36 avisos de depreciação e 2 subtestes aprovados**, em 324,41 segundos. Os avisos vieram do uso de `DataFrame.reset_index(inplace=...)` em componentes do Streamlit/Pandas; não foram falhas dos testes.
+
+Também foram aprovados 18 testes focados na segurança e unificação, além de 6 testes específicos de prompt injection. A validação de saída foi acrescentada ao fluxo externo: respostas vazias ou reprovadas pelos guardrails não são apresentadas como minutas válidas. A decisão final continua humana e o envio automático permanece desabilitado.
+
+### RF22 — sentimentos: resultado real e limitação
+
+A tentativa de classificação real das 12 avaliações pelo Gemini não foi concluída. As 12 tentativas terminaram em erros HTTP 503, HTTP 429 ou timeout. Foram obtidas **0 classificações válidas em 12 tentativas**. Assim, a acurácia real é **não calculável (0/0)**; não deve ser divulgada como 0% nem substituída por resultados de mocks.
+
+Os testes com mocks verificam a lógica local, mas não representam uma execução real do provedor. O conjunto de entrada e o gabarito correspondente usam os identificadores A01–A12 em `dados/avaliacoes/avaliacoes.json` e `dados/gabaritos/desafio2_sentimentos.json`. O gabarito antigo com `aval01`–`aval12` não deve ser usado com esse conjunto sem reconciliação.
+
+### RF18 e RF19 — recuperação e RAG
+
+Foram comparadas configurações de chunks de 300 caracteres com sobreposição de 50 e 600 caracteres com sobreposição de 100. O Top-3 recuperou uma referência em 5/5 perguntas nas duas configurações. Nas duas perguntas sem evidência, houve 2/2 abstenções corretas; o caso contraditório foi identificado separadamente. O índice usa hashing lexical e similaridade de cosseno, não um modelo de embeddings semânticos treinado. A proporção de respostas em que todas as afirmações estão sustentadas ainda não foi medida e permanece pendente em RF23.
+
+### Demonstração manual da interface — evidência ainda necessária
+
+A interface Streamlit está implementada e há capturas preliminares de sua tela principal e da aba de revisão. As capturas disponíveis, isoladamente, não comprovam uma consulta concluída nem decisões humanas persistidas. Antes de declarar T11/T14 aceitos, registrar pela interface: (1) uma solicitação processada com fontes visíveis; (2) uma aprovação com justificativa; (3) uma rejeição ou encaminhamento para revisão com justificativa; e (4) exclusão de documento seguida de consulta que confirme sua ausência no índice. Guardar capturas sem credenciais ou dados pessoais reais e conferir os registros em `resultados/minutas/revisoes_desafio2.jsonl` e nos logs de auditoria.
+
+### Estado de entrega e Git
+
+A execução de testes comprova os cenários automatizados cobertos, mas não transforma os itens manuais pendentes em aprovados. A matriz `documentacao/MATRIZ_RF23_T01_T15_ATUALIZADA.md` mantém as situações parciais quando não há evidência suficiente. O commit `06a8c62` foi enviado para `origin/main` e a sincronização foi confirmada em 02/11/2026.

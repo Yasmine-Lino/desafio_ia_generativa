@@ -62,7 +62,7 @@ sem falhas nessa execucao.
 Os resultados demonstram o funcionamento das partes cobertas pelos testes,
 mas nao comprovam implementacao integral de todos os requisitos do desafio.
 
-## 5. Atualizacao de evidencias em 02/11/2026
+## 6. Atualizacao de evidencias em 02/11/2026
 
 A equipe informou a aprovacao de 100 testes da suite alternativa no Windows,
 10 testes especificos de auditoria RF21 e a regressao T15 com 1 teste e 2
@@ -84,20 +84,12 @@ de respostas RAG com todas as afirmacoes sustentadas; consolidacao de RF23 com
 numeradores e denominadores; e publicacao confirmada na branch `main`.
 
 
-## 6. Demonstra??o manual T14 ? 02/11/2026
+## 7. Atualização final — 02/11/2026
 
-Foi realizada a exclus?o manual do documento `documentacao_04_v1.txt`.
+Na execução Windows informada pela equipe, a suíte integrada apresentou **292 testes aprovados, nenhuma falha, 36 avisos de depreciação e 2 subtestes aprovados**. Também foram informados 18 testes focados em segurança/unificação e 6 testes específicos de prompt injection aprovados. A correção final adiciona validação dos textos gerados por provedor externo antes de retorná-los ao fluxo.
 
-A opera??o removeu um trecho do ?ndice, preservou o arquivo original
-e registrou o evento em `resultados/logs/exclusoes_desafio2.jsonl`.
+No RF22, a execução real com Gemini não produziu classificação válida: foram 12 tentativas com erros HTTP 503, HTTP 429 ou timeout. A acurácia real é não calculável (0/0). Os testes com mocks não foram contabilizados como execução real. O conjunto A01–A12 deve ser comparado somente com o gabarito de mesmos identificadores.
 
-Ap?s a exclus?o, o ?ndice foi carregado novamente e uma busca foi
-executada utilizando termos relacionados ao conte?do do documento.
+A comparação de chunking reportada teve Top-3 = 5/5 para 300/50 e 600/100. A abstenção reportada foi 2/2 nas perguntas sem evidência; o caso contraditório foi tratado separadamente. O índice é baseado em hashing lexical e cosseno, não em embedding semântico treinado. A métrica de respostas com todas as afirmações sustentadas permanece pendente.
 
-Resultados:
-- Documento exclu?do encontrado: False.
-- Outros documentos permaneceram dispon?veis.
-- ?ndice atualizado: vers?o 4.
-- Auditoria: exclus?o registrada.
-
-A demonstra??o confirma o comportamento esperado do T14.
+A interface existe, mas as capturas preliminares não comprovam por si só consulta completa com fontes, aprovação/rejeição persistidas ou exclusão seguida de ausência na busca. T11 e T14 permanecem parciais até demonstração manual. O commit `06a8c62` foi enviado para `origin/main`, com sincronização confirmada em 02/11/2026.
