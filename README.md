@@ -1,711 +1,188 @@
-# Desafios Práticos 1 e 2 — IA Generativa
+# Central Inteligente de Atendimento — Desafios Práticos 1 e 2
 
-Projeto desenvolvido no **Módulo 01 — IA Generativa**, do curso FIC Dev IA.
+Projeto do **Módulo 01 — IA Generativa**, curso FIC Dev IA.
 
-## Integrantes da Equipe
-
-- **Adriano Froes da Costa** - [GitHub: AdrianoFroes](https://github.com/AdrianoFroes)
-- **Líbia Canhete Alves e Cruz** - [GitHub: libia-alves](https://github.com/libia-alves)
-- **Yasmine Lino Franco** - [GitHub: Yasmine-Lino](https://github.com/Yasmine-Lino)
-
-------------------------------------------------------------------------
-
+**Equipe:** Adriano Froes da Costa ([GitHub](https://github.com/AdrianoFroes)), Líbia Canhete Alves e Cruz ([GitHub](https://github.com/libia-alves)) e Yasmine Lino Franco ([GitHub](https://github.com/Yasmine-Lino)).
 
 ## 1. Sobre o projeto
 
-Este repositório contém uma **Central Inteligente de Atendimento e Comunicação Institucional**, desenvolvida para simular atividades de uma secretaria pública.
+Este repositório reúne as atividades dos **Desafios Práticos 1 e 2**. O primeiro desafio trabalhou funcionalidades de IA generativa para documentos, textos, áudio, imagens, geração de minutas e revisão humana (RF01–RF13). O **Desafio 2 (RF14–RF24)** amplia a central com processamento de solicitações, indexação de documentos, busca, RAG, avaliação de sentimentos, auditoria e interface Streamlit.
 
-O projeto utiliza técnicas de inteligência artificial generativa para apoiar o tratamento de solicitações de cidadãos, incluindo processamento de textos, áudios, documentos e imagens, além da elaboração de materiais institucionais.
+É um **protótipo educacional**, com documentos e solicitações fictícios. As respostas são sugestões para revisão: **não há envio automático ao cidadão**.
 
-Os **13 requisitos funcionais (RF01 a RF13)** foram implementados, com testes automatizados, registros de execução e documentação.
+## 2. O que foi desenvolvido no Desafio 2
 
-**Atenção:** os conteúdos gerados por inteligência artificial são sugestões e precisam passar por revisão humana antes de qualquer utilização institucional. O sistema não realiza envio automático de respostas aos cidadãos.
-
-## 2. Tecnologias e pré-requisitos
-
-- Python 3.12
-- Git
-- Acesso à internet para instalação das dependências
-- Bibliotecas Python definidas em `requirements.txt`
-- Credenciais de serviços externos de IA, apenas quando necessárias
-
-Dependências principais:
-
-```text
-openai==3.33.0
-python-dotenv==1.2.4
-requests==2.34.2
-pymupdf==1.28.2
-pytest==9.1.1
-```
-
-O projeto utiliza integrações com serviços como Gemini, Groq e Hugging Face, conforme a funcionalidade executada.
-
-A inicialização básica e os testes automatizados não exigem credenciais reais.
-
-## 3. Organização do projeto
-
-| Diretório ou arquivo | Descrição |
-|---|---|
-| `src/` | Código-fonte Python |
-| `testes/` | Testes automatizados |
-| `dados/` | Dados de entrada, exemplos e arquivos processados |
-| `prompts/` | Prompts utilizados nos experimentos |
-| `resultados/` | Resultados, minutas, imagens, áudios e logs |
-| `documentacao/` | Documentação técnica e registros de revisão |
-| `config.json` | Configurações gerais do sistema |
-| `.env.example` | Exemplo das variáveis de ambiente |
-| `requirements.txt` | Dependências Python |
-
-Alguns arquivos de entrada e saída podem ser gerados durante a execução e não estar versionados no Git.
-
-## 4. Instalação e execução
-
-As instruções abaixo contemplam Windows, Linux e macOS.
-
-Antes de começar, instale o **Git** e o **Python 3.12** no sistema operacional utilizado.
-
-### 4.1. Windows — PowerShell
-
-**Passo 1 — Clonar o repositório**
-
-```powershell
-git clone https://github.com/Yasmine-Lino/desafio_ia_generativa.git
-cd desafio_ia_generativa
-```
-
-**Passo 2 — Criar o ambiente virtual**
-
-```powershell
-py -3.12 -m venv .venv
-```
-
-**Passo 3 — Ativar o ambiente virtual**
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-
-**Passo 4 — Instalar as dependências**
-
-```powershell
-python -m pip install -r requirements.txt
-```
-
-**Passo 5 — Executar a inicialização do projeto**
-
-```powershell
-python -m src.main
-```
-
-Caso o PowerShell bloqueie a ativação do ambiente virtual, é possível executar diretamente o Python desse ambiente:
-
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m src.main
-```
-
-### 4.2. Linux — Terminal
-
-**Passo 1 — Clonar o repositório**
-
-```bash
-git clone https://github.com/Yasmine-Lino/desafio_ia_generativa.git
-cd desafio_ia_generativa
-```
-
-**Passo 2 — Criar o ambiente virtual**
-
-```bash
-python3.12 -m venv .venv
-```
-
-**Passo 3 — Ativar o ambiente virtual**
-
-```bash
-source .venv/bin/activate
-```
-
-**Passo 4 — Instalar as dependências**
-
-```bash
-python -m pip install -r requirements.txt
-```
-
-**Passo 5 — Executar a inicialização**
-
-```bash
-python -m src.main
-```
-
-**Observação:** dependendo da distribuição Linux, pode ser necessário instalar separadamente o suporte a ambientes virtuais (`venv`) para Python 3.12.
-
-### 4.3. macOS — Terminal
-
-**Passo 1 — Clonar o repositório**
-
-```bash
-git clone https://github.com/Yasmine-Lino/desafio_ia_generativa.git
-cd desafio_ia_generativa
-```
-
-**Passo 2 — Criar o ambiente virtual**
-
-```bash
-python3.12 -m venv .venv
-```
-
-**Passo 3 — Ativar o ambiente virtual**
-
-```bash
-source .venv/bin/activate
-```
-
-**Passo 4 — Instalar as dependências**
-
-```bash
-python -m pip install -r requirements.txt
-```
-
-**Passo 5 — Executar a inicialização**
-
-```bash
-python -m src.main
-```
-
-**Observação:** o Python 3.12 precisa estar instalado e disponível no terminal. Dependendo da instalação do macOS, pode ser necessário instalar essa versão separadamente.
-
-## 5. Configuração das APIs
-
-O arquivo `.env.example` apresenta as variáveis de ambiente previstas:
-
-```dotenv
-GEMINI_API_KEY=
-OPENAI_API_KEY=
-GROQ_API_KEY=
-HF_TOKEN=
-```
-
-Para utilizar funcionalidades que dependem dessas APIs, crie uma cópia chamada `.env`.
-
-**Windows — PowerShell**
-
-```powershell
-Copy-Item .env.example .env
-```
-
-**Linux e macOS**
-
-```bash
-cp .env.example .env
-```
-
-Abra o arquivo `.env` e preencha as credenciais correspondentes aos serviços que pretende utilizar. Na configuração local atual, são utilizadas `GEMINI_API_KEY` e `OPENAI_API_KEY`; `GROQ_API_KEY` e `HF_TOKEN` permanecem no `.env.example` para funcionalidades que utilizem esses provedores.
-
-**Cuidados de segurança:**
-
-- Nunca publique chaves de API no GitHub.
-- Não inclua credenciais diretamente no código-fonte.
-- Não compartilhe o conteúdo do arquivo `.env`.
-- Verifique as permissões, os limites de uso e as cotas disponíveis de cada provedor.
-
-As configurações gerais do sistema estão no arquivo `config.json`.
-
-## 6. Execução dos testes automatizados
-
-Com o ambiente virtual ativado, execute:
-
-```bash
-python -m unittest discover -s testes -p "teste_*.py"
-```
-
-O comando é o mesmo para Windows, Linux e macOS.
-
-Na última execução realizada durante o desenvolvimento, o projeto apresentou:
-
-```text
-Ran 139 tests
-
-OK
-```
-
-Os testes incluem simulações de erros e situações excepcionais. Por isso, algumas mensagens de falha podem aparecer durante a execução sem indicar problemas no resultado final.
-
-Os testes foram desenvolvidos para validar os comportamentos sem necessidade de realizar chamadas reais às APIs externas.
-
-## 7. Requisitos funcionais e evidências
-
-O projeto contempla os requisitos **RF01 a RF13**, com implementações em `src/`, testes em `testes/` e registros complementares em `documentacao/` e `resultados/`.
-
-Entre as evidências disponíveis estão:
-
-- **RF03 — Testes de segurança contra instruções maliciosas:** `documentacao/avaliacao_rf03.md` e `resultados/logs/rf03_injecao.json`.
-- **RF09 — Elaboração e revisão de minuta institucional:** `documentacao/revisao_rf09.md` e arquivos em `resultados/minutas/`.
-- **RF12 — Privacidade e minimização de dados:** `src/privacidade.py`, `testes/teste_rf12.py` e `documentacao/revisao_rf12.md`.
-- **RF13 — Avaliação de qualidade e revisão humana:** `src/avaliacao_qualidade.py`, `src/executar_avaliacao_rf13.py`, `testes/teste_rf13.py`, `documentacao/revisao_rf13.md` e `resultados/logs/rf13_avaliacao.json`.
-
-### Avaliação de qualidade — RF13
-
-A avaliação considera cinco critérios:
-
-1. Fidelidade
-2. Completude
-3. Formato
-4. Linguagem
-5. Segurança
-
-Foram avaliados dois casos independentes, com os seguintes resultados:
-
-| Caso | Pontuação | Resultado |
+| Componente | O que faz | Arquivo principal |
 |---|---|---|
-| RF03 — Injeção de prompt | 10/10 | Aprovado |
-| RF09 — Minuta original | 8/10 | Correção manual necessária |
+| Estruturação e validação | Extrai informações e valida os dados da solicitação | `src/schemas.py`, `src/nlp.py` |
+| Segurança | Avalia entradas e instruções suspeitas | `src/guardrails.py` |
+| Documentos | Lê, divide e prepara o acervo | `src/ingestion.py` |
+| Índice e busca | Mantém índice persistente e recupera trechos | `src/embeddings.py` |
+| RAG | Responde com base nos trechos recuperados ou se abstém | `src/rag.py` |
+| Atendimento e revisão | Processa solicitações e registra decisão humana | `src/fluxo_desafio2.py` |
+| Interface | Apresenta documentos, atendimento, revisão e sentimentos | `src/app.py` |
+| Sentimentos | Classifica avaliações fictícias | `src/sentiment.py` |
+| Avaliação offline | Executa casos e calcula métricas | `src/avaliar_desafio2.py` |
+| Sustentação textual | Verifica correspondência entre afirmações e trechos citados | `avaliar_sustentacao_rf23.py` |
 
-A **taxa de aprovação inicial foi de 50%**.
+**Limitação importante:** o índice local utiliza *hashing lexical* e similaridade, e não embeddings semânticos de um modelo treinado. O RAG é predominantemente extrativo.
 
-A minuta do RF09 foi corrigida e aprovada posteriormente por revisão humana. Essa correção não foi contabilizada como um novo caso.
+## 3. Requisitos e materiais de avaliação
 
-### Modelos e custos
+Os requisitos do Desafio 2 são tratados nas áreas RF14–RF24: estruturação e validação, processamento de solicitações, segurança, indexação, comparação de chunking, RAG, interface, provedores/auditoria, sentimentos, avaliação integrada e privacidade/revisão. A relação detalhada de cada requisito e dos testes **T01–T15** está em:
 
-| Atividade | Modelo ou ferramenta |
-|---|---|
-| Comparação de prompts (RF02), extração (RF05), OCR (RF08) e minuta (RF09) | Gemini 3.8 Flash (`gemini-3.8-flash`, definido em `config.json`) |
-| Transcrição de áudio (RF06) | Gemini 3.5 Transcribe |
-| Síntese de voz (RF07) | Gemini 2.5 Flash Preview TTS |
-| Geração e revisão de imagem (RF10) | Ferramenta de imagens do ChatGPT |
+- `documentacao/MATRIZ_RF23_T01_T15_ATUALIZADA.md` — matriz de avaliação;
+- `documentacao/matriz_conformidade_pdf.md` — relação com o enunciado;
+- `documentacao/RELATORIO_TECNICO_FINAL_ENTREGA.md` — relatório técnico consolidado;
+- `documentacao/registro_uso_ia.md` — registro de uso de IA como apoio ao desenvolvimento;
+- `documentacao/evidencias/` — capturas de revisão humana e exclusão documental.
 
-A imagem foi gerada pela interface do ChatGPT porque a tentativa com o Gemini 2.5 Flash Image retornou HTTP 429 (sem cota gratuita disponível).
+Esses arquivos são complementares ao código e aos resultados. A existência de um teste não deve ser confundida com uma demonstração manual, nem com uma chamada real à API.
 
-**Custos:** as execuções usaram a cota gratuita da API Gemini. O projeto registra tempo e tokens de cada chamada quando o provedor informa. Exemplos: minuta RF09 com 836 tokens em 3,38 s e OCR RF08 com 2.273 tokens em 60,79 s. Não foi possível consolidar um custo financeiro confiável, pois os preços por modelo e modalidade não foram configurados nem confirmados. O custo real depende do volume de solicitações, da modalidade e das condições comerciais do provedor. Antes de uma implantação, seria necessário definir limites de consumo e monitoramento financeiro. Detalhes em `documentacao/relatorio_tecnico_final.md` (seções 3 e 10).
+## 4. Organização do repositório
 
-## 8. Limitações e cuidados
-
-Este projeto é um **protótipo educacional**, não um sistema de produção de uma secretaria pública.
-
-As principais limitações e precauções são:
-
-- Modelos de IA podem produzir informações incorretas, incompletas ou não confirmadas.
-- Serviços externos podem apresentar indisponibilidade, limites de uso ou ausência de créditos.
-- Os resultados devem ser verificados por uma pessoa responsável.
-- Dados pessoais e informações sigilosas exigem tratamento adequado, observando as exigências aplicáveis da LGPD.
-- A geração de materiais não representa autorização para publicação ou envio automático.
-- A execução foi testada no ambiente de desenvolvimento Windows. As instruções para Linux e macOS foram incluídas para facilitar a portabilidade, mas ainda não foram validadas nesses sistemas.
-
-## 9. Situação do desenvolvimento
-
-Os requisitos **RF01 a RF13 foram implementados e publicados no repositório**.
-
-A suíte automatizada apresentou **139 testes aprovados** na última execução.
-
-As evidências, limitações e revisões estão registradas na documentação do projeto.
-
-## 10. Curso
-
-**FIC Dev IA — Módulo 01: IA Generativa.**
-
-
-## Demonstração offline e identidade visual (complemento da entrega)
-
-As minutas `.txt` permanecem inalteradas como evidências de geração e revisão.
-As versões de **apresentação** em PDF incluem `dados/originais/brasao.png`,
-identificação de documento fictício e aviso de que não são comunicações oficiais.
-O brasão é usado apenas para demonstração acadêmica; não indica aprovação do GOV.MT.
-
-```bash
-python -m src.gerar_minuta_pdf --versao ambas
-python -m src.demonstracao
-python -m src.demonstracao --registrar
-python -m pytest -q
+```text
+src/                     Código da aplicação e das avaliações
+testes/                  Testes automatizados
+dados/acervo/            Documentos fictícios usados no RAG
+dados/solicitacoes/      Solicitações fictícias
+dados/avaliacoes/        Avaliações de sentimentos
+dados/gabaritos/         Referências e resultados esperados
+indice/                  Índices persistentes e comparações
+resultados/metricas/     Métricas e avaliações em JSON
+resultados/logs/         Auditoria e exclusões
+resultados/minutas/      Minutas e decisões de revisão
+documentacao/            Relatórios, matrizes e evidências
+config.json              Configuração geral
+.env.example             Modelo de variáveis de ambiente
+requirements.txt         Dependências Python
 ```
 
-A demonstração é **offline**: verifica a presença dos artefatos já produzidos,
-não chama modelos, não recria respostas e não simula inferências. A opção
-`--registrar` cria um log JSONL verdadeiro **da própria conferência offline**,
-sem afirmar que as chamadas históricas à API foram reexecutadas.
-O comando `python -m src.main` continua sendo o ponto de entrada de
-inicialização/configuração, e não um pipeline automático de produção.
+## 5. Instalação no Windows
 
-O áudio definitivo RF07 foi gerado a partir de `resultados/minutas/rf09_minuta_revisada.txt`, está salvo em `resultados/audios/rf07_minuta_rf09_aprovada.wav` e foi aprovado por escuta humana em 17/10/2026. O ensaio `rf07_minuta_falada.wav` foi preservado separadamente. O hash do texto usado na síntese é conferido pelo verificador.
+Ambiente utilizado nos testes: **Windows com Python 3.12**. Git e acesso à internet são necessários para obter o projeto e instalar dependências. No PowerShell:
 
-**Pacote de entrega:** `.env.example` deve ser incluído; `.env` verdadeiro,
-`.venv`, caches e credenciais não devem ser incluídos. Os arquivos fictícios
-originais e os gabaritos locais são evidências necessárias para a avaliação.
+```powershell
+git clone https://github.com/Yasmine-Lino/desafio_ia_generativa.git
+cd desafio_ia_generativa
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
 
+Se a ativação estiver bloqueada, use ` .\.venv\Scripts\python.exe ` diretamente para executar os comandos Python. As instruções para outros sistemas não foram validadas nesta entrega.
 
-## Complemento de conformidade RF06, RF07, RF08 e RF11
+### APIs externas (opcionais)
 
-- **RF06:** a nova transcrição `dados/processados/rf06_nova_transcricao_20261017_160731.txt` foi comparada à referência confirmada por escuta humana do áudio original e aprovada em 17/10/2026. A referência foi derivada de transcrição anterior, portanto a limitação de independência histórica permanece explicitada; não se afirma que ela existia antes da primeira inferência.
-- **RF07:** o áudio definitivo da minuta revisada foi gerado, conferido por escuta e aprovado. A aprovação e o hash da minuta são mantidos nos metadados de revisão e de geração. O campo `revisao_audio_pendente` nos metadados de geração representa o estado no instante em que a síntese terminou e foi preservado sem adulteração.
-- **RF08:** os seis campos críticos do gabarito (`codigo_matricula`, `data_nascimento`, `cpf`, `rg`, `data_matricula` e `inicio_curso`) foram confirmados visualmente no PDF original antes da nova extração. O texto bruto foi preservado; a versão corrigida recebeu aprovação humana. As correções posteriores não são contabilizadas como acertos originais do OCR.
-- **RF11:** o histórico central contém cinco eventos reais: execução e decisão humana de RF06, execução e decisão humana de RF08, e execução de RF07. O histórico anterior incompleto permanece uma limitação; nenhum evento antigo foi inventado. RF10 mantém nota de proveniência própria, ainda não integrada ao log central.
-- `python -m src.verificar_pendencias` verifica os arquivos, os hashes, a ordem temporal documentada e os vínculos de aprovação sem chamar APIs nem alterar a auditoria.
+O fluxo local e os testes offline não exigem credenciais reais. Para funcionalidades que utilizem provedores externos, copie `.env.example` para `.env` e configure apenas as chaves necessárias, conforme os componentes utilizados. O projeto possui integrações e experimentos com Gemini, OpenAI e outros provedores no Desafio 1.
 
-## Conferência definitiva das evidências (sem apresentação)
+**Nunca envie `.env`, chaves de API, tokens ou dados pessoais reais para o Git ou para o ZIP.** A disponibilidade de APIs depende de cotas, configuração e serviço.
 
-Execute `python -m src.verificar_pendencias` e `python -m src.demonstracao` para conferir o pacote sem chamadas à API. Consulte `documentacao/matriz_conformidade_pdf.md` para a correspondência de **cada requisito do enunciado** com arquivos de evidência e limitações. A execução de testes não comprova, por si só, que existiam gabaritos anteriores às inferências ou logs históricos que não foram coletados.
+## 6. Executar a interface do Desafio 2
 
-O áudio RF07 da minuta revisada foi gerado e aprovado por escuta em 17/10/2026; os metadados originais ainda registram revisão pendente no instante da geração, o que é historicamente correto.
+Com o ambiente ativado, na raiz do projeto:
 
-## Desafio 2 (Aulas 08 a 14)
-
-### Objetivo
-
-Nesta etapa, a Central Inteligente de Atendimento foi ampliada para
-consultar documentos ficticios, organizar solicitacoes, buscar informacoes
-no acervo e apresentar respostas com fontes. Tambem foram adicionadas
-revisao humana e analise de sentimentos.
-
-O projeto continua sendo um prototipo local, sem envio automatico de respostas.
-
-### Funcionalidades
-
-- Extracao estruturada e validacao de JSON.
-- Resumo, classificacao de solicitacoes e identificacao de entidades.
-- Regras de seguranca para entradas e documentos.
-- Indice local persistente com vetores de hashing lexical.
-- Busca de trechos com similaridade e identificacao das fontes.
-- RAG extrativo com resposta fundamentada ou abstencao.
-- Interface Streamlit para documentos, atendimento e revisao humana.
-- Classificacao de sentimentos com painel de resultados.
-
-### Arquivos principais
-
-| Arquivo ou pasta | Finalidade |
-|---|---|
-| dados/acervo/ | Documentos ficticios |
-| dados/solicitacoes/ | Solicitacoes ficticias |
-| dados/avaliacoes/ | Avaliacoes de atendimento |
-| dados/gabaritos/desafio2_*.json | Gabaritos e testes |
-| src/schemas.py | Validacao de dados |
-| src/nlp.py | Resumo, categorias e entidades |
-| src/guardrails.py | Regras de seguranca |
-| src/ingestion.py | Leitura e divisao de documentos |
-| src/embeddings.py | Indice persistente |
-| src/rag.py | Respostas fundamentadas |
-| src/fluxo_desafio2.py | Fluxo de atendimento e revisao |
-| src/app.py | Interface Streamlit |
-| src/sentiment.py | Classificacao de sentimentos |
-| src/metrics.py | Indicadores |
-| src/avaliar_desafio2.py | Avaliacao offline |
-| testes/teste_desafio2.py | Testes automatizados |
-
-### Instalacao
-
-Na pasta do projeto, ative o ambiente virtual, se estiver utilizando um,
-e instale as dependencias com:
-
-    python -m pip install -r requirements.txt
-
-### Execucao
-
-Para iniciar a interface no Windows PowerShell:
-
-    $env:PYTHONPATH = (Get-Location).Path
-    python -m streamlit run src/app.py
-
-Acesse http://localhost:8501 no navegador.
-
-Na aba Documentos e atendimento, selecione os documentos e use
-Indexar documentos para criar ou atualizar o indice. Depois, digite
-uma solicitacao ficticia e clique em Processar solicitacao.
-
-Na aba Revisao, escolha uma decisao, informe a justificativa e
-registre a avaliacao humana.
-
-Na aba Sentimentos, consulte os resultados das avaliacoes ficticias.
-
-O indice fica armazenado em indice/acervo.json. Para recria-lo,
-execute novamente a indexacao pela interface.
-
-### Testes
-
-Testes automatizados:
-
-    python -m unittest discover -s testes -p "teste_desafio2.py" -v
-
-Avaliacao offline:
-
-    python -m src.avaliar_desafio2
-
-Comparacao de chunking:
-
-    python -m src.comparar_chunking
-
-### Resultados verificados em 30/10/2026
-
-| Avaliacao | Resultado |
-|---|---|
-| Testes automatizados | 9 de 9 aprovados |
-| Recuperacao Top-3 | 5 de 5 (100%) |
-| Abstencao | 2 de 2 (100%) |
-| Sentimentos | 12 de 12 (100%) |
-| Consultas manuais do RAG | 5 de 5 com resultado esperado |
-| Revisao humana | Decisao revisar registrada pela interface |
-
-Nas 12 avaliacoes ficticias, foram identificadas tres positivas,
-tres negativas, tres neutras e tres indeterminadas. Tres casos
-foram encaminhados para revisao.
-
-Os percentuais representam apenas os conjuntos locais avaliados,
-nao uma garantia de acerto em qualquer situacao.
-
-### Validacao de fontes contraditorias - Q08
-
-Foi realizado um teste com duas versoes ficticias de um documento,
-uma informando prazo de 5 dias uteis e outra de 10 dias uteis.
-
-O RAG recuperou os dois trechos e retornou `conflito de fontes`,
-indicando a necessidade de revisao humana, sem escolher um prazo.
-
-Esse cenario foi incluido nos testes automatizados como
-`test_fontes_contraditorias`.
-
-A verificacao atual cobre prazos numericos divergentes entre
-versoes do mesmo documento. Outros tipos de contradicao ainda
-nao foram validados.
-
-
-### RF19 - Implementacao alternativa
-
-Foi realizada uma avaliacao complementar do RAG da implementacao alternativa.
-
-| Indicador | Resultado |
-|---|---:|
-| Perguntas respondiveis (T08) | 4/5 (80%) |
-| Abstencao (T09) | 2/2 (100%) |
-| Identificacao de conflito (T10) | 1/1 (100%) |
-| Testes integrados | 27 aprovados |
-| Subtestes | 2 aprovados |
-
-A pergunta Q03, sobre heteroidentificacao da cota L1, permaneceu
-sem evidencias suficientes e foi registrada como ponto de melhoria.
-
-Na pergunta Q08, o sistema identificou a divergencia entre o edital
-original e o Retificador 06, sinalizando a necessidade de revisao humana.
-
-A execucao integrada apresentou um aviso de depreciacao na biblioteca
-de embeddings, sem falhas nos testes.
-
-Relatorio detalhado:
-`documentacao/AVALIACAO_RF19_ALTERNATIVO.md`
-
-### Limitacoes
-
-O indice utiliza hashing lexical com 1024 dimensoes e similaridade
-de cosseno. Nao e um modelo de embeddings semanticos treinado.
-
-O RAG e extrativo e utiliza trechos do acervo. Foi acrescentada
-uma reclassificacao lexical para melhorar a escolha das fontes
-em algumas perguntas, mas ela nao elimina as limitacoes da busca.
-
-A classificacao de sentimentos utiliza regras locais. Os resultados
-nao devem ser tratados como caracteristicas pessoais dos autores.
-
-O adaptador de provedor remoto depende de configuracao e credenciais.
-Nao foi demonstrada equivalencia de qualidade com o fluxo local.
-
-### Privacidade e revisao humana
-
-O projeto utiliza dados ficticios, nao realiza envio automatico
-e exige revisao humana antes de aprovar respostas institucionais.
-
-A interface permite excluir documentos do indice. A exclusao
-de resultados derivados e as regras de retencao ainda precisam
-de verificacao especifica.
-
-### Evidencias e pendencias
-
-O PDF do Desafio 2 exige, entre outros itens:
-
-- Seis documentos ficticios em dois formatos.
-- Seis solicitacoes e respectivos gabaritos.
-- Oito perguntas RAG, incluindo duas sem resposta e uma com conflito.
-- Tres entradas adversariais.
-- Comparacao de duas configuracoes de chunking.
-- Matriz de testes T01 a T15 e regressao de texto e audio ou OCR.
-- Evidencias de aprovacao, rejeicao ou revisao humana.
-- Auditoria, exclusao de documentos e teste de troca de provedor.
-- Relatorio tecnico e registro do uso de IA no desenvolvimento.
-
-Os testes realizados ate agora nao comprovam todos esses itens.
-As evidencias precisam ser conferidas antes de declarar o desafio
-integralmente concluido.
-
-Consulte documentacao/RELATORIO_DESAFIO2.md para a documentacao
-tecnica complementar, quando disponivel.
-
-### Resultado final do Desafio 2
-
-Avaliacao local realizada com dados ficticios, sem chamadas reais
-as APIs de IA nos testes finais.
-
-Resultados:
-- 144 testes automatizados aprovados.
-- 6 solicitacoes ficticias avaliadas.
-- Recuperacao RAG Top-3: 5/5.
-- Abstencao por falta de evidencia: 2/2.
-- Classificacao de sentimentos: 12/12.
-- 3 entradas adversariais encaminhadas para revisao.
-- Decisoes humanas registradas: aprovada, rejeitada e revisar.
-- Testes automatizados de exclusao de documentos.
-
-Para executar os testes:
-python -m pytest testes -q
-
-Para abrir a interface:
-$env:PYTHONPATH = (Get-Location).Path
+```powershell
 python -m streamlit run src/app.py
+```
 
-O relatorio completo e a matriz T01 a T15 estao em:
-documentacao/RELATORIO_DESAFIO2.md
+Abra `http://localhost:8501`.
 
-Limitacoes: busca por hashing lexical, provedores testados
-com simulacoes e metricas calculadas em conjunto ficticio pequeno.
+1. Em **Documentos e atendimento**, confira os documentos do acervo, indexe quando necessário e processe uma solicitação fictícia.
+2. Confira a resposta preliminar, o estado da consulta e os documentos citados como fontes.
+3. Em **Revisão**, selecione `aprovada`, `rejeitada` ou `revisar`, informe uma justificativa e registre a decisão. Uma solicitação sem evidência suficiente não deve ser aprovada.
+4. Em **Sentimentos**, consulte a classificação das avaliações fictícias.
 
+O índice usado na interface fica em `indice/acervo.json`. Se precisar reconstruí-lo, use a indexação da própria interface. Isso pode modificar o estado do índice e afetar uma demonstração de exclusão anterior.
 
-### Integração com a revisão do Adriano
+### Exemplo de solicitação
 
-A imagem RF10 v2 é uma alternativa e não foi aprovada automaticamente.
+```text
+Protocolo: 2026/001
+Data: 02/11/2026
+Solicitante: Maria Silva
+Assunto: Quais são os documentos necessários para realizar uma matrícula?
+Descrição: Solicito orientação sobre matrícula.
+```
 
-## Integração do Desafio 2 — Adriano, Líbia e Yasmine
+O campo `Assunto:` é priorizado como pergunta para o RAG, evitando misturar o protocolo e outros dados administrativos com a busca documental.
 
-A integração reuniu as implementações da equipe sem substituir o projeto principal.
+## 7. Executar os testes e avaliações
 
-A implementação alternativa foi organizada em `src/alternativo_desafio02/`,
-com testes próprios em `testes_alternativos_desafio02/`.
+Na raiz do projeto, com o ambiente virtual ativado:
 
-Foram integrados módulos de validação, NLP, guardrails, ingestão,
-embeddings, RAG, sentimentos, privacidade e auditoria.
+```powershell
+# Suíte principal
+python -m unittest discover -s testes -p "teste*.py" -v
 
-### Como executar os testes da integração
+# Avaliação offline: RAG, abstenção, sentimentos e conflito
+python -m src.avaliar_desafio2
 
-Na pasta principal do projeto, com o ambiente virtual ativado:
+# Avaliação adicional de sustentação textual
+python avaliar_sustentacao_rf23.py
+```
 
-    python -m pytest testes testes_alternativos_desafio02 -q --tb=short
+Os resultados ficam em `resultados/metricas/desafio2_offline.json` e `resultados/metricas/rf23_sustentacao.json`. A avaliação offline pode criar ou atualizar índices de avaliação na pasta `indice/`.
 
-Os resultados anteriores de 9 e 144 testes permanecem no README
-como registros históricos da implementação principal.
+## 8. Resultados verificados na execução final de 02/11/2026
 
-A execução conjunta mais recente, realizada em 31/10/2026,
-aprovou 250 testes das duas implementações.
-
-### Resultados da integração
-
-Em 31/10/2026, utilizando Windows e Python 3.12, a execução conjunta
-dos testes apresentou:
-
-- 250 testes aprovados.
-- Nenhuma falha.
-- Um aviso de depreciação.
-- RF16: 19 testes aprovados.
-- RF19: 4 testes aprovados.
-- RF21: 9 testes aprovados.
-- RF24: 6 testes aprovados.
-
-No diagnóstico do RF19, foram indexados 44 chunks. O RAG respondeu
-corretamente a 4 de 5 perguntas respondíveis e se absteve corretamente
-nas 2 perguntas sem resposta.
-
-### Limitações identificadas
-
-- O adaptador Gemini alternativo ainda não realiza chamadas reais à API.
-- A detecção de contradições Q08 foi testada em um cenário específico.
-- Uma pergunta respondível do RF19 ficou sem evidência suficiente.
-- Os arquivos de testes RF20 e RF23 da implementação alternativa estão vazios.
-- O mascaramento de dados cobre os padrões testados, não todos os dados pessoais.
-
-A aprovação dos testes não comprova que todos os requisitos estejam concluídos.
-
-### Documentação da integração
-
-- `documentacao/RELATORIO_DESAFIO2.md`
-- `documentacao/relatorio_tecnico_desafio02.md`
-
-
-### Atualizacao de fechamento — 02/11/2026
-
-Esta secao registra as verificacoes mais recentes e complementa os resultados
-historicos acima. Os numeros de execucoes anteriores foram mantidos como
-historico e nao devem ser somados entre si.
-
-| Verificacao | Resultado observado | Interpretacao |
+| Avaliação | Resultado | Observação |
 |---|---:|---|
-| Suíte `testes_alternativos_desafio02/` | 100 aprovados | Testes automatizados alternativos executados no Windows com Python 3.12.10. |
-| Auditoria RF21 (`teste_rf21_auditoria.py`) | 10 aprovados | Testes automatizados do registro e tratamento de eventos. |
-| Regressao T15 | 1 teste + 2 subtestes aprovados | Entradas texto e OCR percorreram o fluxo automatizado; a decisao de revisao do teste e simulada. |
-| Compilacao de `avaliar_sentimentos_real.py` | Aprovada | Verificacao sintatica; nao executa chamadas a API. |
-| Tentativa real Gemini RF22 | 0 classificacoes validas em 12 tentativas | Foram observados HTTP 503, HTTP 429 e timeout; acuracia nao calculavel (0/0). |
+| Suíte principal de testes | **149/149 aprovados** | `unittest`, 4,262 s |
+| Recuperação Top-3 | **5/5 (100%)** | Referência esperada entre os documentos recuperados |
+| Abstenção sem evidência | **2/2 (100%)** | Não inventar resposta quando falta evidência |
+| Sentimentos offline | **12/12 (100%)** | Comparação com gabarito local |
+| Distribuição de sentimentos | 3 positivas, 3 negativas, 3 neutras, 3 indeterminadas | 3 casos sinalizados para revisão |
+| Conflito Q08 | **Detectado** | Fontes divergentes exigem revisão |
+| Sustentação **textual por afirmação** | **14/20 (70%)** | Correspondência normalizada com trechos citados |
 
-#### RF22 — conjunto de sentimentos A01–A12
+**Como interpretar:** 70% é a taxa de **afirmações** com correspondência textual confirmada, não a proporção de **respostas** com todas as afirmações sustentadas. Essa última métrica, no formato estrito do RF23, ainda precisa de avaliação própria. Ausência de correspondência literal não prova falsidade da afirmação. Os 100% são resultados do conjunto pequeno de avaliação **offline**, não estimativas de desempenho em produção.
 
-O conjunto utilizado em `dados/avaliacoes/avaliacoes.json` possui os IDs
-`A01` a `A12`. O gabarito correspondente e
-`dados/gabaritos/desafio2_sentimentos.json`, tambem com IDs `A01` a `A12`.
-O gabarito alternativo em `dados/desafio02_alternativo/gabaritos/sentimentos.json`
-referencia arquivos `aval01.txt` a `aval12.txt`, que nao existem no pacote, e
-nao deve ser usado para avaliar o conjunto A01–A12.
+A tentativa de avaliação das 12 classificações por **Gemini real** não produziu respostas válidas devido a erros de serviço/cota/tempo (HTTP 429, HTTP 503 e timeout). **Não há acurácia real de Gemini calculável nesse experimento**. Os 12/12 referem-se exclusivamente ao classificador local.
 
-O script `src/alternativo_desafio02/avaliar_sentimentos_real.py` foi ajustado
-para usar o gabarito correspondente e interromper a execucao se os IDs nao
-coincidirem. A tentativa real anterior do Gemini nao produziu classificacoes
-validas. Portanto, o resultado e **nao calculavel (0/0)**, e nao 0% nem 100%.
-Os testes com mocks/regras locais validam somente o comportamento local e nao
-substituem uma execucao real do provedor.
+Os resultados históricos de outras suítes e da implementação alternativa estão nos relatórios de `documentacao/`; não devem ser somados aos 149 testes da suíte principal.
 
-#### RF23, T11 e T14 — limites das evidencias
+## 9. Revisão humana, exclusão e evidências
 
-A matriz T01–T15 deve distinguir teste automatizado de demonstracao manual.
-A regressao T15 aprovada nao comprova uma decisao humana real pela interface.
-A existencia dos testes de revisao e exclusao tambem nao substitui a evidencia
-manual de T11 (operador registrando decisao e justificativa) e T14 (exclusao,
-log e busca posterior sem o documento). Esses dois criterios permanecem
-pendentes de demonstracao manual documentada.
+As decisões `aprovada`, `rejeitada` e `revisar` foram registradas no arquivo `resultados/minutas/revisoes_desafio2.jsonl`, com justificativa e identificação da execução. As capturas manuais estão em:
 
-A proporcao de respostas RAG com todas as afirmacoes sustentadas ainda nao foi
-medida com numerador e denominador. Os resultados Top-3 e de abstencao nao
-podem ser usados como substitutos dessa metrica RF23.
+- `documentacao/evidencias/T11_aprovacao.png`
+- `documentacao/evidencias/T11_rejeicao.png`
+- `documentacao/evidencias/T11_revisao.png`
 
-#### Publicacao e pacote
+Foi registrada a remoção de `documentacao_04_v1.txt` do índice, **preservando o documento original**. O registro fica em `resultados/logs/exclusoes_desafio2.jsonl`. A ausência no índice persistente foi conferida e há capturas em:
 
-O commit `06a8c62` foi publicado na branch `main` do GitHub em 02/11/2026. O push foi confirmado e a branch local ficou sincronizada com `origin/main`.
+- `documentacao/evidencias/T14_exclusao.png`
+- `documentacao/evidencias/T14_ausencia_indice.png`
+- `documentacao/evidencias/T14_ausencia_busca.png`
 
-### Material de apresentação
+A captura de busca demonstra ausência naquela consulta; a verificação do índice é a evidência adicional de remoção persistente. A reindexação posterior pode restaurar o documento no índice.
 
+## 10. Provedores, custos e auditoria
 
-O PDF exige apresentação de até 15 minutos, mas não especifica gravação de vídeo, duração ou formato. O roteiro pode ser usado como apoio à apresentação ou gravação complementar. O slide-resumo não substitui uma apresentação completa de 15 minutos.
+O Desafio 1 inclui experimentos com modelos externos e geração de materiais. O Desafio 2 foi avaliado principalmente pelo fluxo local, além de testes de integração e simulações de erros de provedores. **Testes simulados não comprovam disponibilidade nem qualidade de uma API real.**
+
+A avaliação offline não gera consumo de tokens de API. Em execuções anteriores do Desafio 1 houve registro de tempo e tokens quando disponíveis, mas não foi consolidado um custo financeiro verificável para toda a solução. Consulte `documentacao/relatorio_tecnico_final.md` e o relatório consolidado de entrega.
+
+Os logs registram eventos de processamento, decisões humanas e exclusão. Não há envio automático de respostas institucionais.
+
+## 11. Privacidade, segurança e limitações
+
+- Utilizar apenas dados fictícios ou devidamente autorizados e observar a LGPD.
+- Não incluir credenciais, arquivos `.env`, ambientes virtuais ou dados sensíveis no pacote.
+- Manter a revisão humana obrigatória para respostas e materiais institucionais.
+- Tratar respostas sem evidência e documentos contraditórios como casos de revisão.
+- Reconhecer limitações da recuperação lexical, dos conjuntos pequenos de teste e das APIs externas.
+- O resultado de sustentação textual não equivale a verificação factual completa.
+- O protótipo não está validado para operação real em órgão público.
+
+## 12. Documentação final e uso de IA
+
+A avaliação do professor pode começar por este README, pela **matriz T01–T15** e pelo **relatório técnico consolidado** em `documentacao/RELATORIO_TECNICO_FINAL_ENTREGA.md`. Os gabaritos, resultados e capturas ficam nos diretórios indicados acima.
+
+O arquivo `documentacao/registro_uso_ia.md` descreve o uso de ferramentas de IA **como apoio** à análise de requisitos, investigação de erros, revisão de código, testes e documentação. As sugestões foram conferidas por execução e análise dos resultados. Não se declara que o projeto foi desenvolvido integralmente por IA.
 
 ---
 
-## Fechamento do Desafio Prático 02 — atualização de 02/11/2026
-
-Esta seção complementa o histórico dos RF01–RF13. Os resultados abaixo se referem à evolução do Desafio 02 e não substituem os registros anteriores.
-
-### Testes integrados e correção de segurança
-
-Na execução realizada no Windows, com o ambiente virtual ativado, foi executado:
-
-```powershell
-python -m pytest testes testes_alternativos_desafio02 -q --tb=short
-```
-
-Resultado informado: **292 testes aprovados, 0 falhas, 36 avisos de depreciação e 2 subtestes aprovados**, em 324,41 segundos. Os avisos vieram do uso de `DataFrame.reset_index(inplace=...)` em componentes do Streamlit/Pandas; não foram falhas dos testes.
-
-Também foram aprovados 18 testes focados na segurança e unificação, além de 6 testes específicos de prompt injection. A validação de saída foi acrescentada ao fluxo externo: respostas vazias ou reprovadas pelos guardrails não são apresentadas como minutas válidas. A decisão final continua humana e o envio automático permanece desabilitado.
-
-### RF22 — sentimentos: resultado real e limitação
-
-A tentativa de classificação real das 12 avaliações pelo Gemini não foi concluída. As 12 tentativas terminaram em erros HTTP 503, HTTP 429 ou timeout. Foram obtidas **0 classificações válidas em 12 tentativas**. Assim, a acurácia real é **não calculável (0/0)**; não deve ser divulgada como 0% nem substituída por resultados de mocks.
-
-Os testes com mocks verificam a lógica local, mas não representam uma execução real do provedor. O conjunto de entrada e o gabarito correspondente usam os identificadores A01–A12 em `dados/avaliacoes/avaliacoes.json` e `dados/gabaritos/desafio2_sentimentos.json`. O gabarito antigo com `aval01`–`aval12` não deve ser usado com esse conjunto sem reconciliação.
-
-### RF18 e RF19 — recuperação e RAG
-
-Foram comparadas configurações de chunks de 300 caracteres com sobreposição de 50 e 600 caracteres com sobreposição de 100. O Top-3 recuperou uma referência em 5/5 perguntas nas duas configurações. Nas duas perguntas sem evidência, houve 2/2 abstenções corretas; o caso contraditório foi identificado separadamente. O índice usa hashing lexical e similaridade de cosseno, não um modelo de embeddings semânticos treinado. A proporção de respostas em que todas as afirmações estão sustentadas ainda não foi medida e permanece pendente em RF23.
-
-### Demonstração manual da interface — evidência ainda necessária
-
-A interface Streamlit está implementada e há capturas preliminares de sua tela principal e da aba de revisão. As capturas disponíveis, isoladamente, não comprovam uma consulta concluída nem decisões humanas persistidas. Antes de declarar T11/T14 aceitos, registrar pela interface: (1) uma solicitação processada com fontes visíveis; (2) uma aprovação com justificativa; (3) uma rejeição ou encaminhamento para revisão com justificativa; e (4) exclusão de documento seguida de consulta que confirme sua ausência no índice. Guardar capturas sem credenciais ou dados pessoais reais e conferir os registros em `resultados/minutas/revisoes_desafio2.jsonl` e nos logs de auditoria.
-
-### Estado de entrega e Git
-
-A execução de testes comprova os cenários automatizados cobertos, mas não transforma os itens manuais pendentes em aprovados. A matriz `documentacao/MATRIZ_RF23_T01_T15_ATUALIZADA.md` mantém as situações parciais quando não há evidência suficiente. O commit `06a8c62` foi enviado para `origin/main` e a sincronização foi confirmada em 02/11/2026.
+**Curso:** FIC Dev IA — Módulo 01: IA Generativa.  
+**Escopo:** protótipo acadêmico; resultados e limitações documentados para avaliação.
