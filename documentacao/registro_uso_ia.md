@@ -79,3 +79,33 @@ Nenhuma resposta institucional produzida pelo sistema deve ser enviada automatic
 - `documentacao/revisao_rf13.md`
 - `resultados/logs/`
 - `testes/`
+
+---
+
+# Registro complementar do uso de IA ? Desafio 02
+
+Durante o desenvolvimento do desafio, utilizei o ChatGPT como ferramenta de apoio para tirar d?vidas, analisar problemas, revisar c?digo, organizar testes e melhorar a documenta??o.
+
+O desenvolvimento tamb?m envolveu execu??o de comandos, verifica??o dos resultados, ajustes no projeto e confer?ncia dos requisitos do professor. As respostas da IA n?o foram consideradas automaticamente corretas.
+
+## Exemplos de solicita??es realizadas
+
+1. **An?lise dos requisitos do desafio:** solicitei ajuda para comparar as funcionalidades e os testes com o enunciado do professor. As orienta??es foram utilizadas como refer?ncia para conferir o projeto.
+
+2. **Corre??o da consulta ao RAG:** solicitei apoio para investigar por que uma solicita??o de matr?cula n?o estava sendo considerada fundamentada. A sugest?o de priorizar o campo `Assunto:` foi aplicada e testada. Depois da corre??o, foi poss?vel registrar a aprova??o humana pela interface.
+
+3. **Avalia??o das m?tricas:** solicitei ajuda para verificar recupera??o, absten??o, sentimentos e sustenta??o das respostas. Foi criado um script complementar para medir correspond?ncia textual entre afirma??es e fontes. O resultado de 70% foi mantido, sem alterar os valores para apresentar desempenho maior.
+
+## Sugest?es aceitas, ajustadas e n?o adotadas
+
+- **Aceita ap?s teste:** corre??o da consulta do RAG usando o assunto informado na solicita??o.
+- **Ajustada:** avalia??o de sustenta??o, documentada como correspond?ncia textual, sem trat?-la como valida??o sem?ntica completa.
+- **N?o adotada como conclus?o:** considerar que o acerto Top-3 de 100% tamb?m significava sustenta??o de 100%, pois s?o m?tricas diferentes.
+
+## Valida??o
+
+As altera??es foram verificadas por compila??o, testes automatizados, execu??o da interface e an?lise dos arquivos de resultado.
+
+Na execu??o final, 149 testes passaram. Tamb?m foram conferidos os registros de aprova??o, rejei??o e revis?o humana, as m?tricas offline e a exclus?o documental.
+
+A IA foi uma ferramenta de apoio ao trabalho, e n?o uma substitui??o da an?lise, dos testes ou da responsabilidade pelo projeto.
