@@ -118,9 +118,9 @@
         "matricula_01_v1.txt"
       ],
       "obtido": [
-        "matricula_02_v1.txt",
+        "matricula_01_v1.txt",
         "prazo_matricula_v1.txt",
-        "matricula_01_v1.txt"
+        "matricula_02_v1.txt"
       ],
       "status": "fundamentada (extrativa)",
       "acerto_recuperacao": true
@@ -132,9 +132,9 @@
         "matricula_02_v1.txt"
       ],
       "obtido": [
-        "matricula_02_v1.txt",
+        "matricula_01_v1.txt",
         "prazo_matricula_v1.txt",
-        "matricula_01_v1.txt"
+        "matricula_02_v1.txt"
       ],
       "status": "fundamentada (extrativa)",
       "acerto_recuperacao": true
@@ -146,8 +146,8 @@
         "matricula_03_v1.txt"
       ],
       "obtido": [
-        "prazo_matricula_v2.txt",
-        "matricula_03_v1.txt"
+        "matricula_03_v1.txt",
+        "prazo_matricula_v2.txt"
       ],
       "status": "fundamentada (extrativa)",
       "acerto_recuperacao": true
@@ -159,9 +159,9 @@
         "documentacao_04_v1.txt"
       ],
       "obtido": [
-        "matricula_02_v1.txt",
+        "matricula_01_v1.txt",
         "documentacao_04_v1.txt",
-        "matricula_01_v1.txt"
+        "matricula_02_v1.txt"
       ],
       "status": "fundamentada (extrativa)",
       "acerto_recuperacao": true
@@ -183,9 +183,9 @@
       "tipo": "sem_resposta",
       "esperado": [],
       "obtido": [
-        "documentacao_04_v1.txt",
         "documentacao_06_v1.txt",
-        "prazo_matricula_v2.txt"
+        "prazo_matricula_v2.txt",
+        "documentacao_04_v1.txt"
       ],
       "status": "sem evidência suficiente",
       "acerto_recuperacao": false
@@ -195,9 +195,9 @@
       "tipo": "sem_resposta",
       "esperado": [],
       "obtido": [
-        "prazo_matricula_v1.txt",
+        "matricula_01_v1.txt",
         "documentacao_06_v1.txt",
-        "matricula_01_v1.txt"
+        "prazo_matricula_v1.txt"
       ],
       "status": "sem evidência suficiente",
       "acerto_recuperacao": false
