@@ -76,7 +76,6 @@ Se a ativação estiver bloqueada, use ` .\.venv\Scripts\python.exe ` diretament
 
 O fluxo local e os testes offline não exigem credenciais reais. Para funcionalidades que utilizem provedores externos, copie `.env.example` para `.env` e configure apenas as chaves necessárias, conforme os componentes utilizados. O projeto possui integrações e experimentos com Gemini, OpenAI e outros provedores no Desafio 1.
 
-**Nunca envie `.env`, chaves de API, tokens ou dados pessoais reais para o Git ou para o ZIP.** A disponibilidade de APIs depende de cotas, configuração e serviço.
 
 ## 6. Executar a interface do Desafio 2
 
@@ -178,11 +177,13 @@ Os logs registram eventos de processamento, decisões humanas e exclusão. Não 
 
 ## 12. Documentação final e uso de IA
 
-A avaliação do professor pode começar por este README, pela **matriz T01–T15** e pelo **relatório técnico consolidado** em `documentacao/RELATORIO_TECNICO_FINAL_ENTREGA.md`. Os gabaritos, resultados e capturas ficam nos diretórios indicados acima.
+A documentação do projeto está organizada para facilitar a conferência dos requisitos do desafio. Os principais arquivos são a **matriz de testes T01–T15**, disponível em `documentacao/MATRIZ_RF23_T01_T15_ATUALIZADA.md`, e o **relatório técnico final**, em `documentacao/RELATORIO_TECNICO_FINAL_ENTREGA.md`.
 
-O arquivo `documentacao/registro_uso_ia.md` descreve o uso de ferramentas de IA **como apoio** à análise de requisitos, investigação de erros, revisão de código, testes e documentação. As sugestões foram conferidas por execução e análise dos resultados. Não se declara que o projeto foi desenvolvido integralmente por IA.
+Os gabaritos, resultados das avaliações, registros de execução e capturas de tela estão organizados nas respectivas pastas do projeto.
+
+O arquivo `documentacao/registro_uso_ia.md` apresenta como ferramentas de inteligência artificial foram utilizadas durante o desenvolvimento, incluindo apoio na análise dos requisitos, identificação de problemas, sugestões de melhorias, testes e documentação. As alterações e os resultados foram conferidos durante a execução do projeto.
 
 ---
 
 **Curso:** FIC Dev IA — Módulo 01: IA Generativa.  
-**Escopo:** protótipo acadêmico; resultados e limitações documentados para avaliação.
+**Escopo:** protótipo acadêmico desenvolvido com dados fictícios, com resultados, evidências e limitações documentados.
