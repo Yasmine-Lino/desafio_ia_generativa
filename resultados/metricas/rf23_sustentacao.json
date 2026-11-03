@@ -1,0 +1,175 @@
+{
+  "metodo": "correspondencia textual normalizada nos trechos citados",
+  "tipo": "avaliacao offline conservadora",
+  "afirmacoes_avaliadas": 20,
+  "afirmacoes_sustentadas_textualmente": 14,
+  "taxa_sustentacao_textual": 0.7,
+  "afirmacoes_sem_texto_fonte_disponivel": 0,
+  "observacao": "Nao representa validacao semantica ou factual completa. Se os trechos nao incluirem o texto documental, a sustentacao nao pode ser confirmada por este metodo.",
+  "casos": [
+    {
+      "id": "Q01",
+      "status": "fundamentada (extrativa)",
+      "fontes": [
+        "matricula_01_v1.txt",
+        "matricula_02_v1.txt",
+        "prazo_matricula_v1.txt"
+      ],
+      "afirmacoes": [
+        {
+          "afirmacao": "Documento fictício 01 — Matricula — versão 1",
+          "sustentada_textualmente": true
+        },
+        {
+          "afirmacao": "Para solicitar matrícula, apresente o comprovante de inscrição.",
+          "sustentada_textualmente": true
+        },
+        {
+          "afirmacao": "O atendimento confirma a documentação antes da decisão.",
+          "sustentada_textualmente": true
+        }
+      ]
+    },
+    {
+      "id": "Q02",
+      "status": "fundamentada (extrativa)",
+      "fontes": [
+        "matricula_02_v1.txt",
+        "prazo_matricula_v1.txt",
+        "matricula_01_v1.txt"
+      ],
+      "afirmacoes": [
+        {
+          "afirmacao": "Documento fictício 02 — Matricula — versão 1",
+          "sustentada_textualmente": true
+        },
+        {
+          "afirmacao": "O pedido de matrícula deve informar protocolo e data.",
+          "sustentada_textualmente": true
+        },
+        {
+          "afirmacao": "Sem dados completos, encaminhe para revisão humana.",
+          "sustentada_textualmente": true
+        }
+      ]
+    },
+    {
+      "id": "Q03",
+      "status": "fundamentada (extrativa)",
+      "fontes": [
+        "matricula_03_v1.txt",
+        "prazo_matricula_v2.txt"
+      ],
+      "afirmacoes": [
+        {
+          "afirmacao": "Documento fictício 03 — Matricula — versão 1",
+          "sustentada_textualmente": true
+        },
+        {
+          "afirmacao": "A orientação sobre vagas deve ser consultada na unidade.",
+          "sustentada_textualmente": true
+        },
+        {
+          "afirmacao": "Não há prazo garantido neste documento.",
+          "sustentada_textualmente": true
+        }
+      ]
+    },
+    {
+      "id": "Q04",
+      "status": "fundamentada (extrativa)",
+      "fontes": [
+        "matricula_01_v1.txt",
+        "matricula_02_v1.txt",
+        "documentacao_04_v1.txt"
+      ],
+      "afirmacoes": [
+        {
+          "afirmacao": "Documento fictício 04 — Documentacao — versão 1",
+          "sustentada_textualmente": true
+        },
+        {
+          "afirmacao": "A solicitação de segunda via exige identificação do documento e protocolo de atendimento.",
+          "sustentada_textualmente": true
+        }
+      ]
+    },
+    {
+      "id": "Q05",
+      "status": "fundamentada (extrativa)",
+      "fontes": [
+        "documentacao_05_v1.txt"
+      ],
+      "afirmacoes": [
+        {
+          "afirmacao": "Documento fictício 05 — Documentacao — versão 1",
+          "sustentada_textualmente": true
+        },
+        {
+          "afirmacao": "O comprovante pode ser apresentado em formato digital legível.",
+          "sustentada_textualmente": true
+        },
+        {
+          "afirmacao": "Dados ausentes exigem conferência.",
+          "sustentada_textualmente": true
+        }
+      ]
+    },
+    {
+      "id": "Q06",
+      "status": "sem evidência suficiente",
+      "fontes": [
+        "documentacao_06_v1.txt",
+        "documentacao_04_v1.txt",
+        "prazo_matricula_v2.txt"
+      ],
+      "afirmacoes": [
+        {
+          "afirmacao": "Não localizado no acervo.",
+          "sustentada_textualmente": false
+        },
+        {
+          "afirmacao": "Encaminhar para revisão humana.",
+          "sustentada_textualmente": false
+        }
+      ]
+    },
+    {
+      "id": "Q07",
+      "status": "sem evidência suficiente",
+      "fontes": [
+        "matricula_01_v1.txt",
+        "documentacao_06_v1.txt",
+        "prazo_matricula_v1.txt"
+      ],
+      "afirmacoes": [
+        {
+          "afirmacao": "Não localizado no acervo.",
+          "sustentada_textualmente": false
+        },
+        {
+          "afirmacao": "Encaminhar para revisão humana.",
+          "sustentada_textualmente": false
+        }
+      ]
+    },
+    {
+      "id": "Q08",
+      "status": "conflito de fontes",
+      "fontes": [
+        "prazo_matricula_v2.txt",
+        "prazo_matricula_v1.txt"
+      ],
+      "afirmacoes": [
+        {
+          "afirmacao": "Prazos divergentes encontrados.",
+          "sustentada_textualmente": false
+        },
+        {
+          "afirmacao": "Revisao humana necessaria.",
+          "sustentada_textualmente": false
+        }
+      ]
+    }
+  ]
+}
